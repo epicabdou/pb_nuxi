@@ -39,8 +39,8 @@ export default defineNuxtConfig({
   },
   nitro: {
     output: {
-      dir: './pb_public',
-      publicDir: './pb_public'
+      dir: './backend/pb_public',
+      publicDir: './backend/pb_public'
     }
   },
   app: {
