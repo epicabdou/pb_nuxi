@@ -53,5 +53,10 @@ export default defineNuxtConfig({
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       ]
     }
+  },
+  nitro: {
+    output: {
+      dir: '~/backend/pb_public'
+    }
   }
 })

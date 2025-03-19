@@ -24,3 +24,4 @@ logs
 !.env.example
 
 /backend/pb_data
+/backend/pb_public

@@ -1,1 +1,0 @@
-import{a1 as a,e as s,u as o,s as u}from"./DzVV_QxS.js";const d=a((t,r)=>{const e=s(),{$pb:i}=o();if(!e.isAuthenticated)return sessionStorage.setItem("redirectPath",t.fullPath),u("/login")});export{d as default};
