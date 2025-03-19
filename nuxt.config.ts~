@@ -37,12 +37,6 @@ export default defineNuxtConfig({
       pocketbaseUrl: process.env.POCKETBASE_URL || 'http://127.0.0.1:8090'
     }
   },
-  nitro: {
-    output: {
-      dir: './pb_public',
-      publicDir: './pb_public'
-    }
-  },
   app: {
     head: {
       title: 'Ajimall Store',
