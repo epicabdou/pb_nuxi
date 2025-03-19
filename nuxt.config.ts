@@ -18,8 +18,6 @@ export default defineNuxtConfig({
           }
         }
       })
-    },
-    'pages:extend': (pages) => {
       pages.forEach(route => {
         // Apply admin middleware to all account routes
         if (route.path.startsWith('/account')) {
