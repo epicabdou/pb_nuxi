@@ -52,9 +52,5 @@ export default defineNuxtConfig({
       ]
     }
   },
-  nitro: {
-    output: {
-      dir: '~/backend/pb_public'
-    }
-  }
+  
 })
