@@ -1,0 +1,1 @@
+import{a1 as u,e as s,u as i,s as e}from"./DzVV_QxS.js";const d=u((t,o)=>{const a=s(),{$pb:r}=i();if(!a.isAuthenticated)return sessionStorage.setItem("redirectPath",t.fullPath),e("/login");if(!r.authStore.model.isAdmin)return e({path:"/unauthorized",query:{redirect:t.fullPath}})});export{d as default};

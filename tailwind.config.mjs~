@@ -1,0 +1,445 @@
+/** @type {import('tailwindcss').Config} */
+import defaultTheme from 'tailwindcss/defaultTheme';
+import plugin from 'tailwindcss/plugin';
+
+export default {
+  content: ["./**/*.{vue,js,ts}"],
+  darkMode: "class", // Changed from "media" to "class" for better control
+  theme: {
+    extend: {
+      colors: {
+        primary: {
+          50: '#fff8f0',
+          100: '#fff1e0',
+          200: '#ffe0c2',
+          300: '#ffca94',
+          400: '#ffb366',
+          500: '#ff9933',  // Base primary color
+          600: '#e67e00',  // Darkened for better contrast
+          700: '#cc6600',  // Improved contrast
+          800: '#a34f00',  // Improved contrast
+          900: '#7a3c0c',
+          950: '#4d2508',
+        },
+        secondary: {
+          50: '#f0f9ff',
+          100: '#e0f2ff',
+          200: '#c2e4ff',
+          300: '#94d3ff',
+          400: '#66beff',
+          500: '#3393ff',  // Base secondary color
+          600: '#0076e6',  // Improved contrast
+          700: '#0061cc',  // Improved contrast
+          800: '#0051a6',  // Improved contrast
+          900: '#003c7a',
+          950: '#00254d',
+        },
+        background: {
+          50: '#ffffff',
+          100: '#fafafa',  // Lighter for better contrast
+          200: '#f5f5f5',  // Lighter base background color
+          300: '#e9e9e9',
+          400: '#d4d4d4',  // Better contrast with text
+          500: '#b3b3b3',
+          600: '#8c8c8c',
+          700: '#666666',  // Improved contrast
+          800: '#333333',  // Darker for modern feel
+          900: '#1a1a1a',  // Near black for depth
+          950: '#0a0a0a',  // True dark
+        },
+        neutral: {
+          50: '#fafafa',
+          100: '#f5f5f5',
+          200: '#e5e5e5',
+          300: '#d4d4d4',
+          400: '#a3a3a3',
+          500: '#737373',
+          600: '#525252',
+          700: '#404040',
+          800: '#262626',
+          900: '#171717',
+          950: '#0a0a0a',
+        },
+        success: {
+          50: '#f0fdf4',
+          100: '#dcfce7',
+          200: '#bbf7d0',
+          300: '#86efac',
+          400: '#4ade80',
+          500: '#22c55e',  // Base success color
+          600: '#16a34a',  // Improved contrast
+          700: '#15803d',
+          800: '#166534',
+          900: '#14532d',
+          950: '#052e16',
+        },
+        error: {
+          50: '#fef2f2',
+          100: '#fee2e2',
+          200: '#fecaca',
+          300: '#fca5a5',
+          400: '#f87171',
+          500: '#ef4444',  // Base error color
+          600: '#dc2626',  // Improved contrast
+          700: '#b91c1c',
+          800: '#991b1b',
+          900: '#7f1d1d',
+          950: '#450a0a',
+        }
+      },
+      fontFamily: {
+        sans: ['Inter', 'Poppins', ...defaultTheme.fontFamily.sans]  // Added Inter for modern feel
+      },
+      fontSize: {
+        'display-1': ['4.5rem', { lineHeight: '1.1', letterSpacing: '-0.02em' }],  // Added letter spacing
+        'display-2': ['3.75rem', { lineHeight: '1.1', letterSpacing: '-0.02em' }],  // Added letter spacing
+        'display-3': ['3rem', { lineHeight: '1.2', letterSpacing: '-0.01em' }],  // Added letter spacing
+      },
+      spacing: {
+        '128': '32rem',
+        '144': '36rem',
+      },
+      borderRadius: {
+        'xl': '1rem',
+        '2xl': '1.5rem',
+        '3xl': '2rem',
+        '4xl': '3rem',  // Added larger radius for modern look
+      },
+      boxShadow: {
+        'soft': '0 2px 15px -3px rgba(0, 0, 0, 0.07), 0 10px 20px -2px rgba(0, 0, 0, 0.04)',
+        'fancy': '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
+        'modern': '0 10px 30px -5px rgba(0, 0, 0, 0.2)',  // Added modern shadow
+        'elevated': '0 20px 40px -10px rgba(0, 0, 0, 0.3)',  // Added elevated shadow
+      },
+      animation: {
+        'fade-in': 'fadeIn 0.5s ease-out',
+        'slide-up': 'slideUp 0.5s ease-out',
+        'slide-down': 'slideDown 0.5s ease-out',
+        'bounce-subtle': 'bounceSubtle 2s infinite',  // Added subtle bounce
+      },
+      keyframes: {
+        fadeIn: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
+        slideUp: {
+          '0%': { transform: 'translateY(20px)', opacity: '0' },
+          '100%': { transform: 'translateY(0)', opacity: '1' },
+        },
+        slideDown: {
+          '0%': { transform: 'translateY(-20px)', opacity: '0' },
+          '100%': { transform: 'translateY(0)', opacity: '1' },
+        },
+        bounceSubtle: {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-5px)' },
+        },
+      },
+    },
+  },
+  plugins: [
+    // Base styles plugin with improved light/dark handling
+    plugin(function({ addBase, theme }) {
+      addBase({
+        ':root': {
+          // Light mode variables
+          '--background-primary': theme('colors.background.100'),
+          '--background-secondary': theme('colors.background.200'),
+          '--background-tertiary': theme('colors.background.300'),
+          '--text-primary': theme('colors.background.900'),
+          '--text-secondary': theme('colors.background.700'),
+          '--text-tertiary': theme('colors.background.500'),
+          '--border-color': theme('colors.background.300'),
+        },
+        '.dark': {
+          // Dark mode variables
+          '--background-primary': theme('colors.background.900'),
+          '--background-secondary': theme('colors.background.800'),
+          '--background-tertiary': theme('colors.background.700'),
+          '--text-primary': theme('colors.background.100'),
+          '--text-secondary': theme('colors.background.300'),
+          '--text-tertiary': theme('colors.background.500'),
+          '--border-color': theme('colors.background.700'),
+        },
+        'html': {
+          fontFamily: theme('fontFamily.sans'),
+          color: 'var(--text-primary)',
+          backgroundColor: 'var(--background-primary)',
+        },
+        'body': {
+          '@apply antialiased': {},
+        },
+      });
+    }),
+
+    // Typography plugin with improved hierarchy
+    plugin(function({ addComponents, theme }) {
+      addComponents({
+        '.heading-1': {
+          '@apply font-sans text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight': {},
+        },
+        '.heading-2': {
+          '@apply font-sans text-3xl md:text-4xl lg:text-5xl font-bold leading-tight tracking-tight': {},
+        },
+        '.heading-3': {
+          '@apply font-sans text-2xl md:text-3xl lg:text-4xl font-bold leading-tight tracking-tight': {},
+        },
+        '.heading-4': {
+          '@apply font-sans text-xl md:text-2xl lg:text-3xl font-bold leading-tight': {},
+        },
+        '.heading-5': {
+          '@apply font-sans text-lg md:text-xl font-bold leading-tight': {},
+        },
+        '.body-large': {
+          '@apply text-lg leading-relaxed': {},
+        },
+        '.body-regular': {
+          '@apply text-base leading-relaxed': {},
+        },
+        '.body-small': {
+          '@apply text-sm leading-relaxed': {},
+        },
+        '.caption': {
+          '@apply text-xs leading-normal text-background-600 dark:text-background-400': {},
+        },
+      });
+    }),
+
+    // Modern button plugin
+    plugin(function({ addComponents, theme }) {
+      addComponents({
+        '.btn': {
+          '@apply inline-flex items-center justify-center font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2': {},
+        },
+        '.btn-primary': {
+          '@apply btn px-6 py-3 text-white rounded-full shadow-md hover:shadow-lg bg-primary-500 hover:bg-primary-600 focus:ring-primary-500': {},
+        },
+        '.btn-secondary': {
+          '@apply btn px-6 py-3 rounded-full shadow-md hover:shadow-lg bg-background-200 dark:bg-background-800 text-background-900 dark:text-white hover:bg-background-300 dark:hover:bg-background-700 focus:ring-background-400': {},
+        },
+        '.btn-outline': {
+          '@apply btn px-6 py-3 border-2 rounded-full font-medium border-primary-500 text-primary-500 hover:bg-primary-500 hover:text-white focus:ring-primary-500': {},
+        },
+        '.btn-ghost': {
+          '@apply btn px-4 py-2 rounded-lg text-background-700 dark:text-background-300 hover:bg-background-200 dark:hover:bg-background-800 focus:ring-background-400': {},
+        },
+        '.btn-sm': {
+          '@apply px-4 py-2 text-sm': {},
+        },
+        '.btn-lg': {
+          '@apply px-8 py-4 text-lg': {},
+        },
+        '.btn-icon': {
+          '@apply inline-flex items-center justify-center': {},
+        },
+        '.btn-icon svg': {
+          '@apply w-5 h-5': {},
+        },
+        '.btn-icon-text': {
+          '@apply inline-flex items-center justify-center gap-2': {},
+        },
+      });
+    }),
+
+    // Modern layout components
+    plugin(function({ addComponents, theme }) {
+      addComponents({
+        '.section-padding': {
+          '@apply py-16 md:py-24 lg:py-32': {},
+        },
+        '.container-padding': {
+          '@apply px-4 md:px-6 lg:px-8': {},
+        },
+        '.card': {
+          '@apply rounded-xl p-6 transition-shadow duration-200 hover:shadow-md bg-white dark:bg-background-800 shadow-soft dark:shadow-none dark:border dark:border-background-700': {},
+        },
+        '.card-fancy': {
+          '@apply rounded-2xl p-8 bg-white dark:bg-background-800 shadow-md dark:border dark:border-background-700': {},
+        },
+        '.card-flat': {
+          '@apply rounded-xl p-6 border border-background-300 dark:border-background-700 bg-white dark:bg-background-800': {},
+        },
+        '.card-glass': {
+          '@apply rounded-xl p-6 backdrop-blur-md bg-white/80 dark:bg-background-800/80 shadow-soft': {},
+        },
+      });
+    }),
+
+    // Improved form components
+    plugin(function({ addComponents, theme }) {
+      addComponents({
+        '.input-primary': {
+          '@apply w-full px-4 py-3 rounded-lg border focus:ring-2 focus:border-transparent outline-none transition-colors duration-200 bg-white dark:bg-background-800 border-background-300 dark:border-background-600 text-background-900 dark:text-white focus:ring-primary-400 placeholder-background-500': {},
+        },
+        '.input-fancy': {
+          '@apply w-full px-4 py-3 rounded-xl border-2 focus:ring-2 focus:border-transparent outline-none transition-all duration-200 bg-white dark:bg-background-800 border-background-300 dark:border-background-600 text-background-900 dark:text-white focus:ring-primary-400 placeholder-background-500': {},
+        },
+        '.input-minimal': {
+          '@apply w-full px-4 py-3 border-b outline-none transition-colors duration-200 bg-transparent border-background-300 dark:border-background-600 text-background-900 dark:text-white focus:border-primary-400 placeholder-background-500': {},
+        },
+        '.input-error': {
+          '@apply border-error-500 focus:ring-error-400': {},
+        },
+        '.input-success': {
+          '@apply border-success-500 focus:ring-success-400': {},
+        },
+        '.input-disabled': {
+          '@apply opacity-50 cursor-not-allowed bg-background-100 dark:bg-background-900': {},
+        },
+        '.input-icon': {
+          '@apply pl-12': {},
+        },
+        '.input-group': {
+          '@apply relative flex items-center': {},
+        },
+        '.input-label': {
+          '@apply block mb-2 text-sm font-medium text-background-700 dark:text-background-300': {},
+        },
+        '.input-help': {
+          '@apply mt-1 text-sm text-background-600 dark:text-background-400': {},
+        },
+        '.input-error-text': {
+          '@apply mt-1 text-sm text-error-500': {},
+        },
+        '.checkbox': {
+          '@apply h-5 w-5 rounded border-background-300 dark:border-background-600 bg-white dark:bg-background-800 focus:ring-primary-400 text-primary-500': {},
+        },
+        '.radio': {
+          '@apply h-5 w-5 border-background-300 dark:border-background-600 bg-white dark:bg-background-800 focus:ring-primary-400 text-primary-500': {},
+        },
+        '.select': {
+          '@apply w-full px-4 py-3 rounded-lg border focus:ring-2 focus:border-transparent cursor-pointer outline-none transition-colors duration-200 bg-white dark:bg-background-800 border-background-300 dark:border-background-600 text-background-900 dark:text-white focus:ring-primary-400': {},
+        },
+      });
+    }),
+
+    // Modern effects
+    plugin(function({ addComponents, theme }) {
+      addComponents({
+        '.transition-standard': {
+          '@apply transition-all duration-200 ease-in-out': {},
+        },
+        '.transition-smooth': {
+          '@apply transition-all duration-300 ease-in-out': {},
+        },
+        '.glass': {
+          '@apply backdrop-blur-md bg-white/80 dark:bg-background-900/80': {},
+        },
+        '.glass-hover': {
+          '@apply hover:bg-white/90 dark:hover:bg-background-800/90': {},
+        },
+        '.frosted': {
+          '@apply backdrop-blur-lg bg-white/30 dark:bg-background-900/30 border border-white/50 dark:border-background-800/50': {},
+        },
+      });
+    }),
+
+    // Text effects with improved contrast
+    plugin(function({ addComponents, theme }) {
+      addComponents({
+        '.text-gradient': {
+          '@apply bg-clip-text text-transparent bg-gradient-to-r from-primary-600 to-secondary-600': {},  // Improved contrast
+        },
+        '.text-gradient-vivid': {
+          '@apply bg-clip-text text-transparent bg-gradient-to-r from-primary-500 via-error-500 to-secondary-500': {},
+        },
+        '.border-subtle': {
+          '@apply border border-background-300 dark:border-background-600': {},  // Improved contrast
+        },
+      });
+    }),
+
+    // Modern grid layouts
+    plugin(function({ addComponents, theme }) {
+      addComponents({
+        '.grid-auto-fit': {
+          '@apply grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4': {},
+        },
+        '.grid-auto-fit-lg': {
+          '@apply grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3': {},
+        },
+        '.auto-grid-sm': {
+          '@apply grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-4': {},
+        },
+        '.auto-grid-md': {
+          '@apply grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-6': {},
+        },
+        '.auto-grid-lg': {
+          '@apply grid grid-cols-[repeat(auto-fill,minmax(400px,1fr))] gap-8': {},
+        },
+      });
+    }),
+
+    // Responsive utilities with modern spacing
+    plugin(function({ addComponents, theme }) {
+      addComponents({
+        '.responsive-container': {
+          '@apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8': {},
+        },
+        '.responsive-padding': {
+          '@apply px-4 sm:px-6 lg:px-8': {},
+        },
+        '.responsive-margin': {
+          '@apply my-8 sm:my-12 lg:my-16': {},
+        },
+        '.content-width': {
+          '@apply max-w-3xl': {},
+        },
+        '.narrow-content': {
+          '@apply max-w-xl': {},
+        },
+      });
+    }),
+
+    // Modern navigation components
+    plugin(function({ addComponents, theme }) {
+      addComponents({
+        '.nav-link': {
+          '@apply px-4 py-2 rounded-lg font-medium transition-colors duration-200 text-background-700 dark:text-background-300 hover:bg-background-200 dark:hover:bg-background-800 hover:text-background-900 dark:hover:text-white': {},
+        },
+        '.nav-link-active': {
+          '@apply bg-background-200 dark:bg-background-800 text-background-900 dark:text-white': {},
+        },
+        '.nav-pill': {
+          '@apply px-4 py-2 rounded-full font-medium transition-colors duration-200 text-background-700 dark:text-background-300 hover:bg-background-200 dark:hover:bg-background-800 hover:text-background-900 dark:hover:text-white': {},
+        },
+        '.nav-pill-active': {
+          '@apply bg-primary-500 text-white': {},
+        },
+      });
+    }),
+
+    // Modern badge components
+    plugin(function({ addComponents, theme }) {
+      addComponents({
+        '.badge': {
+          '@apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium': {},
+        },
+        '.badge-primary': {
+          '@apply badge bg-primary-500 text-white': {},
+        },
+        '.badge-secondary': {
+          '@apply badge bg-secondary-500 text-white': {},
+        },
+        '.badge-success': {
+          '@apply badge bg-success-500 text-white': {},
+        },
+        '.badge-error': {
+          '@apply badge bg-error-500 text-white': {},
+        },
+        '.badge-warning': {
+          '@apply badge bg-yellow-500 text-white': {},
+        },
+        '.badge-info': {
+          '@apply badge bg-blue-500 text-white': {},
+        },
+        '.badge-outline': {
+          '@apply badge bg-transparent border': {},
+        },
+        '.badge-outline-primary': {
+          '@apply badge-outline border-primary-500 text-primary-500': {},
+        },
+      });
+    }),
+  ],
+};
