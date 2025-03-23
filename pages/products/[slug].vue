@@ -33,6 +33,7 @@
 
       <!-- Product Content -->
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+
         <!-- Product Image Gallery -->
         <div class="space-y-4">
           <!-- Main Image -->
@@ -46,15 +47,29 @@
 
           <!-- Thumbnails -->
           <div class="grid grid-cols-5 gap-3">
+            <!-- Main Product Image Thumbnail -->
             <button
-                v-for="(imageUrl, index) in galleryUrls"
-                :key="index"
-                @click="activeImageIndex = index"
+                @click="activeImageIndex = 0"
                 class="bg-white dark:bg-background-800 rounded-lg overflow-hidden shadow-sm aspect-square border transition-all"
-                :class="activeImageIndex === index ? 'border-primary-500 ring-2 ring-primary-400/30' : 'border-background-200 dark:border-background-700'"
+                :class="activeImageIndex === 0 ? 'border-primary-500 ring-2 ring-primary-400/30' : 'border-background-200 dark:border-background-700'"
             >
               <img
-                  :src="imageUrl"
+                  :src="`${$pb.baseUrl}/api/files/products/${product.id}/${product.image}`"
+                  :alt="`${product.name} - Main Image`"
+                  class="w-full h-full object-cover"
+              />
+            </button>
+
+            <!-- Gallery Image Thumbnails -->
+            <button
+                v-for="(image, index) in product.gallery"
+                :key="`gallery-${index}`"
+                @click="activeImageIndex = index + 1"
+                class="bg-white dark:bg-background-800 rounded-lg overflow-hidden shadow-sm aspect-square border transition-all"
+                :class="activeImageIndex === index + 1 ? 'border-primary-500 ring-2 ring-primary-400/30' : 'border-background-200 dark:border-background-700'"
+            >
+              <img
+                  :src="`${$pb.baseUrl}/api/files/products/${product.id}/${image}`"
                   :alt="`${product.name} - Image ${index + 1}`"
                   class="w-full h-full object-cover"
               />
@@ -484,42 +499,30 @@ const newReview = ref({
   comment: ''
 });
 
-// Computed properties
 const mainImageUrl = computed(() => {
   if (!product.value) return '';
 
-  // If we have a gallery and there's a selected image index, use that gallery image
-  if (product.value.gallery && product.value.gallery.length > activeImageIndex.value) {
-    return `${$pb.baseUrl}/api/files/products/${product.value.id}/${product.value.gallery[activeImageIndex.value]}`;
+  // If activeImageIndex is 0, use the main product image
+  if (activeImageIndex.value === 0) {
+    return `${$pb.baseUrl}/api/files/products/${product.value.id}/${product.value.image}`;
   }
 
-  // Otherwise fall back to the main product image
+  // Otherwise use the selected gallery image (adjusting index because gallery images start at index 1)
+  const galleryIndex = activeImageIndex.value - 1;
+  if (product.value.gallery && product.value.gallery.length > galleryIndex) {
+    return `${$pb.baseUrl}/api/files/products/${product.value.id}/${product.value.gallery[galleryIndex]}`;
+  }
+
+  // Fallback to main image if something goes wrong
   return `${$pb.baseUrl}/api/files/products/${product.value.id}/${product.value.image}`;
 });
 
-const galleryUrls = computed(() => {
-  if (!product.value) return [];
-
-  // Create an array starting with the main product image
-  const allImages = [product.value.image];
-
-  // Add gallery images if they exist
-  if (product.value.gallery && Array.isArray(product.value.gallery)) {
-    allImages.push(...product.value.gallery);
-  }
-
-  // Generate URLs for all images
-  return allImages.map(image =>
-      `${$pb.baseUrl}/api/files/products/${product.value.id}/${image}`
-  );
-});
 const averageRating = computed(() => {
   if (!reviews.value.length) return 0;
   const sum = reviews.value.reduce((acc, review) => acc + review.rating, 0);
   return sum / reviews.value.length;
 });
 
-// Methods
 const fetchProduct = async () => {
   isLoading.value = true;
   try {
