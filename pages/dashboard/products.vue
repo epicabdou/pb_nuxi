@@ -3,26 +3,24 @@
     <AdminLayout>
       <template #header>
         <div class="flex justify-between items-center">
-          <h1 class="heading-3">Product Management</h1>
+          <h1 class="heading-3">Gestion des Produits</h1>
           <button
               @click="openProductModal()"
               class="btn-primary btn-icon-text"
           >
             <PlusIcon class="w-5 h-5" />
-            <span>Add Product</span>
+            <span>Ajouter un Produit</span>
           </button>
         </div>
       </template>
 
-      <!-- Loading state -->
       <div v-if="isLoading" class="flex justify-center items-center py-20">
         <div class="flex flex-col items-center">
           <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
-          <p class="mt-4 text-background-700 dark:text-background-300">Loading products...</p>
+          <p class="mt-4 text-background-700 dark:text-background-300">Chargement des produits...</p>
         </div>
       </div>
 
-      <!-- Error state -->
       <div v-else-if="error" class="bg-error-50 dark:bg-error-900/20 border border-error-200 dark:border-error-800 rounded-lg p-4 my-6">
         <div class="flex">
           <AlertCircleIcon class="h-5 w-5 text-error-500 mr-3" />
@@ -30,22 +28,18 @@
         </div>
       </div>
 
-      <!-- Empty state -->
       <div v-else-if="products.length === 0" class="bg-white dark:bg-background-800 rounded-xl p-8 shadow-soft text-center my-8">
         <PackageIcon class="h-16 w-16 text-background-400 mx-auto mb-4" />
-        <h3 class="heading-4 mb-2">No products yet</h3>
-        <p class="text-background-600 dark:text-background-400 mb-6">Get started by adding your first product</p>
+        <h3 class="heading-4 mb-2">Aucun produit pour l'instant</h3>
+        <p class="text-background-600 dark:text-background-400 mb-6">Commencez par ajouter votre premier produit</p>
         <button
             @click="openProductModal()"
             class="btn-primary"
         >
-          Add Your First Product
-        </button>
+          Ajouter Votre Premier Produit </button>
       </div>
 
-      <!-- Products list -->
       <div v-else>
-        <!-- Filter and sort controls -->
         <div class="bg-white dark:bg-background-800 rounded-xl p-4 shadow-soft mb-6">
           <div class="flex flex-col md:flex-row gap-4">
             <div class="flex-1">
@@ -54,31 +48,29 @@
                 <input
                     v-model="searchQuery"
                     type="text"
-                    placeholder="Search products..."
-                    class="input-primary input-icon"
+                    placeholder="Rechercher des produits..." class="input-primary input-icon"
                 />
               </div>
             </div>
             <div class="flex gap-4">
               <select v-model="categoryFilter" class="select">
-                <option value="">All Categories</option>
+                <option value="">Toutes les Catégories</option>
                 <option v-for="category in categories" :key="category.id" :value="category.id">
                   {{ category.name }}
                 </option>
               </select>
               <select v-model="sortBy" class="select">
-                <option value="name_asc">Name (A-Z)</option>
-                <option value="name_desc">Name (Z-A)</option>
-                <option value="price_asc">Price (Low-High)</option>
-                <option value="price_desc">Price (High-Low)</option>
-                <option value="created_desc">Newest First</option>
-                <option value="created_asc">Oldest First</option>
+                <option value="name_asc">Nom (A-Z)</option>
+                <option value="name_desc">Nom (Z-A)</option>
+                <option value="price_asc">Prix (Bas-Haut)</option>
+                <option value="price_desc">Prix (Haut-Bas)</option>
+                <option value="created_desc">Plus Récents</option>
+                <option value="created_asc">Plus Anciens</option>
               </select>
             </div>
           </div>
         </div>
 
-        <!-- Products table -->
         <div class="bg-white dark:bg-background-800 rounded-xl shadow-soft overflow-hidden">
           <div class="overflow-x-auto">
             <table class="w-full">
@@ -88,19 +80,19 @@
                   Image
                 </th>
                 <th class="px-6 py-3 text-left text-xs font-medium text-background-700 dark:text-background-300 uppercase tracking-wider">
-                  Name
+                  Nom
                 </th>
                 <th class="px-6 py-3 text-left text-xs font-medium text-background-700 dark:text-background-300 uppercase tracking-wider">
-                  Price
+                  Prix
                 </th>
                 <th class="px-6 py-3 text-left text-xs font-medium text-background-700 dark:text-background-300 uppercase tracking-wider">
                   Stock
                 </th>
                 <th class="px-6 py-3 text-left text-xs font-medium text-background-700 dark:text-background-300 uppercase tracking-wider">
-                  Categories
+                  Catégories
                 </th>
                 <th class="px-6 py-3 text-left text-xs font-medium text-background-700 dark:text-background-300 uppercase tracking-wider">
-                  Status
+                  Statut
                 </th>
                 <th class="px-6 py-3 text-left text-xs font-medium text-background-700 dark:text-background-300 uppercase tracking-wider">
                   Actions
@@ -127,9 +119,9 @@
                   <div class="text-sm text-background-500">{{ product.slug }}</div>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
-                  <div class="text-background-900 dark:text-white">${{ product.price.toFixed(2) }}</div>
+                  <div class="text-background-900 dark:text-white">{{ product.price.toFixed(2) }} €</div>
                   <div v-if="product.promoPrice" class="text-sm text-success-600 dark:text-success-400">
-                    Sale: ${{ product.promoPrice.toFixed(2) }}
+                    Promo : {{ product.promoPrice.toFixed(2) }} €
                   </div>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
@@ -140,7 +132,7 @@
                         'text-success-600 dark:text-success-400': product.stock >= 10
                       }"
                     >
-                      {{ product.stock ?? 'Unlimited' }}
+                      {{ product.stock ?? 'Illimité' }}
                     </span>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
@@ -162,7 +154,7 @@
                         'bg-background-100 text-background-800 dark:bg-background-800 dark:text-background-400': !product.isFeatured
                       }"
                     >
-                      {{ product.isFeatured ? 'Featured' : 'Standard' }}
+                      {{ product.isFeatured ? 'En Vedette' : 'Standard' }}
                     </span>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
@@ -186,10 +178,9 @@
             </table>
           </div>
 
-          <!-- Pagination -->
           <div class="px-6 py-4 bg-background-50 dark:bg-background-800/70 border-t border-background-200 dark:border-background-700 flex justify-between items-center">
             <div class="text-sm text-background-600 dark:text-background-400">
-              Showing {{ Math.min(1, filteredProducts.length) }} to {{ filteredProducts.length }} of {{ filteredProducts.length }} products
+              Affichage de {{ Math.min(1, filteredProducts.length) }} à {{ filteredProducts.length }} sur {{ filteredProducts.length }} produits
             </div>
             <div class="flex space-x-2">
               <button
@@ -197,8 +188,7 @@
                   :disabled="currentPage === 1"
                   @click="currentPage--"
               >
-                Previous
-              </button>
+                Précédent </button>
               <button
                   v-for="page in totalPages"
                   :key="page"
@@ -216,14 +206,12 @@
                   :disabled="currentPage === totalPages"
                   @click="currentPage++"
               >
-                Next
-              </button>
+                Suivant </button>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Product modal -->
       <transition name="fade">
         <div
             v-if="showProductModal"
@@ -234,28 +222,26 @@
               @click.stop
           >
             <div class="p-6 border-b border-background-200 dark:border-background-700 flex justify-between items-center">
-              <h2 class="heading-4">{{ editingProduct.id ? 'Edit Product' : 'Add New Product' }}</h2>
+              <h2 class="heading-4">{{ editingProduct.id ? 'Modifier le Produit' : 'Ajouter un Nouveau Produit' }}</h2>
               <button @click="showProductModal = false" class="p-1.5 rounded-lg hover:bg-background-200 dark:hover:bg-background-700">
                 <XIcon class="h-5 w-5 text-background-600 dark:text-background-400" />
               </button>
             </div>
 
             <form @submit.prevent="saveProduct" class="p-6 space-y-6">
-              <!-- Basic information -->
               <div class="space-y-4">
-                <h3 class="heading-5 text-background-800 dark:text-background-200">Basic Information</h3>
+                <h3 class="heading-5 text-background-800 dark:text-background-200">Informations de Base</h3>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label for="name" class="input-label">Product Name*</label>
+                    <label for="name" class="input-label">Nom du Produit*</label>
                     <input
                         id="name"
                         v-model="editingProduct.name"
                         type="text"
                         required
                         class="input-primary"
-                        placeholder="Enter product name"
-                    />
+                        placeholder="Entrez le nom du produit" />
                   </div>
                   <div>
                     <label for="slug" class="input-label">Slug*</label>
@@ -265,45 +251,41 @@
                         type="text"
                         required
                         class="input-primary"
-                        placeholder="product-slug"
-                    />
-                    <p class="input-help">Must be unique, used in URL</p>
+                        placeholder="slug-produit" />
+                    <p class="input-help">Doit être unique, utilisé dans l'URL</p>
                   </div>
                 </div>
 
                 <div>
-                  <label for="shortDescription" class="input-label">Short Description*</label>
+                  <label for="shortDescription" class="input-label">Description Courte*</label>
                   <textarea
                       id="shortDescription"
                       v-model="editingProduct.shortDescription"
                       rows="2"
                       required
                       class="input-primary"
-                      placeholder="Brief product description"
-                  ></textarea>
+                      placeholder="Brève description du produit" ></textarea>
                 </div>
 
                 <div>
-                  <label for="longDescription" class="input-label">Long Description</label>
+                  <label for="longDescription" class="input-label">Description Longue</label>
                   <textarea
                       id="longDescription"
                       v-model="editingProduct.longDescription"
                       rows="4"
                       class="input-primary"
-                      placeholder="Detailed product description"
-                  ></textarea>
+                      placeholder="Description détaillée du produit" ></textarea>
                 </div>
               </div>
 
-              <!-- Pricing and inventory -->
               <div class="space-y-4 pt-2">
-                <h3 class="heading-5 text-background-800 dark:text-background-200">Pricing & Inventory</h3>
+                <h3 class="heading-5 text-background-800 dark:text-background-200">Tarification & Inventaire</h3>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div>
-                    <label for="price" class="input-label">Price*</label>
+                    <label for="price" class="input-label">Prix*</label>
                     <div class="input-group">
-                      <span class="absolute left-3 top-3 text-background-600 dark:text-background-400">$</span>
+                      <span class="absolute left-3 top-3 text-background-600 dark:text-background-400">€</span>
                       <input
                           id="price"
                           v-model.number="editingProduct.price"
@@ -317,9 +299,9 @@
                     </div>
                   </div>
                   <div>
-                    <label for="promoPrice" class="input-label">Sale Price</label>
+                    <label for="promoPrice" class="input-label">Prix Promotionnel</label>
                     <div class="input-group">
-                      <span class="absolute left-3 top-3 text-background-600 dark:text-background-400">$</span>
+                      <span class="absolute left-3 top-3 text-background-600 dark:text-background-400">€</span>
                       <input
                           id="promoPrice"
                           v-model.number="editingProduct.promoPrice"
@@ -339,8 +321,7 @@
                         type="number"
                         min="0"
                         class="input-primary"
-                        placeholder="Leave blank for unlimited"
-                    />
+                        placeholder="Laisser vide pour illimité" />
                   </div>
                 </div>
 
@@ -352,20 +333,19 @@
                       class="checkbox"
                   />
                   <label for="isFeatured" class="ml-2 text-background-700 dark:text-background-300">
-                    Featured Product
+                    Produit en Vedette
                   </label>
                 </div>
               </div>
 
-              <!-- Categories and tags -->
               <div class="space-y-4 pt-2">
-                <h3 class="heading-5 text-background-800 dark:text-background-200">Categories & Tags</h3>
+                <h3 class="heading-5 text-background-800 dark:text-background-200">Catégories & Étiquettes</h3>
 
                 <div>
-                  <label class="input-label">Categories*</label>
+                  <label class="input-label">Catégories*</label>
                   <div class="space-y-2">
                     <div v-if="categories.length === 0" class="text-sm text-background-600 dark:text-background-400">
-                      No categories available. Please create categories first.
+                      Aucune catégorie disponible. Veuillez d'abord créer des catégories.
                     </div>
                     <div v-else class="grid grid-cols-2 md:grid-cols-3 gap-2">
                       <div v-for="category in categories" :key="category.id" class="flex items-center">
@@ -385,10 +365,10 @@
                 </div>
 
                 <div>
-                  <label class="input-label">Tags*</label>
+                  <label class="input-label">Étiquettes*</label>
                   <div class="space-y-2">
                     <div v-if="tags.length === 0" class="text-sm text-background-600 dark:text-background-400">
-                      No tags available. Please create tags first.
+                      Aucune étiquette disponible. Veuillez d'abord créer des étiquettes.
                     </div>
                     <div v-else class="grid grid-cols-2 md:grid-cols-3 gap-2">
                       <div v-for="tag in tags" :key="tag.id" class="flex items-center">
@@ -408,19 +388,18 @@
                 </div>
               </div>
 
-              <!-- Images -->
               <div class="space-y-4 pt-2">
                 <h3 class="heading-5 text-background-800 dark:text-background-200">Images</h3>
 
                 <div>
-                  <label class="input-label">Main Image*</label>
+                  <label class="input-label">Image Principale*</label>
                   <div class="border border-dashed border-background-300 dark:border-background-600 rounded-lg p-4">
                     <div v-if="mainImagePreview" class="mb-4">
-                      <img :src="mainImagePreview" alt="Main image preview" class="h-40 object-contain mx-auto" />
+                      <img :src="mainImagePreview" alt="Aperçu image principale" class="h-40 object-contain mx-auto" />
                     </div>
                     <div class="flex justify-center">
                       <label class="btn-secondary cursor-pointer">
-                        <span>{{ mainImagePreview ? 'Change Image' : 'Select Image' }}</span>
+                        <span>{{ mainImagePreview ? 'Changer l\'Image' : 'Sélectionner une Image' }}</span>
                         <input
                             type="file"
                             accept="image/*"
@@ -433,11 +412,11 @@
                 </div>
 
                 <div>
-                  <label class="input-label">Gallery Images*</label>
+                  <label class="input-label">Images de Galerie*</label>
                   <div class="border border-dashed border-background-300 dark:border-background-600 rounded-lg p-4">
                     <div v-if="galleryPreviews.length > 0" class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
                       <div v-for="(preview, index) in galleryPreviews" :key="index" class="relative">
-                        <img :src="preview" alt="Gallery image preview" class="h-24 w-full object-cover rounded-lg" />
+                        <img :src="preview" alt="Aperçu image galerie" class="h-24 w-full object-cover rounded-lg" />
                         <button
                             type="button"
                             @click="removeGalleryImage(index)"
@@ -449,7 +428,7 @@
                     </div>
                     <div class="flex justify-center">
                       <label class="btn-secondary cursor-pointer">
-                        <span>Add Gallery Images</span>
+                        <span>Ajouter des Images de Galerie</span>
                         <input
                             type="file"
                             accept="image/*"
@@ -469,8 +448,7 @@
                     @click="showProductModal = false"
                     class="btn-secondary"
                 >
-                  Cancel
-                </button>
+                  Annuler </button>
                 <button
                     type="submit"
                     class="btn-primary"
@@ -478,10 +456,9 @@
                 >
                   <span v-if="isSaving">
                     <LoaderIcon class="animate-spin h-4 w-4 mr-2" />
-                    Saving...
-                  </span>
+                    Enregistrement... </span>
                   <span v-else>
-                    {{ editingProduct.id ? 'Update Product' : 'Create Product' }}
+                     {{ editingProduct.id ? 'Mettre à Jour' : 'Créer' }}
                   </span>
                 </button>
               </div>
@@ -490,7 +467,6 @@
         </div>
       </transition>
 
-      <!-- Delete confirmation modal -->
       <transition name="fade">
         <div
             v-if="showDeleteModal"
@@ -504,17 +480,16 @@
               <div class="bg-error-100 dark:bg-error-900/20 p-3 rounded-full mb-4">
                 <AlertTriangleIcon class="h-8 w-8 text-error-500" />
               </div>
-              <h2 class="heading-4 mb-2">Delete Product</h2>
+              <h2 class="heading-4 mb-2">Supprimer le Produit</h2>
               <p class="text-background-600 dark:text-background-400 mb-6">
-                Are you sure you want to delete <span class="font-semibold text-background-800 dark:text-background-200">{{ productToDelete?.name }}</span>? This action cannot be undone.
+                Êtes-vous sûr de vouloir supprimer <span class="font-semibold text-background-800 dark:text-background-200">{{ productToDelete?.name }}</span> ? Cette action est irréversible.
               </p>
               <div class="flex gap-3 w-full">
                 <button
                     @click="showDeleteModal = false"
                     class="btn-secondary flex-1"
                 >
-                  Cancel
-                </button>
+                  Annuler </button>
                 <button
                     @click="deleteProduct"
                     class="btn-primary bg-error-500 hover:bg-error-600 focus:ring-error-500 flex-1"
@@ -522,10 +497,8 @@
                 >
                   <span v-if="isDeleting">
                     <LoaderIcon class="animate-spin h-4 w-4 mr-2" />
-                    Deleting...
-                  </span>
-                  <span v-else>Delete</span>
-                </button>
+                    Suppression... </span>
+                  <span v-else>Supprimer</span> </button>
               </div>
             </div>
           </div>
@@ -539,8 +512,10 @@
 import { ref, computed, watch, onMounted, defineComponent, h } from 'vue';
 import { useNuxtApp } from 'nuxt/app';
 
-// You might need to create this layout component
-// This is a placeholder that you can customize or replace with your actual admin layout
+// Placeholder AdminLayout - replace with your actual layout if needed
+// MODIFIED Placeholder component description
+// Vous pourriez avoir besoin de créer ce composant layout
+// Ceci est un placeholder que vous pouvez personnaliser ou remplacer par votre layout admin réel
 const AdminLayout = defineComponent({
   setup(_, { slots }) {
     return () => h('div', {}, [
@@ -566,24 +541,24 @@ definePageMeta({
   layout: 'dashboard'
 });
 
-// Get PocketBase client
+// Obtenir le client PocketBase // MODIFIED
 const { $pb } = useNuxtApp();
 
-// Product list state
+// État de la liste de produits // MODIFIED
 const products = ref([]);
 const categories = ref([]);
 const tags = ref([]);
 const isLoading = ref(true);
 const error = ref(null);
 
-// Search and filter state
+// État de recherche et de filtre // MODIFIED
 const searchQuery = ref('');
 const categoryFilter = ref('');
 const sortBy = ref('name_asc');
 const currentPage = ref(1);
 const itemsPerPage = 10;
 
-// Modal state
+// État de la modale // MODIFIED
 const showProductModal = ref(false);
 const showDeleteModal = ref(false);
 const editingProduct = ref({
@@ -604,10 +579,10 @@ const productToDelete = ref(null);
 const isSaving = ref(false);
 const isDeleting = ref(false);
 
-// CRUD functions
+// Fonctions CRUD // MODIFIED
 function openProductModal(product = null) {
   if (product) {
-    // Edit existing product
+    // Modifier un produit existant // MODIFIED
     editingProduct.value = {
       id: product.id,
       name: product.name,
@@ -620,14 +595,14 @@ function openProductModal(product = null) {
       isFeatured: product.isFeatured,
       category: [...product.category],
       tags: [...product.tags],
-      // We don't copy the image and gallery here as they're handled differently
+      // Nous ne copions pas l'image et la galerie ici car elles sont gérées différemment // MODIFIED
     };
 
-    // Set image previews
+    // Définir les aperçus d'images // MODIFIED
     mainImagePreview.value = product.imageUrl;
     galleryPreviews.value = [...product.galleryUrls];
   } else {
-    // Create new product
+    // Créer un nouveau produit // MODIFIED
     editingProduct.value = {
       name: '',
       slug: '',
@@ -643,7 +618,7 @@ function openProductModal(product = null) {
       gallery: []
     };
 
-    // Clear image previews
+    // Effacer les aperçus d'images // MODIFIED
     mainImagePreview.value = null;
     galleryPreviews.value = [];
     mainImageFile.value = null;
@@ -658,13 +633,13 @@ function confirmDeleteProduct(product) {
   showDeleteModal.value = true;
 }
 
-// Image preview state
+// État de l'aperçu d'image // MODIFIED
 const mainImagePreview = ref(null);
 const galleryPreviews = ref([]);
 const mainImageFile = ref(null);
 const galleryFiles = ref([]);
 
-// Image handling functions
+// Fonctions de gestion des images // MODIFIED
 function handleMainImageUpload(event) {
   const file = event.target.files[0];
   if (!file) return;
@@ -677,16 +652,16 @@ function handleGalleryUpload(event) {
   const files = Array.from(event.target.files);
   if (!files.length) return;
 
-  // Add to existing files
+  // Ajouter aux fichiers existants // MODIFIED
   galleryFiles.value = [...galleryFiles.value, ...files];
 
-  // Create and add previews
+  // Créer et ajouter les aperçus // MODIFIED
   const newPreviews = files.map(file => URL.createObjectURL(file));
   galleryPreviews.value = [...galleryPreviews.value, ...newPreviews];
 }
 
 function removeGalleryImage(index) {
-  // We need to handle differently for existing images vs new uploads
+  // Nous devons gérer différemment les images existantes et les nouveaux téléversements // MODIFIED
   if (index < galleryPreviews.value.length) {
     galleryPreviews.value.splice(index, 1);
   }
@@ -696,7 +671,7 @@ function removeGalleryImage(index) {
   }
 }
 
-// Load data
+// Charger les données // MODIFIED
 onMounted(async () => {
   try {
     isLoading.value = true;
@@ -706,18 +681,20 @@ onMounted(async () => {
       loadTags()
     ]);
   } catch (err) {
-    console.error('Error loading initial data:', err);
-    error.value = 'Failed to load data. Please try refreshing the page.';
+    // MODIFIED
+    console.error('Erreur lors du chargement des données initiales :', err);
+    // MODIFIED
+    error.value = 'Échec du chargement des données. Veuillez essayer de rafraîchir la page.';
   } finally {
     isLoading.value = false;
   }
 });
 
-// Computed properties
+// Propriétés calculées // MODIFIED
 const filteredProducts = computed(() => {
   let result = [...products.value];
 
-  // Apply search filter
+  // Appliquer le filtre de recherche // MODIFIED
   if (searchQuery.value) {
     const query = searchQuery.value.toLowerCase();
     result = result.filter(product =>
@@ -727,14 +704,14 @@ const filteredProducts = computed(() => {
     );
   }
 
-  // Apply category filter
+  // Appliquer le filtre de catégorie // MODIFIED
   if (categoryFilter.value) {
     result = result.filter(product =>
         product.category && product.category.includes(categoryFilter.value)
     );
   }
 
-  // Apply sorting
+  // Appliquer le tri // MODIFIED
   switch (sortBy.value) {
     case 'name_asc':
       result.sort((a, b) => a.name.localeCompare(b.name));
@@ -743,10 +720,10 @@ const filteredProducts = computed(() => {
       result.sort((a, b) => b.name.localeCompare(a.name));
       break;
     case 'price_asc':
-      result.sort((a, b) => a.price - b.price);
+      result.sort((a, b) => (a.promoPrice || a.price) - (b.promoPrice || b.price)); // Handle price/promoPrice
       break;
     case 'price_desc':
-      result.sort((a, b) => b.price - a.price);
+      result.sort((a, b) => (b.promoPrice || b.price) - (a.promoPrice || a.price)); // Handle price/promoPrice
       break;
     case 'created_desc':
       result.sort((a, b) => new Date(b.created) - new Date(a.created));
@@ -768,20 +745,21 @@ const totalPages = computed(() => {
   return Math.ceil(filteredProducts.value.length / itemsPerPage) || 1;
 });
 
-// Helpers
+// Helpers // MODIFIED
 function getCategoryName(categoryId) {
   const category = categories.value.find(c => c.id === categoryId);
-  return category ? category.name : 'Unknown';
+  // MODIFIED Fallback
+  return category ? category.name : 'Inconnue';
 }
 
-// Watch for changes in filtered products to reset page if needed
+// Surveiller les changements dans les produits filtrés pour réinitialiser la page si nécessaire // MODIFIED
 watch(filteredProducts, () => {
   if (currentPage.value > totalPages.value) {
     currentPage.value = 1;
   }
 });
 
-// Watch for slug generation
+// Surveiller la génération de slug // MODIFIED
 watch(() => editingProduct.value.name, (newName) => {
   if (newName && !editingProduct.value.id) {
     editingProduct.value.slug = newName
@@ -791,7 +769,7 @@ watch(() => editingProduct.value.name, (newName) => {
   }
 });
 
-// Data loading functions
+// Fonctions de chargement de données // MODIFIED
 async function loadProducts() {
   try {
     const records = await $pb.collection('products').getList(1, 100, {
@@ -799,7 +777,7 @@ async function loadProducts() {
     });
 
     products.value = records.items.map(item => {
-      // Add image URLs
+      // Ajouter les URLs des images // MODIFIED
       const imageUrl = item.image ? $pb.files.getUrl(item, item.image) : null;
       const galleryUrls = item.gallery ? item.gallery.map(img => $pb.files.getUrl(item, img)) : [];
 
@@ -810,8 +788,10 @@ async function loadProducts() {
       };
     });
   } catch (err) {
-    console.error('Error loading products:', err);
-    throw new Error('Failed to load products');
+    // MODIFIED
+    console.error('Erreur lors du chargement des produits :', err);
+    // MODIFIED
+    throw new Error('Échec du chargement des produits');
   }
 }
 
@@ -820,8 +800,10 @@ async function loadCategories() {
     const records = await $pb.collection('categories').getList(1, 100);
     categories.value = records.items;
   } catch (err) {
-    console.error('Error loading categories:', err);
-    throw new Error('Failed to load categories');
+    // MODIFIED
+    console.error('Erreur lors du chargement des catégories :', err);
+    // MODIFIED
+    throw new Error('Échec du chargement des catégories');
   }
 }
 
@@ -830,8 +812,10 @@ async function loadTags() {
     const records = await $pb.collection('tags').getList(1, 100);
     tags.value = records.items;
   } catch (err) {
-    console.error('Error loading tags:', err);
-    throw new Error('Failed to load tags');
+    // MODIFIED
+    console.error('Erreur lors du chargement des étiquettes :', err);
+    // MODIFIED
+    throw new Error('Échec du chargement des étiquettes');
   }
 }
 
@@ -841,7 +825,7 @@ async function saveProduct() {
   try {
     const formData = new FormData();
 
-    // Add basic product information
+    // Ajouter les informations de base du produit // MODIFIED
     formData.append('name', editingProduct.value.name);
     formData.append('slug', editingProduct.value.slug);
     formData.append('shortDescription', editingProduct.value.shortDescription);
@@ -858,16 +842,16 @@ async function saveProduct() {
 
     formData.append('isFeatured', editingProduct.value.isFeatured);
 
-    // Add category and tags (PocketBase expects JSON strings for arrays)
+    // Ajouter catégorie et étiquettes (PocketBase attend des chaînes JSON pour les tableaux) // MODIFIED
     formData.append('category', JSON.stringify(editingProduct.value.category));
     formData.append('tags', JSON.stringify(editingProduct.value.tags));
 
-    // Add images
+    // Ajouter les images // MODIFIED
     if (mainImageFile.value) {
       formData.append('image', mainImageFile.value);
     }
 
-    // Add gallery images
+    // Ajouter les images de galerie // MODIFIED
     if (galleryFiles.value.length > 0) {
       galleryFiles.value.forEach(file => {
         formData.append('gallery', file);
@@ -877,28 +861,30 @@ async function saveProduct() {
     let savedProduct;
 
     if (editingProduct.value.id) {
-      // Update existing product
+      // Mettre à jour le produit existant // MODIFIED
       savedProduct = await $pb.collection('products').update(
           editingProduct.value.id,
           formData
       );
     } else {
-      // Create new product
+      // Créer un nouveau produit // MODIFIED
       savedProduct = await $pb.collection('products').create(formData);
     }
 
-    // Refresh products list
+    // Rafraîchir la liste des produits // MODIFIED
     await loadProducts();
 
-    // Close modal
+    // Fermer la modale // MODIFIED
     showProductModal.value = false;
 
-    // Show success message
-    alert(editingProduct.value.id ? 'Product updated successfully!' : 'Product created successfully!');
+    // Afficher le message de succès // MODIFIED
+    alert(editingProduct.value.id ? 'Produit mis à jour avec succès !' : 'Produit créé avec succès !');
 
   } catch (err) {
-    console.error('Error saving product:', err);
-    alert(`Error: ${err.message}`);
+    // MODIFIED
+    console.error('Erreur lors de l\'enregistrement du produit :', err);
+    // MODIFIED
+    alert(`Erreur: ${err.message}`);
   } finally {
     isSaving.value = false;
   }
@@ -912,18 +898,20 @@ async function deleteProduct() {
   try {
     await $pb.collection('products').delete(productToDelete.value.id);
 
-    // Remove from local state
+    // Retirer de l'état local // MODIFIED
     products.value = products.value.filter(p => p.id !== productToDelete.value.id);
 
-    // Close modal
+    // Fermer la modale // MODIFIED
     showDeleteModal.value = false;
     productToDelete.value = null;
 
-    // Show success message
-    alert('Product deleted successfully!');
+    // Afficher le message de succès // MODIFIED
+    alert('Produit supprimé avec succès !');
   } catch (err) {
-    console.error('Error deleting product:', err);
-    alert(`Error: ${err.message}`);
+    // MODIFIED
+    console.error('Erreur lors de la suppression du produit :', err);
+    // MODIFIED
+    alert(`Erreur: ${err.message}`);
   } finally {
     isDeleting.value = false;
   }

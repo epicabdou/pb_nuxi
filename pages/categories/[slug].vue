@@ -1,31 +1,26 @@
 <template>
   <div>
-    <!-- Loading state -->
     <div v-if="isLoading" class="section-padding">
       <div class="responsive-container flex justify-center py-12">
         <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary-600"></div>
       </div>
     </div>
 
-    <!-- Error state -->
     <div v-else-if="error" class="section-padding">
       <div class="responsive-container">
         <div class="card p-8 bg-error-50 border border-error-200 text-error-700">
           <p class="font-medium">{{ error }}</p>
           <NuxtLink to="/categories" class="btn-outline mt-4">
-            Back to Categories
+            Retour aux Catégories
           </NuxtLink>
         </div>
       </div>
     </div>
 
-    <!-- Category content -->
     <template v-else-if="category">
-      <!-- Hero banner section -->
       <section class="relative bg-gradient-to-r from-primary-50 to-secondary-50 dark:from-background-900 dark:to-background-800 py-12">
         <div class="responsive-container">
           <div class="flex flex-col md:flex-row items-center md:items-start gap-8">
-            <!-- Category image with enhanced styling -->
             <div v-if="category.image" class="relative flex-shrink-0">
               <div class="w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden border-4 border-white dark:border-background-700 shadow-md transition-transform hover:scale-105 duration-300">
                 <img
@@ -45,7 +40,6 @@
                 {{ category.description }}
               </p>
 
-              <!-- Subcategories pills if this category has child categories -->
               <div v-if="childCategories.length" class="mt-4 flex flex-wrap gap-2 justify-center md:justify-start">
                 <NuxtLink
                     v-for="child in childCategories"
@@ -61,57 +55,50 @@
         </div>
       </section>
 
-      <!-- Breadcrumb navigation -->
       <section class="py-4 bg-background-100 dark:bg-background-900 border-b border-background-200 dark:border-background-800">
         <div class="responsive-container">
           <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-            <!-- Breadcrumb -->
-            <nav class="flex text-sm" aria-label="Breadcrumb">
-              <ol class="inline-flex items-center space-x-1 md:space-x-3">
-                <li class="inline-flex items-center">
-                  <NuxtLink to="/" class="text-background-600 hover:text-primary-600 transition-colors">
-                    Home
+            <nav class="flex text-sm" aria-label="Fil d'Ariane"> <ol class="inline-flex items-center space-x-1 md:space-x-3">
+              <li class="inline-flex items-center">
+                <NuxtLink to="/" class="text-background-600 hover:text-primary-600 transition-colors">
+                  Accueil </NuxtLink>
+              </li>
+              <li>
+                <div class="flex items-center">
+                  <span class="mx-2 text-background-500">/</span>
+                  <NuxtLink to="/categories" class="text-background-600 hover:text-primary-600 transition-colors">Catégories</NuxtLink> </div>
+              </li>
+              <li v-if="category.expand?.parent">
+                <div class="flex items-center">
+                  <span class="mx-2 text-background-500">/</span>
+                  <NuxtLink
+                      :to="`/categories/${category.expand.parent.slug}`"
+                      class="text-background-600 hover:text-primary-600 transition-colors"
+                  >
+                    {{ category.expand.parent.name }}
                   </NuxtLink>
-                </li>
-                <li>
-                  <div class="flex items-center">
-                    <span class="mx-2 text-background-500">/</span>
-                    <NuxtLink to="/categories" class="text-background-600 hover:text-primary-600 transition-colors">Categories</NuxtLink>
-                  </div>
-                </li>
-                <li v-if="category.expand?.parent">
-                  <div class="flex items-center">
-                    <span class="mx-2 text-background-500">/</span>
-                    <NuxtLink
-                        :to="`/categories/${category.expand.parent.slug}`"
-                        class="text-background-600 hover:text-primary-600 transition-colors"
-                    >
-                      {{ category.expand.parent.name }}
-                    </NuxtLink>
-                  </div>
-                </li>
-                <li>
-                  <div class="flex items-center">
-                    <span class="mx-2 text-background-500">/</span>
-                    <span class="text-primary-600 font-medium">{{ category.name }}</span>
-                  </div>
-                </li>
-              </ol>
+                </div>
+              </li>
+              <li>
+                <div class="flex items-center">
+                  <span class="mx-2 text-background-500">/</span>
+                  <span class="text-primary-600 font-medium">{{ category.name }}</span>
+                </div>
+              </li>
+            </ol>
             </nav>
 
-            <!-- Filters and sorting -->
             <div class="flex items-center gap-2">
-              <!-- Sort dropdown -->
               <div class="relative">
                 <select
                     v-model="sortOption"
                     class="input-primary py-2 pl-3 pr-8 text-sm rounded-lg appearance-none cursor-pointer"
                 >
-                  <option value="name">Name (A-Z)</option>
-                  <option value="-name">Name (Z-A)</option>
-                  <option value="price">Price (Low to High)</option>
-                  <option value="-price">Price (High to Low)</option>
-                  <option value="-created">Newest</option>
+                  <option value="name">Nom (A-Z)</option>
+                  <option value="-name">Nom (Z-A)</option>
+                  <option value="price">Prix (Croissant)</option>
+                  <option value="-price">Prix (Décroissant)</option>
+                  <option value="-created">Nouveautés</option>
                 </select>
                 <div class="absolute right-2 top-1/2 transform -translate-y-1/2 pointer-events-none">
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-background-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -120,7 +107,6 @@
                 </div>
               </div>
 
-              <!-- Grid/List view toggle -->
               <div class="flex bg-white dark:bg-background-800 rounded-lg border border-background-300 dark:border-background-700 p-1">
                 <button
                     @click="viewMode = 'grid'"
@@ -150,16 +136,13 @@
         </div>
       </section>
 
-      <!-- Products section -->
       <section class="py-8 md:py-12">
         <div class="responsive-container">
-          <!-- Products count and active filters -->
           <div class="flex flex-wrap items-center justify-between mb-6 gap-4">
             <p class="text-sm text-background-700 dark:text-background-300 font-medium">
-              {{ categoryProducts.length }} products found
+              {{ categoryProducts.length }} produit(s) trouvé(s)
             </p>
 
-            <!-- Tags/Filters that could be applied -->
             <div class="flex flex-wrap gap-2" v-if="filterTags.length">
               <div
                   v-for="tag in filterTags"
@@ -178,17 +161,14 @@
                   @click="clearFilters"
                   class="text-xs text-primary-600 hover:text-primary-700 hover:underline"
               >
-                Clear all filters
-              </button>
+                Effacer tous les filtres </button>
             </div>
           </div>
 
-          <!-- Loading products -->
           <div v-if="isProductsLoading" class="flex justify-center py-12">
             <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary-600"></div>
           </div>
 
-          <!-- Products grid view -->
           <div
               v-else-if="categoryProducts.length && viewMode === 'grid'"
               class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
@@ -203,7 +183,6 @@
             />
           </div>
 
-          <!-- Products list view -->
           <div
               v-else-if="categoryProducts.length && viewMode === 'list'"
               class="space-y-4"
@@ -218,26 +197,23 @@
             />
           </div>
 
-          <!-- No products -->
           <div v-else class="card-fancy p-8 text-center max-w-2xl mx-auto">
             <div class="mb-6 text-primary-500">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </div>
-            <h3 class="heading-4 mb-4">No products found</h3>
-            <p class="text-background-600 dark:text-background-400 mb-6">There are currently no products in this category.</p>
+            <h3 class="heading-4 mb-4">Aucun produit trouvé</h3>
+            <p class="text-background-600 dark:text-background-400 mb-6">Il n'y a actuellement aucun produit dans cette catégorie.</p>
             <div class="flex flex-wrap gap-4 justify-center">
               <NuxtLink to="/categories" class="btn-primary">
-                Browse other categories
+                Parcourir d'autres catégories
               </NuxtLink>
               <NuxtLink to="/" class="btn-outline">
-                Return to homepage
-              </NuxtLink>
+                Retour à l'accueil </NuxtLink>
             </div>
           </div>
 
-          <!-- Pagination if needed -->
           <div v-if="categoryProducts.length > itemsPerPage" class="mt-12 flex justify-center">
             <div class="flex space-x-1">
               <button
@@ -288,10 +264,9 @@
         </div>
       </section>
 
-      <!-- Related categories section -->
       <section v-if="relatedCategories.length" class="py-8 bg-background-100 dark:bg-background-900 border-t border-background-200 dark:border-background-800">
         <div class="responsive-container">
-          <h2 class="heading-3 mb-6">Related Categories</h2>
+          <h2 class="heading-3 mb-6">Catégories Similaires</h2>
 
           <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
             <NuxtLink
@@ -326,14 +301,14 @@ import { useToast } from '~/composables/useToast'
 import ProductCard from '~/components/ProductCard.vue'
 import ProductListItem from '~/components/ProductListItem.vue'
 
-// Route and stores
+// Route et stores // MODIFIED
 const route = useRoute()
 const cartStore = useCartStore()
 const wishlistStore = useWishlistStore()
 const authStore = useAuthStore()
 const toast = useToast()
 
-// State
+// État // MODIFIED
 const category = ref(null)
 const allCategories = ref([])
 const categoryProducts = ref([])
@@ -346,11 +321,11 @@ const viewMode = ref(localStorage.getItem('productViewMode') || 'grid')
 const currentPage = ref(1)
 const itemsPerPage = ref(12)
 
-// Get config
+// Obtenir la config // MODIFIED
 const config = useRuntimeConfig()
 const pocketbaseUrl = config.public.pocketbaseUrl
 
-// Pagination
+// Pagination // MODIFIED
 const totalPages = computed(() => {
   return Math.ceil(categoryProducts.value.length / itemsPerPage.value)
 })
@@ -380,7 +355,7 @@ const prevPage = () => {
   }
 }
 
-// Computed properties
+// Propriétés calculées // MODIFIED
 const childCategories = computed(() => {
   if (!category.value) return []
   return allCategories.value.filter(cat => cat.parent === category.value.id)
@@ -388,19 +363,19 @@ const childCategories = computed(() => {
 
 const relatedCategories = computed(() => {
   if (!category.value) return []
-  // If it has a parent, show siblings
+  // Si elle a un parent, afficher les frères/sœurs // MODIFIED
   if (category.value.parent) {
     return allCategories.value.filter(cat =>
         cat.parent === category.value.parent && cat.id !== category.value.id
     )
   }
-  // Otherwise, show some other categories
+  // Sinon, afficher quelques autres catégories // MODIFIED
   return allCategories.value.filter(cat =>
       cat.id !== category.value.id
   ).slice(0, 6)
 })
 
-// Sorted products
+// Produits triés // MODIFIED
 const sortedProducts = computed(() => {
   if (!categoryProducts.value.length) return []
 
@@ -412,18 +387,18 @@ const sortedProducts = computed(() => {
     let valueA = a[sortKey]
     let valueB = b[sortKey]
 
-    // Use promo price if available
+    // Utiliser le prix promo si disponible // MODIFIED
     if (sortKey === 'price') {
       valueA = a.promoPrice || a.price
       valueB = b.promoPrice || b.price
     }
 
-    // For numeric values
+    // Pour les valeurs numériques // MODIFIED
     if (typeof valueA === 'number') {
       return isDescending ? valueB - valueA : valueA - valueB
     }
 
-    // For string values
+    // Pour les valeurs chaîne de caractères // MODIFIED
     if (typeof valueA === 'string') {
       return isDescending
           ? valueB.localeCompare(valueA)
@@ -434,12 +409,12 @@ const sortedProducts = computed(() => {
   })
 })
 
-// Check if product is in wishlist
+// Vérifier si le produit est dans la liste de souhaits // MODIFIED
 const isInWishlist = (productId) => {
   return wishlistStore.isInWishlist(productId)
 }
 
-// Fetch category by slug
+// Récupérer la catégorie par slug // MODIFIED
 const fetchCategory = async () => {
   isLoading.value = true
   error.value = null
@@ -447,39 +422,41 @@ const fetchCategory = async () => {
   try {
     const { $pb } = useNuxtApp()
 
-    // Get category by slug
+    // Obtenir la catégorie par slug // MODIFIED
     const categoryData = await $pb.collection('categories').getFirstListItem(`slug="${route.params.slug}"`, {
       expand: 'parent'
     })
 
     category.value = categoryData
 
-    // Get all categories for potential child categories
+    // Obtenir toutes les catégories pour les potentielles sous-catégories // MODIFIED
     const categoriesData = await $pb.collection('categories').getList(1, 100)
     allCategories.value = categoriesData.items
 
-    // Now fetch products in this category
+    // Maintenant récupérer les produits de cette catégorie // MODIFIED
     fetchCategoryProducts()
 
   } catch (err) {
-    console.error('Error fetching category:', err)
-    error.value = 'Category not found or unavailable.'
+    // MODIFIED
+    console.error('Erreur lors de la récupération de la catégorie :', err)
+    // MODIFIED
+    error.value = 'Catégorie non trouvée ou indisponible.'
   } finally {
     isLoading.value = false
   }
 }
 
-// Fetch products for this category
+// Récupérer les produits pour cette catégorie // MODIFIED
 const fetchCategoryProducts = async () => {
   if (!category.value) return
 
   isProductsLoading.value = true
-  currentPage.value = 1 // Reset to first page when fetching new products
+  currentPage.value = 1 // Réinitialiser à la première page lors de la récupération de nouveaux produits // MODIFIED
 
   try {
     const { $pb } = useNuxtApp()
 
-    // Get products with this category
+    // Obtenir les produits avec cette catégorie // MODIFIED
     const productsData = await $pb.collection('products').getList(1, 100, {
       filter: `category~"${category.value.id}"`,
       sort: sortOption.value,
@@ -489,13 +466,14 @@ const fetchCategoryProducts = async () => {
     categoryProducts.value = productsData.items
 
   } catch (err) {
-    console.error('Error fetching products:', err)
+    // MODIFIED
+    console.error('Erreur lors de la récupération des produits :', err)
   } finally {
     isProductsLoading.value = false
   }
 }
 
-// Add to cart
+// Ajouter au panier // MODIFIED
 const addToCart = (product) => {
   const quantity = product.quantity || 1
 
@@ -507,16 +485,17 @@ const addToCart = (product) => {
     quantity: quantity
   })
 
-  toast.success(`${product.name} added to cart`)
+  // MODIFIED
+  toast.success(`${product.name} ajouté(e) au panier`)
 
-  // Show cart drawer
+  // Afficher le tiroir du panier // MODIFIED
   cartStore.toggleCart()
 }
 
-// Toggle wishlist
+// Basculer la liste de souhaits // MODIFIED
 const toggleWishlist = async (product) => {
   if (!authStore.isAuthenticated) {
-    // Redirect to login
+    // Rediriger vers la connexion // MODIFIED
     navigateTo('/login?redirect=' + encodeURIComponent(route.fullPath))
     return
   }
@@ -525,17 +504,21 @@ const toggleWishlist = async (product) => {
     const result = await wishlistStore.toggleWishlist(product.id)
 
     if (result.added) {
-      toast.success(`${product.name} added to wishlist`)
+      // MODIFIED
+      toast.success(`${product.name} ajouté(e) à la liste de souhaits`)
     } else if (result.removed) {
-      toast.info(`${product.name} removed from wishlist`)
+      // MODIFIED
+      toast.info(`${product.name} retiré(e) de la liste de souhaits`)
     }
   } catch (err) {
-    console.error('Error toggling wishlist:', err)
-    toast.error('An error occurred')
+    // MODIFIED
+    console.error('Erreur lors du basculement de la liste de souhaits :', err)
+    // MODIFIED
+    toast.error('Une erreur s\'est produite')
   }
 }
 
-// Filter functions
+// Fonctions de filtre // MODIFIED
 const removeFilter = (tagId) => {
   filterTags.value = filterTags.value.filter(tag => tag.id !== tagId)
   applyFilters()
@@ -547,39 +530,41 @@ const clearFilters = () => {
 }
 
 const applyFilters = () => {
-  // Apply filters logic here
+  // Appliquer la logique des filtres ici // MODIFIED
   fetchCategoryProducts()
 }
 
-// Save view mode to localStorage
+// Sauvegarder le mode d'affichage dans localStorage // MODIFIED
 watch(viewMode, (newMode) => {
   localStorage.setItem('productViewMode', newMode)
 })
 
-// Watch for route changes to reload data
+// Surveiller les changements de route pour recharger les données // MODIFIED
 watch(() => route.params.slug, (newSlug, oldSlug) => {
   if (newSlug !== oldSlug) {
     fetchCategory()
   }
 })
 
-// Watch sort option changes
+// Surveiller les changements d'option de tri // MODIFIED
 watch(sortOption, () => {
   fetchCategoryProducts()
 })
 
-// Lifecycle
+// Cycle de vie // MODIFIED
 onMounted(() => {
   fetchCategory()
 })
 
-// Meta
+// Méta // MODIFIED
 useHead(() => ({
-  title: category.value ? `${category.value.name} | Categories` : 'Category',
+  // MODIFIED
+  title: category.value ? `${category.value.name} | Catégories` : 'Catégorie',
   meta: [
     {
       name: 'description',
-      content: category.value?.description || 'Browse products in this category'
+      // MODIFIED
+      content: category.value?.description || 'Parcourir les produits de cette catégorie'
     }
   ]
 }))

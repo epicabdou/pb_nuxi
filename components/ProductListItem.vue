@@ -4,22 +4,18 @@
       :class="{ 'opacity-75': product.stock <= 0 }"
   >
     <div class="flex flex-col sm:flex-row">
-      <!-- Image section with badges -->
       <div class="relative sm:w-1/4 h-48 sm:h-auto overflow-hidden bg-background-100 dark:bg-background-900">
-        <!-- Product badges -->
         <div class="absolute top-2 left-2 z-10 flex flex-col gap-2">
           <span
               v-if="product.isFeatured"
               class="badge-primary text-xs font-medium px-2 py-1"
           >
-            Featured
-          </span>
+            En Vedette </span>
           <span
               v-if="isNewProduct"
               class="badge bg-secondary-500 text-white text-xs font-medium px-2 py-1"
           >
-            New
-          </span>
+            Nouveau </span>
           <span
               v-if="hasDiscount"
               class="badge bg-error-500 text-white text-xs font-medium px-2 py-1"
@@ -30,8 +26,7 @@
               v-if="product.stock <= 0"
               class="badge bg-background-600 text-white text-xs font-medium px-2 py-1"
           >
-            Out of Stock
-          </span>
+            Épuisé </span>
         </div>
 
         <NuxtLink :to="`/products/${product.slug}`" class="block h-full">
@@ -49,9 +44,7 @@
         </NuxtLink>
       </div>
 
-      <!-- Product details -->
       <div class="sm:w-3/4 p-4 flex flex-col">
-        <!-- Header: Categories and Wishlist button -->
         <div class="flex justify-between items-start mb-2">
           <div v-if="showCategory && product.expand?.category" class="flex flex-wrap">
             <NuxtLink
@@ -64,13 +57,11 @@
             </NuxtLink>
           </div>
 
-          <!-- Wishlist button -->
           <button
               @click.prevent="$emit('add-to-wishlist', product)"
               class="p-2 hover:bg-background-100 dark:hover:bg-background-800 rounded-full transition-colors"
               :class="{ 'text-error-500': isInWishlist, 'text-background-500': !isInWishlist }"
-              aria-label="Add to wishlist"
-          >
+              aria-label="Ajouter à la liste de souhaits" >
             <svg
                 v-if="isInWishlist"
                 xmlns="http://www.w3.org/2000/svg"
@@ -102,19 +93,16 @@
           </button>
         </div>
 
-        <!-- Title -->
         <h3 class="text-xl font-medium mb-2">
           <NuxtLink :to="`/products/${product.slug}`" class="hover:text-primary-600 transition-colors">
             {{ product.name }}
           </NuxtLink>
         </h3>
 
-        <!-- Short description -->
         <p v-if="product.shortDescription && showDescription" class="text-sm text-background-600 dark:text-background-400 mb-3">
           {{ truncateDescription(product.shortDescription, 150) }}
         </p>
 
-        <!-- Tags -->
         <div v-if="showTags && product.expand?.tags && product.expand.tags.length" class="mb-3 flex flex-wrap gap-1">
           <NuxtLink
               v-for="tag in product.expand.tags"
@@ -126,9 +114,7 @@
           </NuxtLink>
         </div>
 
-        <!-- Bottom section with price and buttons -->
         <div class="mt-auto flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-          <!-- Price -->
           <div class="flex items-baseline">
             <span
                 v-if="hasDiscount"
@@ -148,17 +134,14 @@
                 v-if="product.stock > 0"
                 class="ml-3 text-sm text-success-600 font-medium"
             >
-              In Stock
-            </span>
+              En Stock </span>
             <span
                 v-else
                 class="ml-3 text-sm text-error-600 font-medium"
             >
-              Out of Stock
-            </span>
+              Épuisé </span>
           </div>
 
-          <!-- Action buttons -->
           <div class="flex gap-2">
             <button
                 @click.prevent="$emit('add-to-cart', product)"
@@ -169,20 +152,17 @@
               <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
               </svg>
-              Add to Cart
-            </button>
+              Ajouter au Panier </button>
             <button
                 @click="openQuickView"
                 class="btn-outline py-2 px-4 text-sm"
             >
-              Quick View
-            </button>
+              Aperçu Rapide </button>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Quick View Modal using the component -->
     <QuickViewModal
         :show="showQuickView"
         :product="product"
@@ -207,7 +187,7 @@ const props = defineProps({
     type: Boolean,
     default: false
   },
-  // Optional configurations
+  // Configurations optionnelles // MODIFIED
   showCategory: {
     type: Boolean,
     default: true
@@ -224,14 +204,14 @@ const props = defineProps({
 
 const emit = defineEmits(['add-to-cart', 'add-to-wishlist'])
 
-// PocketBase URL from Nuxt config
+// URL PocketBase depuis la config Nuxt // MODIFIED
 const config = useRuntimeConfig()
 const pocketbaseUrl = config.public?.pocketbaseUrl || ''
 
-// Quick view state
+// État de l'aperçu rapide // MODIFIED
 const showQuickView = ref(false)
 
-// Computed properties
+// Propriétés calculées // MODIFIED
 const hasDiscount = computed(() => {
   return props.product.promoPrice && props.product.promoPrice < props.product.price
 })
@@ -248,35 +228,37 @@ const isNewProduct = computed(() => {
   const now = new Date()
   const diffTime = Math.abs(now - createdDate)
   const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
-  return diffDays <= 14 // Consider products newer than 14 days as "new"
+  // Considérer les produits de moins de 14 jours comme "nouveaux" // MODIFIED
+  return diffDays <= 14
 })
 
-// Methods
+// Méthodes // MODIFIED
 function getImageUrl(image, productId) {
   if (!image) return ''
 
-  // Handle different image object structures from PocketBase
+  // Gérer différentes structures d'objet image depuis PocketBase // MODIFIED
   if (typeof image === 'string') {
     return `${pocketbaseUrl}/api/files/products/${productId}/${image}`
   } else if (image.url) {
     return image.url
   } else if (typeof image === 'object' && image.name) {
-    // If it's an object with a name property (PocketBase expanded record)
+    // S'il s'agit d'un objet avec une propriété name (enregistrement étendu PocketBase) // MODIFIED
     return `${pocketbaseUrl}/api/files/products/${productId}/${image.name}`
   } else {
-    // Fallback - log for debugging
-    console.error('Unhandled image format:', image)
+    // Repli - log pour le débogage // MODIFIED
+    console.error('Format d\'image non géré :', image) // MODIFIED
     return ''
   }
 }
 
 function formatPrice(price) {
   if (!price && price !== 0) return ''
-  return `$${parseFloat(price).toFixed(2)}`
+  // Assuming USD $, adjust if needed for French locale (e.g., '€', placement)
+  return `${parseFloat(price).toFixed(2)} $` // Kept $ for now, could be € or moved
 }
 
 function getCategoryArray(product) {
-  // Handle both single category and array of categories
+  // Gérer à la fois une catégorie unique et un tableau de catégories // MODIFIED
   if (!product.expand?.category) return []
 
   if (Array.isArray(product.expand.category)) {

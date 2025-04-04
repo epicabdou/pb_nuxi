@@ -3,7 +3,7 @@
   <div class="oauth-callback">
     <div class="loading-container">
       <div class="loading-spinner"></div>
-      <p>Achèvement de l’authentification...</p>
+      <p>Completing authentication...</p>
     </div>
   </div>
 </template>

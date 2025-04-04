@@ -1,8 +1,6 @@
-<!-- layouts/DashboardLayout.vue -->
 <template>
   <div :class="{ 'dark': darkMode }" class="h-screen flex flex-col">
     <div class="flex h-full overflow-hidden bg-background-100 dark:bg-background-900 text-background-900 dark:text-background-100">
-      <!-- Sidebar for desktop -->
       <aside
           :class="[
           'hidden md:flex flex-col',
@@ -10,9 +8,8 @@
           'bg-white dark:bg-background-800 border-r border-background-300 dark:border-background-700 transition-all duration-300 shadow-sm z-20'
         ]"
       >
-        <!-- Logo -->
         <div class="p-4 flex items-center justify-between border-b border-background-300 dark:border-background-700">
-          <h1 v-if="!sidebarCollapsed" class="text-xl font-bold text-primary-600 dark:text-primary-500">E-Shop Admin</h1>
+          <h1 v-if="!sidebarCollapsed" class="text-xl font-bold text-primary-600 dark:text-primary-500">Admin E-Shop</h1>
           <button
               @click="toggleSidebar"
               class="p-2 rounded-lg text-background-700 dark:text-background-300 hover:bg-background-200 dark:hover:bg-background-700"
@@ -22,7 +19,6 @@
           </button>
         </div>
 
-        <!-- Navigation -->
         <nav class="flex-1 overflow-y-auto py-4">
           <ul class="space-y-1 px-2">
             <li v-for="item in menuItems" :key="item.id">
@@ -43,16 +39,15 @@
           </ul>
         </nav>
 
-        <!-- User profile -->
         <div class="border-t border-background-300 dark:border-background-700 p-4">
           <div :class="[sidebarCollapsed ? 'justify-center' : 'items-center', 'flex']">
             <div v-if="!sidebarCollapsed" class="flex-1">
-              <h3 class="font-medium">{{ authStore.currentUser?.name || 'User' }}</h3>
+              <h3 class="font-medium">{{ authStore.currentUser?.name || 'Utilisateur' }}</h3>
               <p class="text-sm text-background-600 dark:text-background-400">{{ authStore.currentUser?.email }}</p>
             </div>
             <div :class="sidebarCollapsed ? 'w-full flex justify-center' : ''">
               <div v-if="userAvatarUrl" class="h-10 w-10 rounded-full bg-background-200 overflow-hidden">
-                <img :src="userAvatarUrl" alt="User avatar" class="w-full h-full object-cover" />
+                <img :src="userAvatarUrl" alt="Avatar de l'utilisateur" class="w-full h-full object-cover" />
               </div>
               <div v-else class="h-10 w-10 rounded-full bg-primary-500 flex items-center justify-center text-white">
                 <User size="20" />
@@ -62,9 +57,7 @@
         </div>
       </aside>
 
-      <!-- Main content -->
       <div class="flex-1 flex flex-col min-w-0 overflow-hidden">
-        <!-- Header -->
         <header class="bg-white dark:bg-background-800 border-b border-background-300 dark:border-background-700 py-2 px-4 flex items-center shadow-sm">
           <button
               @click="toggleMobileMenu"
@@ -72,7 +65,7 @@
           >
             <Menu size="20" />
           </button>
-          <span class="md:hidden text-xl font-bold text-primary-600 dark:text-primary-500 flex-1">E-Shop Admin</span>
+          <span class="md:hidden text-xl font-bold text-primary-600 dark:text-primary-500 flex-1">Admin E-Shop</span>
 
           <div class="flex items-center ml-auto space-x-3">
             <button class="relative p-2 rounded-lg text-background-700 dark:text-background-300 hover:bg-background-200 dark:hover:bg-background-700">
@@ -101,14 +94,13 @@
           </div>
         </header>
 
-        <!-- Mobile menu -->
         <div
             v-if="mobileMenuOpen"
             class="md:hidden fixed inset-0 z-50 bg-background-900 bg-opacity-75"
         >
           <div class="fixed inset-y-0 left-0 w-64 bg-white dark:bg-background-800 shadow-xl">
             <div class="p-4 flex items-center justify-between border-b border-background-300 dark:border-background-700">
-              <h1 class="text-xl font-bold text-primary-600 dark:text-primary-500">E-Shop Admin</h1>
+              <h1 class="text-xl font-bold text-primary-600 dark:text-primary-500">Admin E-Shop</h1>
               <button
                   @click="toggleMobileMenu"
                   class="p-2 rounded-lg text-background-700 dark:text-background-300 hover:bg-background-200 dark:hover:bg-background-700"
@@ -140,13 +132,13 @@
             <div class="absolute bottom-0 left-0 right-0 border-t border-background-300 dark:border-background-700 p-4">
               <div class="flex items-center">
                 <div v-if="userAvatarUrl" class="h-10 w-10 rounded-full bg-background-200 overflow-hidden">
-                  <img :src="userAvatarUrl" alt="User avatar" class="w-full h-full object-cover" />
+                  <img :src="userAvatarUrl" alt="Avatar de l'utilisateur" class="w-full h-full object-cover" />
                 </div>
                 <div v-else class="h-10 w-10 rounded-full bg-primary-500 flex items-center justify-center text-white">
                   <User size="20" />
                 </div>
                 <div class="ml-3">
-                  <h3 class="font-medium">{{ authStore.currentUser?.name || 'User' }}</h3>
+                  <h3 class="font-medium">{{ authStore.currentUser?.name || 'Utilisateur' }}</h3>
                   <p class="text-sm text-background-600 dark:text-background-400">{{ authStore.currentUser?.email }}</p>
                 </div>
               </div>
@@ -154,9 +146,7 @@
           </div>
         </div>
 
-        <!-- Page content -->
         <main class="flex-1 overflow-auto p-6">
-          <!-- Page content (slot) -->
           <slot></slot>
         </main>
       </div>
@@ -194,7 +184,7 @@ const route = useRoute();
 const authStore = useAuthStore();
 const { $pb } = useNuxtApp();
 
-// Get user avatar URL if available
+// Obtenir l'URL de l'avatar utilisateur si disponible // MODIFIED
 const userAvatarUrl = computed(() => {
   if (authStore.currentUser?.avatar && $pb) {
     const avatarFile = authStore.currentUser.avatar;
@@ -203,15 +193,21 @@ const userAvatarUrl = computed(() => {
   return null;
 });
 
-// Toggle dark mode and save preference
+// Basculer le mode sombre et enregistrer la préférence // MODIFIED
 const toggleDarkMode = () => {
   darkMode.value = !darkMode.value;
   if (process.client) {
     localStorage.setItem('darkMode', darkMode.value ? 'true' : 'false');
+    // Apply class to HTML element
+    if(darkMode.value) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
   }
 };
 
-// Toggle sidebar collapse and save preference
+// Basculer la réduction de la barre latérale et enregistrer la préférence // MODIFIED
 const toggleSidebar = () => {
   sidebarCollapsed.value = !sidebarCollapsed.value;
   if (process.client) {
@@ -219,47 +215,60 @@ const toggleSidebar = () => {
   }
 };
 
-// Toggle mobile menu
+// Basculer le menu mobile // MODIFIED
 const toggleMobileMenu = () => {
   mobileMenuOpen.value = !mobileMenuOpen.value;
 };
 
-// Logout function using auth store
+// Fonction de déconnexion utilisant le store d'authentification // MODIFIED
 const logout = () => {
   authStore.logout();
+  // Redirect handled by store or middleware
 };
 
-// Navigation menu items with paths
+// Éléments du menu de navigation avec chemins // MODIFIED
 const menuItems = [
-  { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard, path: '/dashboard' },
-  { id: 'products', label: 'Products', icon: Package, path: '/dashboard/products' },
-  { id: 'categories', label: 'Categories', icon: Tag, path: '/dashboard/categories' },
-  { id: 'tags', label: 'Tags', icon: Tag, path: '/dashboard/tags' },
-  { id: 'orders', label: 'Orders', icon: ShoppingCart, path: '/dashboard/orders' },
-  { id: 'users', label: 'Users', icon: Users, path: '/dashboard/users' },
+  // MODIFIED Labels
+  { id: 'dashboard', label: 'Tableau de Bord', icon: LayoutDashboard, path: '/dashboard' },
+  { id: 'products', label: 'Produits', icon: Package, path: '/dashboard/products' },
+  { id: 'categories', label: 'Catégories', icon: Tag, path: '/dashboard/categories' },
+  { id: 'tags', label: 'Étiquettes', icon: Tag, path: '/dashboard/tags' },
+  { id: 'orders', label: 'Commandes', icon: ShoppingCart, path: '/dashboard/orders' },
+  { id: 'users', label: 'Utilisateurs', icon: Users, path: '/dashboard/users' },
 ];
 
-// Get current page title and description based on route
+// Obtenir le titre et la description de la page actuelle en fonction de la route // MODIFIED
 const currentPageTitle = computed(() => {
   const currentRoute = route.path;
   const currentMenuItem = menuItems.find(item => currentRoute.startsWith(item.path));
-  return currentMenuItem ? currentMenuItem.label : 'Dashboard';
+  // MODIFIED Fallback
+  return currentMenuItem ? currentMenuItem.label : 'Tableau de Bord';
 });
 
 const currentPageDescription = computed(() => {
-  return `Welcome to your ${currentPageTitle.value.toLowerCase()} management`;
+  // MODIFIED Description string
+  return `Bienvenue dans la gestion : ${currentPageTitle.value}`;
 });
 
-// Initialize preferences from localStorage on client side
+// Initialiser les préférences depuis localStorage côté client // MODIFIED
 onMounted(() => {
   if (process.client) {
-    // Load dark mode preference
+    // Charger la préférence du mode sombre // MODIFIED
     const savedDarkMode = localStorage.getItem('darkMode');
     if (savedDarkMode) {
       darkMode.value = savedDarkMode === 'true';
+      // Ensure class is applied on initial load
+      if(darkMode.value) document.documentElement.classList.add('dark');
+    } else {
+      // Check system preference if no local storage value
+      if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        darkMode.value = true;
+        document.documentElement.classList.add('dark');
+      }
     }
 
-    // Load sidebar collapsed preference
+
+    // Charger l'état réduit de la barre latérale // MODIFIED
     const savedSidebarState = localStorage.getItem('sidebarCollapsed');
     if (savedSidebarState) {
       sidebarCollapsed.value = savedSidebarState === 'true';

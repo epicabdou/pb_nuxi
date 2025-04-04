@@ -1,50 +1,46 @@
 <!-- components/HeroSection.vue -->
 <template>
   <section class="relative overflow-hidden bg-gradient-to-b from-background-50 to-background-200 dark:from-background-900 dark:to-background-800">
-    <!-- Background decoration element -->
     <div class="absolute -top-24 -right-24 w-96 h-96 bg-primary-200 dark:bg-primary-900/20 rounded-full blur-3xl opacity-50"></div>
     <div class="absolute -bottom-24 -left-24 w-96 h-96 bg-secondary-200 dark:bg-secondary-900/20 rounded-full blur-3xl opacity-50"></div>
 
     <div class="responsive-container section-padding relative z-10">
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-        <!-- Text content -->
         <div class="space-y-6 animate-slide-up">
           <div class="inline-block">
-            <span class="badge-primary">NEW COLLECTION</span>
+            <span class="badge-primary">NOUVELLE COLLECTION</span>
           </div>
-          <h1 class="heading-1 text-gradient">Discover Our Latest Products</h1>
+          <h1 class="heading-1 text-gradient">Découvrez Nos Derniers Produits</h1>
           <p class="body-large text-background-700 dark:text-background-300">
-            Find the perfect items to elevate your style, home, and lifestyle. Enjoy exclusive deals on our newest arrivals.
+            Trouvez les articles parfaits pour rehausser votre style, votre maison et votre mode de vie. Profitez d'offres exclusives sur nos nouveautés.
           </p>
           <div class="flex flex-wrap gap-4 pt-4">
-            <button @click="navigateToShop" class="btn-primary">Shop Now</button>
-            <button @click="navigateTo('/categories')" class="btn-outline">View Categories</button>
+            <button @click="navigateToShop" class="btn-primary">Acheter Maintenant</button>
+            <button @click="navigateTo('/categories')" class="btn-outline">Voir les Catégories</button>
           </div>
 
-          <!-- Trust badges -->
           <div class="pt-6 flex flex-wrap gap-8 items-center text-background-600 dark:text-background-400">
             <div class="flex items-center gap-2">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
               </svg>
-              <span>Free Shipping</span>
+              <span>Livraison Gratuite</span>
             </div>
             <div class="flex items-center gap-2">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
               </svg>
-              <span>Secure Payment</span>
+              <span>Paiement Sécurisé</span>
             </div>
             <div class="flex items-center gap-2">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
               </svg>
-              <span>30-Day Returns</span>
+              <span>Retours sous 30 Jours</span>
             </div>
           </div>
         </div>
 
-        <!-- Featured products carousel -->
         <div class="card-fancy animate-slide-up bg-white/80 dark:bg-background-800/80 backdrop-blur-md">
           <swiper-container
               :slides-per-view="1"
@@ -59,21 +55,20 @@
               <div class="relative overflow-hidden group">
                 <img :src="product.imageUrl" :alt="product.name" class="w-full h-80 object-cover object-center transition-all duration-500 group-hover:scale-105">
 
-                <!-- Product info overlay -->
                 <div class="absolute bottom-0 left-0 right-0 bg-white/90 dark:bg-background-800/90 p-4 shadow-md transition-transform duration-300">
                   <div class="flex justify-between items-start">
                     <div>
                       <h3 class="font-bold text-lg">{{ product.name }}</h3>
                       <div class="flex gap-2 mt-1">
-                        <span v-if="product.promoPrice" class="text-error-600 font-bold">${{ product.promoPrice.toFixed(2) }}</span>
-                        <span :class="{'line-through text-background-500': product.promoPrice}">${{ product.price.toFixed(2) }}</span>
+                        <span v-if="product.promoPrice" class="text-error-600 font-bold">€{{ product.promoPrice.toFixed(2) }}</span>
+                        <span :class="{'line-through text-background-500': product.promoPrice}">€{{ product.price.toFixed(2) }}</span>
                       </div>
                     </div>
                     <button @click="addToCart(product)" class="btn-primary btn-sm flex items-center gap-1">
                       <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
                       </svg>
-                      Add
+                      Ajouter
                     </button>
                   </div>
                   <div class="flex items-center gap-2 mt-2">
@@ -84,9 +79,9 @@
                         </svg>
                       </span>
                     </div>
-                    <span class="text-xs text-background-600 dark:text-background-400">({{ product.reviewCount }})</span>
-                    <span v-if="product.stock <= 5 && product.stock > 0" class="text-xs text-error-600">Only {{ product.stock }} left!</span>
-                    <span v-if="product.stock === 0" class="text-xs text-error-600">Out of stock</span>
+                    <span class="text-xs text-background-600 dark:text-background-400">({{ product.reviewCount }} avis)</span>
+                    <span v-if="product.stock <= 5 && product.stock > 0" class="text-xs text-error-600">Plus que {{ product.stock }} en stock !</span>
+                    <span v-if="product.stock === 0" class="text-xs text-error-600">Épuisé</span>
                   </div>
                 </div>
               </div>
@@ -95,7 +90,6 @@
         </div>
       </div>
 
-      <!-- Category highlights -->
       <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-4 lg:gap-6">
         <div
             v-for="category in categories"
@@ -103,22 +97,19 @@
             @click="navigateToCategory(category)"
             class="card-fancy group p-4 md:p-6 text-center transition-all duration-300 hover:shadow-modern cursor-pointer"
         >
-          <!-- Image container with fixed aspect ratio -->
           <div class="relative w-16 h-16 md:w-20 md:h-20 mx-auto mb-4 overflow-hidden rounded-full bg-background-200 dark:bg-background-700 group-hover:scale-110 transition-transform duration-300">
-            <!-- Show actual image if available -->
             <img
                 v-if="category.imageUrl"
                 :src="category.imageUrl"
                 :alt="category.name"
                 class="w-full h-full object-cover"
             />
-            <!-- Fallback if no image is available -->
             <div v-else class="w-full h-full flex items-center justify-center bg-primary-100 dark:bg-primary-900/20">
               <span class="text-2xl md:text-3xl text-primary-600 dark:text-primary-400">{{ category.emoji }}</span>
             </div>
           </div>
           <h3 class="font-bold text-base md:text-lg mb-1">{{ category.name }}</h3>
-          <p class="text-xs md:text-sm text-background-600 dark:text-background-400">{{ category.productCount }} products</p>
+          <p class="text-xs md:text-sm text-background-600 dark:text-background-400">{{ category.productCount }} produits</p>
         </div>
       </div>
     </div>

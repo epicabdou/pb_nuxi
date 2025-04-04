@@ -1,12 +1,11 @@
 <template>
   <div class="card-fancy">
-    <h2 class="heading-4 mb-6">Order Summary</h2>
+    <h2 class="heading-4 mb-6">Résumé de la Commande</h2>
 
-    <!-- Cart Items Summary -->
     <div v-if="displayItems" class="space-y-4 mb-6">
       <div v-for="item in cartStore.items" :key="item.id" class="flex items-center gap-4 py-3 border-b border-background-200">
         <div class="relative w-16 h-16 bg-background-100 rounded-md flex-shrink-0 overflow-hidden">
-          <img v-if="item.image" :src="item.image" :alt="item.name" class="object-cover w-full h-full" />
+          <img v-if="item.image" :src="getCartImageUrl(item)" :alt="item.name" class="object-cover w-full h-full" />
           <div v-else class="flex items-center justify-center w-full h-full text-background-400">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
@@ -28,29 +27,26 @@
       </div>
     </div>
 
-    <!-- Cost Summary -->
     <div class="space-y-3 py-4 border-b border-t border-background-200">
       <div class="flex justify-between">
-        <span class="text-background-600">Subtotal</span>
+        <span class="text-background-600">Sous-total</span>
         <span class="font-medium">{{ formatCurrency(cartStore.cartTotal) }}</span>
       </div>
       <div class="flex justify-between">
-        <span class="text-background-600">Shipping</span>
-        <span class="font-medium">{{ shipping > 0 ? formatCurrency(shipping) : 'Free' }}</span>
+        <span class="text-background-600">Livraison</span>
+        <span class="font-medium">{{ shipping > 0 ? formatCurrency(shipping) : 'Gratuit' }}</span>
       </div>
       <div class="flex justify-between">
-        <span class="text-background-600">Tax ({{ taxRate * 100 }}%)</span>
+        <span class="text-background-600">Taxes ({{ taxRate * 100 }}%)</span>
         <span class="font-medium">{{ formatCurrency(tax) }}</span>
       </div>
     </div>
 
-    <!-- Total -->
     <div class="flex justify-between items-center py-4 mb-6">
       <span class="text-lg font-bold">Total</span>
       <span class="text-xl font-bold">{{ formatCurrency(orderTotal) }}</span>
     </div>
 
-    <!-- Action Button -->
     <slot></slot>
   </div>
 </template>
@@ -90,9 +86,28 @@ const orderTotal = computed(() => {
 
 // Format currency
 const formatCurrency = (amount) => {
-  return new Intl.NumberFormat('en-US', {
+  return new Intl.NumberFormat('fr-FR', {
     style: 'currency',
-    currency: 'USD'
+    currency: 'EUR'
   }).format(amount)
+}
+
+// Generate image URL for cart items
+const getCartImageUrl = (item) => {
+  // If image is already a full URL, use it
+  if (item.image && (item.image.startsWith('http://') || item.image.startsWith('https://'))) {
+    return item.image;
+  }
+  
+  // Otherwise construct PocketBase URL
+  const config = useRuntimeConfig();
+  const { $pb } = useNuxtApp();
+  const baseUrl = $pb?.baseUrl || config.public.pocketbaseUrl;
+  
+  if (item.image) {
+    return `${baseUrl}/api/files/products/${item.id}/${item.image}`;
+  }
+  
+  return '';
 }
 </script>

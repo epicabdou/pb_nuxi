@@ -1,7 +1,7 @@
 <template>
   <section class="featured-products section-padding">
     <div class="responsive-container">
-      <h2 class="heading-2 mb-8">Featured Products</h2>
+      <h2 class="heading-2 mb-8">Produits en Vedette</h2>
 
       <div v-if="isLoading" class="flex justify-center items-center py-12">
         <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary-500"></div>
@@ -9,16 +9,14 @@
 
       <template v-else>
         <div v-if="products.length === 0" class="text-center py-8">
-          <p class="body-large text-background-600 dark:text-background-400">No featured products available.</p>
+          <p class="body-large text-background-600 dark:text-background-400">Aucun produit en vedette disponible.</p>
         </div>
 
         <div v-else class="relative">
-          <!-- Navigation Buttons -->
           <button
               @click="swiperInstance?.slidePrev()"
               class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 bg-white dark:bg-background-800 rounded-full shadow-md p-2 focus:outline-none hover:bg-background-100 dark:hover:bg-background-700 transition-colors"
-              aria-label="Previous slide"
-          >
+              aria-label="Diapositive précédente" >
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-background-700 dark:text-background-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
             </svg>
@@ -27,14 +25,12 @@
           <button
               @click="swiperInstance?.slideNext()"
               class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 bg-white dark:bg-background-800 rounded-full shadow-md p-2 focus:outline-none hover:bg-background-100 dark:hover:bg-background-700 transition-colors"
-              aria-label="Next slide"
-          >
+              aria-label="Diapositive suivante" >
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-background-700 dark:text-background-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
             </svg>
           </button>
 
-          <!-- Swiper Slider -->
           <Swiper
               :modules="[SwiperNavigation, SwiperPagination, SwiperAutoplay]"
               :slides-per-view="1"

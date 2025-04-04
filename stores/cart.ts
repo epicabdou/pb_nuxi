@@ -26,7 +26,7 @@ export const useCartStore = defineStore('cart', {
         // Get formatted cart total with currency symbol
         formattedCartTotal: (state) => {
             const total = state.items.reduce((sum, item) => sum + (item.price * item.quantity), 0)
-            return `$${total.toFixed(2)}`
+            return `${total.toFixed(2)} €`
         }
     },
 

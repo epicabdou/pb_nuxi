@@ -1,37 +1,29 @@
 <template>
   <main class="py-8 md:py-12">
     <div class="responsive-container">
-      <!-- Banner and filter section -->
       <section class="mb-8">
         <div class="rounded-xl overflow-hidden relative">
-          <!-- Banner image -->
           <div class="h-64 md:h-80 lg:h-96 w-full bg-gradient-to-r from-primary-500 to-secondary-500 flex items-center justify-center">
             <div class="text-center text-white px-4 relative z-10">
-              <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">Discover Our Products</h1>
-              <p class="text-lg md:text-xl max-w-2xl mx-auto">Browse our collection of high-quality products designed for your needs.</p>
-            </div>
+              <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">Découvrez Nos Produits</h1> <p class="text-lg md:text-xl max-w-2xl mx-auto">Parcourez notre collection de produits de haute qualité conçus pour vos besoins.</p> </div>
           </div>
         </div>
       </section>
 
-      <!-- Filter and sort section -->
       <section class="mb-8">
         <div class="bg-white dark:bg-background-800 rounded-lg shadow-sm p-4">
           <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-            <!-- Categories filter with dropdown -->
             <div class="relative flex-grow max-w-xs">
-              <label for="category-filter" class="sr-only">Filter by Category</label>
-              <select
-                  id="category-filter"
-                  v-model="selectedCategory"
-                  class="input-primary py-2 pr-8 text-sm rounded-lg w-full appearance-none cursor-pointer"
-                  @change="filterProducts"
-              >
-                <option value="">All Categories</option>
-                <option v-for="category in categories" :key="category.id" :value="category.id">
-                  {{ category.name }}
-                </option>
-              </select>
+              <label for="category-filter" class="sr-only">Filtrer par Catégorie</label> <select
+                id="category-filter"
+                v-model="selectedCategory"
+                class="input-primary py-2 pr-8 text-sm rounded-lg w-full appearance-none cursor-pointer"
+                @change="filterProducts"
+            >
+              <option value="">Toutes les Catégories</option> <option v-for="category in categories" :key="category.id" :value="category.id">
+              {{ category.name }}
+            </option>
+            </select>
               <div class="absolute right-2 top-1/2 transform -translate-y-1/2 pointer-events-none">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-background-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
@@ -39,21 +31,14 @@
               </div>
             </div>
 
-            <!-- Filters and sorting -->
             <div class="flex items-center gap-2 self-stretch md:self-auto">
-              <!-- Sort dropdown -->
               <div class="relative flex-grow md:flex-grow-0">
                 <select
                     v-model="sortOption"
                     class="input-primary py-2 pl-3 pr-8 text-sm rounded-lg appearance-none cursor-pointer"
                     @change="sortProducts"
                 >
-                  <option value="name">Name (A-Z)</option>
-                  <option value="-name">Name (Z-A)</option>
-                  <option value="price">Price (Low to High)</option>
-                  <option value="-price">Price (High to Low)</option>
-                  <option value="-created">Newest</option>
-                </select>
+                  <option value="name">Nom (A-Z)</option> <option value="-name">Nom (Z-A)</option> <option value="price">Prix (Croissant)</option> <option value="-price">Prix (Décroissant)</option> <option value="-created">Nouveautés</option> </select>
                 <div class="absolute right-2 top-1/2 transform -translate-y-1/2 pointer-events-none">
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-background-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
@@ -61,7 +46,6 @@
                 </div>
               </div>
 
-              <!-- Grid/List view toggle -->
               <div class="flex bg-white dark:bg-background-800 rounded-lg border border-background-300 dark:border-background-700 p-1">
                 <button
                     @click="viewMode = 'grid'"
@@ -89,62 +73,50 @@
             </div>
           </div>
 
-          <!-- Active filters -->
           <div v-if="activeFilters.length > 0" class="mt-4 flex flex-wrap items-center gap-2">
-            <span class="text-sm text-background-700 dark:text-background-300">Active Filters:</span>
-            <div
-                v-for="filter in activeFilters"
-                :key="filter.id"
-                class="inline-flex items-center bg-background-100 dark:bg-background-800 text-xs rounded-full px-3 py-1"
-            >
-              <span>{{ filter.name }}</span>
-              <button @click="removeFilter(filter.id)" class="ml-2 text-background-500 hover:text-error-500">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-            </div>
+            <span class="text-sm text-background-700 dark:text-background-300">Filtres Actifs :</span> <div
+              v-for="filter in activeFilters"
+              :key="filter.id"
+              class="inline-flex items-center bg-background-100 dark:bg-background-800 text-xs rounded-full px-3 py-1"
+          >
+            <span>{{ filter.name }}</span>
+            <button @click="removeFilter(filter.id)" class="ml-2 text-background-500 hover:text-error-500">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
             <button
                 v-if="activeFilters.length > 0"
                 @click="clearFilters"
                 class="text-xs text-primary-600 hover:underline"
             >
-              Clear All
-            </button>
+              Tout Effacer </button>
           </div>
         </div>
       </section>
 
-      <!-- Products count -->
       <div class="flex justify-between items-center mb-6">
         <p class="text-sm text-background-700 dark:text-background-300">
-          {{ filteredProducts.length }} products found
-        </p>
+          {{ filteredProducts.length }} produit(s) trouvé(s) </p>
         <div class="text-sm text-background-500">
-          <span v-if="isLoading">Loading products...</span>
-        </div>
+          <span v-if="isLoading">Chargement des produits...</span> </div>
       </div>
 
-      <!-- Loading state -->
       <div v-if="isLoading" class="flex justify-center py-12">
         <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary-500"></div>
       </div>
 
-      <!-- Empty state if no products -->
       <div v-else-if="filteredProducts.length === 0" class="card-fancy text-center py-16">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto text-background-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
-        <h3 class="text-xl font-bold mb-2">No Products Found</h3>
-        <p class="text-background-600 dark:text-background-400 mb-6">
-          We couldn't find any products that match your criteria. Please try different filters or check back later.
-        </p>
+        <h3 class="text-xl font-bold mb-2">Aucun Produit Trouvé</h3> <p class="text-background-600 dark:text-background-400 mb-6">
+        Nous n'avons trouvé aucun produit correspondant à vos critères. Veuillez essayer différents filtres ou revenir plus tard. </p>
         <button @click="clearFilters" class="btn-primary">
-          Clear Filters
-        </button>
+          Effacer les Filtres </button>
       </div>
 
-      <!-- Grid view -->
       <div
           v-else-if="viewMode === 'grid'"
           class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
@@ -159,7 +131,6 @@
         />
       </div>
 
-      <!-- List view -->
       <div
           v-else-if="viewMode === 'list'"
           class="space-y-4"
@@ -174,22 +145,18 @@
         />
       </div>
 
-      <!-- Pagination -->
       <div v-if="totalPages > 1" class="mt-12 flex justify-center">
-        <nav class="inline-flex rounded-md shadow-sm" aria-label="Pagination">
-          <button
-              @click="prevPage"
-              :disabled="currentPage === 1"
-              class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-background-300 dark:border-background-700 bg-white dark:bg-background-800 text-sm font-medium"
-              :class="currentPage === 1 ? 'text-background-400 cursor-not-allowed' : 'text-background-700 dark:text-background-300 hover:bg-background-100 dark:hover:bg-background-700'"
-          >
-            <span class="sr-only">Previous</span>
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-            </svg>
-          </button>
+        <nav class="inline-flex rounded-md shadow-sm" aria-label="Pagination"> <button
+            @click="prevPage"
+            :disabled="currentPage === 1"
+            class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-background-300 dark:border-background-700 bg-white dark:bg-background-800 text-sm font-medium"
+            :class="currentPage === 1 ? 'text-background-400 cursor-not-allowed' : 'text-background-700 dark:text-background-300 hover:bg-background-100 dark:hover:bg-background-700'"
+        >
+          <span class="sr-only">Précédent</span> <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+        </button>
 
-          <!-- Page numbers -->
           <template v-for="page in paginationRange" :key="page">
             <button
                 v-if="page !== '...'"
@@ -217,10 +184,9 @@
               class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-background-300 dark:border-background-700 bg-white dark:bg-background-800 text-sm font-medium"
               :class="currentPage === totalPages ? 'text-background-400 cursor-not-allowed' : 'text-background-700 dark:text-background-300 hover:bg-background-100 dark:hover:bg-background-700'"
           >
-            <span class="sr-only">Next</span>
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-            </svg>
+            <span class="sr-only">Suivant</span> <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
           </button>
         </nav>
       </div>

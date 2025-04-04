@@ -10,11 +10,10 @@
           ref="modalRef"
       >
         <div class="relative">
-          <!-- Close button -->
           <button
               @click="closeModal"
               class="absolute top-4 right-4 z-10 p-2 rounded-full bg-white dark:bg-background-800 shadow-md text-background-700 dark:text-background-300 hover:bg-background-100 dark:hover:bg-background-700 hover:text-background-900 dark:hover:text-white transition-colors"
-              aria-label="Close"
+              aria-label="Fermer"
           >
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -22,7 +21,6 @@
           </button>
 
           <div class="flex flex-col md:flex-row">
-            <!-- Product image gallery with improved styling -->
             <div class="md:w-1/2 p-6">
               <div class="aspect-w-1 aspect-h-1 bg-background-50 dark:bg-background-900 rounded-xl overflow-hidden mb-4 shadow-soft">
                 <img
@@ -31,9 +29,7 @@
                     class="w-full h-full object-cover transition-standard hover:scale-105"
                 />
               </div>
-              <!-- Thumbnails gallery with improved styling -->
               <div class="flex gap-3 overflow-x-auto py-2 px-1" v-if="product.gallery && product.gallery.length">
-                <!-- Main product image -->
                 <button
                     @click="currentImage = product.image"
                     class="w-20 h-20 rounded-lg overflow-hidden flex-shrink-0 border-2 transition-all duration-200 hover:shadow-md"
@@ -45,7 +41,6 @@
                       class="w-full h-full object-cover"
                   />
                 </button>
-                <!-- Additional gallery images -->
                 <button
                     v-for="(image, index) in product.gallery"
                     :key="index"
@@ -62,9 +57,7 @@
               </div>
             </div>
 
-            <!-- Product details with improved spacing and typography -->
             <div class="md:w-1/2 p-6 md:p-8">
-              <!-- Category links -->
               <div v-if="product.expand?.category" class="mb-3 flex flex-wrap">
                 <NuxtLink
                     v-for="cat in getCategoryArray(product)"
@@ -81,20 +74,16 @@
                 </NuxtLink>
               </div>
 
-              <!-- Product name with improved typography -->
               <h2 class="text-3xl font-bold mb-3 text-background-900 dark:text-white">{{ product.name }}</h2>
 
-              <!-- Rating - This could be integrated with your review system -->
               <div class="flex items-center mb-4" v-if="showRatings">
                 <div class="flex text-yellow-500">
                   <svg v-for="i in 5" :key="i" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                     <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                   </svg>
                 </div>
-                <span class="text-background-500 ml-2 text-sm">(0 reviews)</span>
-              </div>
+                <span class="text-background-500 ml-2 text-sm">(0 avis)</span> </div>
 
-              <!-- Price with improved styling -->
               <div class="flex items-baseline mb-6 bg-background-50 dark:bg-background-900 rounded-lg p-3">
                 <span
                     v-if="hasDiscount"
@@ -114,11 +103,9 @@
                     v-if="hasDiscount"
                     class="ml-3 text-sm bg-error-100 dark:bg-error-900 text-error-700 dark:text-error-300 px-3 py-1 rounded-full"
                 >
-                  Save {{ discountPercentage }}%
-                </span>
+                  Économisez {{ discountPercentage }}% </span>
               </div>
 
-              <!-- Availability with improved styling -->
               <div class="mb-6">
                 <span
                     class="inline-flex items-center text-sm font-medium rounded-full px-3 py-1"
@@ -128,11 +115,9 @@
                       class="w-2 h-2 rounded-full mr-1.5"
                       :class="product.stock > 0 ? 'bg-success-600' : 'bg-error-600'"
                   ></span>
-                  {{ product.stock > 0 ? `In Stock (${product.stock} available)` : 'Out of Stock' }}
-                </span>
+                  {{ product.stock > 0 ? `En Stock (${product.stock} disponible(s))` : 'Épuisé' }} </span>
               </div>
 
-              <!-- Short description with character limit -->
               <div class="prose dark:prose-invert mb-6 text-background-700 dark:text-background-300">
                 <div>
                   <template v-if="isDescriptionTruncated">
@@ -141,66 +126,59 @@
                         @click="expandDescription = !expandDescription"
                         class="text-primary-600 hover:text-primary-700 font-medium text-sm ml-1 focus:outline-none focus:underline"
                     >
-                      {{ expandDescription ? 'Show less' : 'Read more' }}
-                    </button>
+                      {{ expandDescription ? 'Afficher moins' : 'Lire plus' }} </button>
                   </template>
                   <p v-else>{{ product.shortDescription }}</p>
                 </div>
               </div>
 
-              <!-- Tags with improved styling -->
               <div v-if="product.expand?.tags && product.expand.tags.length" class="mb-6">
-                <div class="text-sm font-medium mb-2 text-background-700 dark:text-background-300">Tags:</div>
-                <div class="flex flex-wrap gap-2">
-                  <NuxtLink
-                      v-for="tag in product.expand.tags"
-                      :key="tag.id"
-                      :to="`/tags/${tag.slug}`"
-                      class="text-xs bg-background-100 dark:bg-background-800 px-3 py-1.5 rounded-full text-background-600 dark:text-background-400 hover:bg-primary-100 dark:hover:bg-primary-900 hover:text-primary-700 dark:hover:text-primary-300 transition-colors"
-                  >
-                    {{ tag.name }}
-                  </NuxtLink>
-                </div>
+                <div class="text-sm font-medium mb-2 text-background-700 dark:text-background-300">Étiquettes :</div> <div class="flex flex-wrap gap-2">
+                <NuxtLink
+                    v-for="tag in product.expand.tags"
+                    :key="tag.id"
+                    :to="`/tags/${tag.slug}`"
+                    class="text-xs bg-background-100 dark:bg-background-800 px-3 py-1.5 rounded-full text-background-600 dark:text-background-400 hover:bg-primary-100 dark:hover:bg-primary-900 hover:text-primary-700 dark:hover:text-primary-300 transition-colors"
+                >
+                  {{ tag.name }}
+                </NuxtLink>
+              </div>
               </div>
 
-              <!-- Actions with improved styling -->
               <div class="space-y-5">
-                <!-- Quantity selector with improved styling -->
                 <div class="flex items-center" v-if="product.stock > 0">
-                  <label :for="`quantity-${modalId}`" class="text-sm font-medium mr-4 text-background-700 dark:text-background-300">Quantity:</label>
-                  <div class="flex items-center border border-background-300 dark:border-background-600 rounded-lg overflow-hidden shadow-sm">
-                    <button
-                        @click.prevent="decrementQuantity"
-                        class="px-4 py-2 text-background-600 hover:text-background-800 dark:text-background-400 dark:hover:text-white hover:bg-background-100 dark:hover:bg-background-700 transition-colors"
-                        :disabled="quantity <= 1"
-                        :class="{ 'opacity-50 cursor-not-allowed': quantity <= 1 }"
-                    >
-                      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4" />
-                      </svg>
-                    </button>
-                    <input
-                        type="number"
-                        :id="`quantity-${modalId}`"
-                        v-model="quantity"
-                        min="1"
-                        :max="product.stock"
-                        class="w-12 text-center border-x border-background-300 dark:border-background-600 py-2 focus:outline-none dark:bg-background-800 dark:text-white"
-                    />
-                    <button
-                        @click.prevent="incrementQuantity"
-                        class="px-4 py-2 text-background-600 hover:text-background-800 dark:text-background-400 dark:hover:text-white hover:bg-background-100 dark:hover:bg-background-700 transition-colors"
-                        :disabled="quantity >= product.stock"
-                        :class="{ 'opacity-50 cursor-not-allowed': quantity >= product.stock }"
-                    >
-                      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-                      </svg>
-                    </button>
-                  </div>
+                  <label :for="`quantity-${modalId}`" class="text-sm font-medium mr-4 text-background-700 dark:text-background-300">Quantité :</label> <div class="flex items-center border border-background-300 dark:border-background-600 rounded-lg overflow-hidden shadow-sm">
+                  <button
+                      @click.prevent="decrementQuantity"
+                      class="px-4 py-2 text-background-600 hover:text-background-800 dark:text-background-400 dark:hover:text-white hover:bg-background-100 dark:hover:bg-background-700 transition-colors"
+                      :disabled="quantity <= 1"
+                      :class="{ 'opacity-50 cursor-not-allowed': quantity <= 1 }"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4" />
+                    </svg>
+                  </button>
+                  <input
+                      type="number"
+                      :id="`quantity-${modalId}`"
+                      v-model="quantity"
+                      min="1"
+                      :max="product.stock"
+                      class="w-12 text-center border-x border-background-300 dark:border-background-600 py-2 focus:outline-none dark:bg-background-800 dark:text-white"
+                  />
+                  <button
+                      @click.prevent="incrementQuantity"
+                      class="px-4 py-2 text-background-600 hover:text-background-800 dark:text-background-400 dark:hover:text-white hover:bg-background-100 dark:hover:bg-background-700 transition-colors"
+                      :disabled="quantity >= product.stock"
+                      :class="{ 'opacity-50 cursor-not-allowed': quantity >= product.stock }"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                    </svg>
+                  </button>
+                </div>
                 </div>
 
-                <!-- Add to cart / Wishlist buttons with improved styling -->
                 <div class="flex flex-col sm:flex-row gap-3">
                   <button
                       @click.prevent="addToCartWithQuantity"
@@ -211,9 +189,7 @@
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
                     </svg>
-                    <span v-if="product.stock <= 0">Out of Stock</span>
-                    <span v-else>Add to Cart</span>
-                  </button>
+                    <span v-if="product.stock <= 0">Épuisé</span> <span v-else>Ajouter au Panier</span> </button>
                   <button
                       @click.prevent="toggleWishlist"
                       class="btn-outline py-3 flex items-center justify-center gap-2 transition-all duration-300 transform hover:-translate-y-1"
@@ -247,20 +223,17 @@
                           d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
                       />
                     </svg>
-                    {{ isInWishlist ? 'Remove from Wishlist' : 'Add to Wishlist' }}
-                  </button>
+                    {{ isInWishlist ? 'Retirer de la Liste de Souhaits' : 'Ajouter à la Liste de Souhaits' }} </button>
                 </div>
 
-                <!-- View full details link with improved styling -->
                 <div class="text-center pt-2">
                   <NuxtLink
                       :to="`/products/${product.slug}`"
                       class="inline-flex items-center text-primary-600 hover:text-primary-700 font-medium transition-colors group"
                   >
-                    View Full Details
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1 transform transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                    </svg>
+                    Voir les Détails Complets <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1 transform transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                  </svg>
                   </NuxtLink>
                 </div>
               </div>

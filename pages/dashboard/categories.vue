@@ -1,32 +1,29 @@
 <template>
   <div class="responsive-container section-padding">
     <div class="flex justify-between items-center mb-8">
-      <h1 class="heading-2">Categories Management</h1>
+      <h1 class="heading-2">Gestion des Catégories</h1>
       <button @click="openCategoryModal()" class="btn-primary btn-icon-text">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
         </svg>
-        Add New Category
+        Ajouter une Nouvelle Catégorie
       </button>
     </div>
 
-    <!-- Loading State -->
     <div v-if="isLoading" class="flex justify-center items-center py-12">
       <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary-500"></div>
     </div>
 
-    <!-- Empty State -->
     <div v-else-if="!categories || categories.length === 0" class="card-flat flex flex-col items-center py-12">
       <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-background-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
       </svg>
-      <h3 class="heading-4 mb-2">No Categories Found</h3>
+      <h3 class="heading-4 mb-2">Aucune Catégorie Trouvée</h3>
       <p class="body-regular text-background-600 dark:text-background-400">
-        Add your first category by clicking the button above.
+        Ajoutez votre première catégorie en cliquant sur le bouton ci-dessus.
       </p>
     </div>
 
-    <!-- Categories Grid -->
     <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       <div
           v-for="category in categories"
@@ -38,8 +35,7 @@
             <img
                 :src="getCategoryImageUrl(category)"
                 class="w-full h-full object-cover"
-                alt="Category image"
-            >
+                alt="Image de la catégorie" >
           </div>
           <div class="flex-grow">
             <h3 class="heading-4 mb-2">{{ category.name }}</h3>
@@ -71,7 +67,6 @@
       </div>
     </div>
 
-    <!-- Category Modal -->
     <div v-if="showCategoryModal" class="fixed inset-0 z-50 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
       <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
         <div class="fixed inset-0 bg-background-900 bg-opacity-75 transition-opacity" aria-hidden="true" @click="showCategoryModal = false"></div>
@@ -79,12 +74,11 @@
         <div class="inline-block align-bottom bg-white dark:bg-background-800 rounded-xl text-left overflow-hidden shadow-modern transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
           <form @submit.prevent="saveCategory">
             <div class="px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-              <h3 class="heading-3 mb-6">{{ isEditMode ? 'Edit Category' : 'Add New Category' }}</h3>
+              <h3 class="heading-3 mb-6">{{ isEditMode ? 'Modifier la Catégorie' : 'Ajouter une Nouvelle Catégorie' }}</h3>
 
               <div class="grid grid-cols-1 gap-6">
-                <!-- Category Info -->
                 <div>
-                  <label for="name" class="input-label">Category Name</label>
+                  <label for="name" class="input-label">Nom de la Catégorie</label>
                   <input id="name" v-model="currentCategory.name" type="text" class="input-primary" required>
                 </div>
 
@@ -110,7 +104,7 @@
                       </svg>
                     </button>
                   </div>
-                  <span v-if="slugGeneratedAuto" class="text-xs text-background-500 mt-1">Slug will be auto-generated</span>
+                  <span v-if="slugGeneratedAuto" class="text-xs text-background-500 mt-1">Le slug sera généré automatiquement</span>
                 </div>
 
                 <div>
@@ -118,11 +112,10 @@
                   <textarea id="description" v-model="currentCategory.description" rows="3" class="input-primary"></textarea>
                 </div>
 
-                <!-- Parent Category -->
                 <div>
-                  <label for="parent" class="input-label">Parent Category (Optional)</label>
+                  <label for="parent" class="input-label">Catégorie Parente (Optionnel)</label>
                   <select id="parent" v-model="currentCategory.parent" class="select">
-                    <option value="">None</option>
+                    <option value="">Aucune</option>
                     <option
                         v-for="cat in parentCategoryOptions"
                         :key="cat.id"
@@ -134,9 +127,8 @@
                   </select>
                 </div>
 
-                <!-- Image Upload -->
                 <div>
-                  <label class="input-label">Category Image</label>
+                  <label class="input-label">Image de la Catégorie</label>
                   <div
                       class="border border-dashed border-background-400 rounded-lg p-6 text-center"
                       @drop.prevent="handleImageDrop"
@@ -145,12 +137,11 @@
                     <div v-if="imagePreview" class="mb-4 flex justify-center">
                       <img
                           :src="imagePreview"
-                          alt="Category image preview"
-                          class="h-40 object-contain rounded"
+                          alt="Aperçu de l'image de la catégorie" class="h-40 object-contain rounded"
                       >
                     </div>
                     <p class="text-background-600 dark:text-background-400 mb-4">
-                      Drag & drop image here or click to browse
+                      Glissez-déposez une image ici ou cliquez pour parcourir
                     </p>
                     <input
                         ref="imageInput"
@@ -164,8 +155,7 @@
                         @click="$refs.imageInput.click()"
                         class="btn-secondary"
                     >
-                      Upload Image
-                    </button>
+                      Télécharger une Image </button>
                   </div>
                 </div>
               </div>
@@ -182,18 +172,16 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
                   </svg>
                 </span>
-                {{ isEditMode ? 'Update Category' : 'Create Category' }}
+                {{ isEditMode ? 'Mettre à Jour la Catégorie' : 'Créer la Catégorie' }}
               </button>
               <button type="button" @click="showCategoryModal = false" class="btn-secondary mt-3 sm:mt-0">
-                Cancel
-              </button>
+                Annuler </button>
             </div>
           </form>
         </div>
       </div>
     </div>
 
-    <!-- Delete Confirmation Modal -->
     <div v-if="showDeleteModal" class="fixed inset-0 z-50 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
       <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
         <div class="fixed inset-0 bg-background-900 bg-opacity-75 transition-opacity" aria-hidden="true" @click="showDeleteModal = false"></div>
@@ -207,13 +195,13 @@
                 </svg>
               </div>
               <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-                <h3 class="heading-4" id="modal-title">Delete Category</h3>
+                <h3 class="heading-4" id="modal-title">Supprimer la Catégorie</h3>
                 <div class="mt-2">
                   <p v-if="hasRelatedProducts" class="text-error-500 mb-2">
-                    Warning: This category has related products. Deleting it may affect those products.
+                    Attention : Cette catégorie contient des produits associés. Sa suppression pourrait affecter ces produits.
                   </p>
                   <p class="body-regular text-background-600 dark:text-background-400">
-                    Are you sure you want to delete "{{ categoryToDelete?.name }}"? This action cannot be undone.
+                    Êtes-vous sûr de vouloir supprimer "{{ categoryToDelete?.name }}" ? Cette action est irréversible.
                   </p>
                 </div>
               </div>
@@ -231,17 +219,14 @@
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
                 </svg>
               </span>
-              Delete
-            </button>
+              Supprimer </button>
             <button @click="showDeleteModal = false" type="button" class="btn-secondary mt-3 sm:mt-0">
-              Cancel
-            </button>
+              Annuler </button>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Toast Notification -->
     <div
         v-if="showToast"
         class="fixed bottom-6 right-6 max-w-md p-4 rounded-xl shadow-elevated transition-all"
@@ -261,8 +246,7 @@
         <svg v-if="toastType === 'info'" class="h-6 w-6 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
-        <span>{{ toastMessage }}</span>
-      </div>
+        <span>{{ toastMessage }}</span> </div>
     </div>
   </div>
 </template>
@@ -270,7 +254,7 @@
 <script setup>
 import { ref, computed, watch, onMounted } from 'vue';
 
-// Get PocketBase instance
+// Obtenir l'instance PocketBase // MODIFIED
 const { $pb } = useNuxtApp();
 const config = useRuntimeConfig();
 
@@ -278,7 +262,7 @@ definePageMeta({
   layout: 'dashboard'
 });
 
-// State
+// État // MODIFIED
 const isLoading = ref(true);
 const isSaving = ref(false);
 const isDeleting = ref(false);
@@ -296,10 +280,10 @@ const toastMessage = ref('');
 const toastType = ref('info');
 const toastTimeout = ref(null);
 
-// Refs for file inputs
+// Références pour les entrées de fichier // MODIFIED
 const imageInput = ref(null);
 
-// Initialize with empty category
+// Initialiser avec une catégorie vide // MODIFIED
 const currentCategory = ref({
   name: '',
   slug: '',
@@ -308,23 +292,23 @@ const currentCategory = ref({
   image: null
 });
 
-// Computed
+// Calculé // MODIFIED
 const parentCategoryOptions = computed(() => {
-  // Filter out the current category if in edit mode
+  // Filtrer la catégorie actuelle si en mode édition // MODIFIED
   if (isEditMode.value && currentCategory.value.id) {
     return categories.value.filter(cat => cat.id !== currentCategory.value.id);
   }
   return categories.value;
 });
 
-// Watch for category name changes to auto-generate slug
+// Surveiller les changements de nom de catégorie pour générer automatiquement le slug // MODIFIED
 watch(() => currentCategory.value.name, (newName) => {
   if (slugGeneratedAuto.value && newName) {
     currentCategory.value.slug = generateSlug(newName);
   }
 });
 
-// Methods
+// Méthodes // MODIFIED
 const fetchCategories = async () => {
   isLoading.value = true;
 
@@ -336,7 +320,8 @@ const fetchCategories = async () => {
 
     categories.value = resultList;
   } catch (error) {
-    console.error('Error fetching categories:', error);
+    // MODIFIED
+    console.error('Erreur lors de la récupération des catégories :', error);
     categories.value = [];
   } finally {
     isLoading.value = false;
@@ -352,9 +337,9 @@ const shortenText = (text, maxLength) => {
 const generateSlug = (name) => {
   return name
       .toLowerCase()
-      .replace(/[^\w\s-]/g, '') // Remove special characters
-      .replace(/\s+/g, '-')     // Replace spaces with hyphens
-      .replace(/-+/g, '-')      // Replace multiple hyphens with single hyphen
+      .replace(/[^\w\s-]/g, '') // Retirer les caractères spéciaux // MODIFIED
+      .replace(/\s+/g, '-')     // Remplacer les espaces par des tirets // MODIFIED
+      .replace(/-+/g, '-')      // Remplacer les tirets multiples par un seul tiret // MODIFIED
       .trim();
 };
 
@@ -368,29 +353,30 @@ const toggleSlugGeneration = () => {
 
 const getCategoryImageUrl = (category) => {
   if (!category || !category.image) {
-    return 'https://via.placeholder.com/400x225?text=No+Image';
+    // MODIFIED Fallback text
+    return 'https://via.placeholder.com/400x225?text=Aucune+Image';
   }
   return `${config.public.pocketbaseUrl}/api/files/categories/${category.id}/${category.image}`;
 };
 
 const openCategoryModal = (category = null) => {
-  // Reset form state
+  // Réinitialiser l'état du formulaire // MODIFIED
   slugGeneratedAuto.value = true;
   imageFile.value = null;
   imagePreview.value = '';
 
   if (category) {
-    // Edit mode
+    // Mode édition // MODIFIED
     isEditMode.value = true;
     currentCategory.value = { ...category };
-    slugGeneratedAuto.value = false; // Don't auto-generate slug in edit mode
+    slugGeneratedAuto.value = false; // Ne pas générer automatiquement le slug en mode édition // MODIFIED
 
-    // Set image preview if available
+    // Définir l'aperçu de l'image si disponible // MODIFIED
     if (category.image) {
       imagePreview.value = getCategoryImageUrl(category);
     }
   } else {
-    // Create mode
+    // Mode création // MODIFIED
     isEditMode.value = false;
     currentCategory.value = {
       name: '',
@@ -409,13 +395,14 @@ const handleImageChange = (event) => {
   if (!file) return;
 
   if (!file.type.includes('image/')) {
-    showToastMessage('Please select an image file', 'error');
+    // MODIFIED
+    showToastMessage('Veuillez sélectionner un fichier image', 'error');
     return;
   }
 
   imageFile.value = file;
 
-  // Create preview
+  // Créer un aperçu // MODIFIED
   const reader = new FileReader();
   reader.onload = (e) => {
     imagePreview.value = e.target.result;
@@ -428,13 +415,14 @@ const handleImageDrop = (event) => {
   if (!file) return;
 
   if (!file.type.includes('image/')) {
-    showToastMessage('Please drop an image file', 'error');
+    // MODIFIED
+    showToastMessage('Veuillez déposer un fichier image', 'error');
     return;
   }
 
   imageFile.value = file;
 
-  // Create preview
+  // Créer un aperçu // MODIFIED
   const reader = new FileReader();
   reader.onload = (e) => {
     imagePreview.value = e.target.result;
@@ -448,7 +436,7 @@ const saveCategory = async () => {
   try {
     const formData = new FormData();
 
-    // Add basic fields
+    // Ajouter les champs de base // MODIFIED
     formData.append('name', currentCategory.value.name);
     formData.append('slug', currentCategory.value.slug);
 
@@ -460,29 +448,33 @@ const saveCategory = async () => {
       formData.append('parent', currentCategory.value.parent);
     }
 
-    // Add image if changed
+    // Ajouter l'image si modifiée // MODIFIED
     if (imageFile.value) {
       formData.append('image', imageFile.value);
     }
 
     if (isEditMode.value) {
-      // Update existing category
+      // Mettre à jour la catégorie existante // MODIFIED
       await $pb.collection('categories').update(currentCategory.value.id, formData);
-      showToastMessage('Category updated successfully', 'success');
+      // MODIFIED
+      showToastMessage('Catégorie mise à jour avec succès', 'success');
     } else {
-      // Create new category
+      // Créer une nouvelle catégorie // MODIFIED
       await $pb.collection('categories').create(formData);
-      showToastMessage('Category created successfully', 'success');
+      // MODIFIED
+      showToastMessage('Catégorie créée avec succès', 'success');
     }
 
-    // Refresh category list
+    // Rafraîchir la liste des catégories // MODIFIED
     fetchCategories();
     showCategoryModal.value = false;
 
   } catch (error) {
-    console.error('Error saving category:', error);
+    // MODIFIED
+    console.error('Erreur lors de l\'enregistrement de la catégorie :', error);
+    // MODIFIED
     showToastMessage(
-        error.message || 'Failed to save category. Please try again.',
+        error.message || 'Échec de l\'enregistrement de la catégorie. Veuillez réessayer.',
         'error'
     );
   } finally {
@@ -493,7 +485,7 @@ const saveCategory = async () => {
 const confirmDelete = async (category) => {
   categoryToDelete.value = category;
 
-  // Check if category has related products
+  // Vérifier si la catégorie a des produits associés // MODIFIED
   try {
     const productCount = await $pb.collection('products').getList(1, 1, {
       filter: `category="${category.id}"`,
@@ -501,7 +493,8 @@ const confirmDelete = async (category) => {
 
     hasRelatedProducts.value = productCount.totalItems > 0;
   } catch (error) {
-    console.error('Error checking related products:', error);
+    // MODIFIED
+    console.error('Erreur lors de la vérification des produits associés :', error);
     hasRelatedProducts.value = false;
   }
 
@@ -513,16 +506,19 @@ const deleteCategory = async () => {
 
   try {
     await $pb.collection('categories').delete(categoryToDelete.value.id);
-    showToastMessage('Category deleted successfully', 'success');
+    // MODIFIED
+    showToastMessage('Catégorie supprimée avec succès', 'success');
 
-    // Refresh category list
+    // Rafraîchir la liste des catégories // MODIFIED
     fetchCategories();
     showDeleteModal.value = false;
     categoryToDelete.value = null;
   } catch (error) {
-    console.error('Error deleting category:', error);
+    // MODIFIED
+    console.error('Erreur lors de la suppression de la catégorie :', error);
+    // MODIFIED
     showToastMessage(
-        error.message || 'Failed to delete category. Please try again.',
+        error.message || 'Échec de la suppression de la catégorie. Veuillez réessayer.',
         'error'
     );
   } finally {
@@ -531,29 +527,31 @@ const deleteCategory = async () => {
 };
 
 const showToastMessage = (message, type = 'info') => {
-  // Clear any existing timeout
+  // Effacer tout timeout existant // MODIFIED
   if (toastTimeout.value) {
     clearTimeout(toastTimeout.value);
   }
 
-  // Set toast properties
+  // Définir les propriétés du toast // MODIFIED
   toastMessage.value = message;
   toastType.value = type;
   showToast.value = true;
 
-  // Hide toast after 3 seconds
+  // Masquer le toast après 3 secondes // MODIFIED
   toastTimeout.value = setTimeout(() => {
     showToast.value = false;
   }, 3000);
 };
 
-// Initialize data on component mount
+// Initialiser les données au montage du composant // MODIFIED
 onMounted(async () => {
   try {
     await fetchCategories();
   } catch (error) {
-    console.error('Error initializing component:', error);
-    showToastMessage('Failed to load data', 'error');
+    // MODIFIED
+    console.error('Erreur lors de l\'initialisation du composant :', error);
+    // MODIFIED
+    showToastMessage('Échec du chargement des données', 'error');
   } finally {
     isLoading.value = false;
   }

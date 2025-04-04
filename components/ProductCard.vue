@@ -3,20 +3,17 @@
       class="card group relative overflow-hidden transition-all duration-300 hover:shadow-modern h-full flex flex-col"
       :class="{ 'opacity-75': product.stock <= 0 }"
   >
-    <!-- Product badges -->
     <div class="absolute top-2 left-2 z-10 flex flex-col gap-2">
       <span
           v-if="product.isFeatured"
           class="badge-primary text-xs font-medium px-2 py-1"
       >
-        Featured
-      </span>
+        En Vedette </span>
       <span
           v-if="isNewProduct"
           class="badge bg-secondary-500 text-white text-xs font-medium px-2 py-1"
       >
-        New
-      </span>
+        Nouveau </span>
       <span
           v-if="hasDiscount"
           class="badge bg-error-500 text-white text-xs font-medium px-2 py-1"
@@ -27,17 +24,14 @@
           v-if="product.stock <= 0"
           class="badge bg-background-600 text-white text-xs font-medium px-2 py-1"
       >
-        Out of Stock
-      </span>
+        Épuisé </span>
     </div>
 
-    <!-- Wishlist button -->
     <button
         @click.prevent="$emit('add-to-wishlist', product)"
         class="absolute top-2 right-2 z-10 p-2 bg-white dark:bg-background-800 rounded-full shadow-sm opacity-80 hover:opacity-100 transition-opacity"
         :class="{ 'text-error-500 hover:bg-error-50': isInWishlist, 'text-background-500 hover:bg-background-50': !isInWishlist }"
-        aria-label="Add to wishlist"
-    >
+        aria-label="Ajouter à la liste de souhaits" >
       <svg
           v-if="isInWishlist"
           xmlns="http://www.w3.org/2000/svg"
@@ -68,7 +62,6 @@
       </svg>
     </button>
 
-    <!-- Image section -->
     <div class="relative h-48 md:h-52 mb-3 overflow-hidden bg-background-100 dark:bg-background-900">
       <NuxtLink :to="`/products/${product.slug}`" class="block h-full">
         <img
@@ -84,18 +77,14 @@
         </div>
       </NuxtLink>
 
-      <!-- Quick view button -->
       <button
           @click="openQuickView"
           class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-70 text-white py-2 text-sm font-medium opacity-0 transform translate-y-full transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0"
       >
-        Quick View
-      </button>
+        Aperçu Rapide </button>
     </div>
 
-    <!-- Product details -->
     <div class="flex flex-col flex-grow px-3 py-2">
-      <!-- Category -->
       <div v-if="showCategory && product.expand?.category" class="mb-1">
         <NuxtLink
             v-for="cat in getCategoryArray(product)"
@@ -107,19 +96,16 @@
         </NuxtLink>
       </div>
 
-      <!-- Title -->
       <h3 class="text-base md:text-lg font-medium mb-1 line-clamp-2">
         <NuxtLink :to="`/products/${product.slug}`" class="hover:text-primary-600 transition-colors">
           {{ product.name }}
         </NuxtLink>
       </h3>
 
-      <!-- Short description -->
       <p v-if="product.shortDescription && showDescription" class="text-sm text-background-600 dark:text-background-400 mb-3 line-clamp-2">
         {{ product.shortDescription }}
       </p>
 
-      <!-- Tags -->
       <div v-if="showTags && product.expand?.tags && product.expand.tags.length" class="mb-2 flex flex-wrap gap-1">
         <NuxtLink
             v-for="tag in product.expand.tags"
@@ -131,10 +117,8 @@
         </NuxtLink>
       </div>
 
-      <!-- Spacer to push price and buttons to bottom -->
       <div class="flex-grow"></div>
 
-      <!-- Price -->
       <div class="flex items-baseline mb-3">
         <span
             v-if="hasDiscount"
@@ -152,7 +136,6 @@
         </span>
       </div>
 
-      <!-- Buttons -->
       <div class="mt-auto flex gap-2">
         <button
             @click.prevent="$emit('add-to-cart', product)"
@@ -160,19 +143,16 @@
             :disabled="product.stock <= 0"
             :class="{ 'opacity-50 cursor-not-allowed': product.stock <= 0 }"
         >
-          <span v-if="product.stock <= 0">Out of Stock</span>
-          <span v-else>
+          <span v-if="product.stock <= 0">Épuisé</span> <span v-else>
             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
             </svg>
-            Add to Cart
-          </span>
+            Ajouter au Panier </span>
         </button>
         <button
             @click="openQuickView"
             class="btn-ghost p-2 text-background-600 dark:text-background-300"
-            aria-label="Quick view"
-        >
+            aria-label="Aperçu rapide" >
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
@@ -181,7 +161,6 @@
       </div>
     </div>
 
-    <!-- Quick View Modal using the component -->
     <QuickViewModal
         :show="showQuickView"
         :product="product"

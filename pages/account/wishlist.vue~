@@ -1,38 +1,41 @@
 <template>
   <main class="responsive-container section-padding">
-    <h1 class="heading-2 mb-8">Ma Liste de Souhaits</h1>
+    <h1 class="heading-2 mb-8">My Wishlist</h1>
 
+    <!-- Loading state -->
     <div v-if="isLoading" class="flex justify-center items-center py-16">
       <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary-500"></div>
     </div>
 
+    <!-- Empty wishlist state -->
     <div v-else-if="wishlistItems.length === 0" class="card text-center py-12">
       <div class="text-background-400 mb-4">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
         </svg>
       </div>
-      <h3 class="text-xl font-medium mb-2">Votre Liste de Souhaits est Vide</h3>
+      <h3 class="text-xl font-medium mb-2">Your Wishlist is Empty</h3>
       <p class="text-background-600 dark:text-background-400 mb-8">
-        Enregistrez les articles qui vous intéressent pour plus tard en les ajoutant à votre liste de souhaits.
+        Save items you're interested in for later by adding them to your wishlist.
       </p>
       <nuxt-link to="/products" class="btn-primary inline-flex">
-        Explorer les Produits
+        Explore Products
       </nuxt-link>
     </div>
 
+    <!-- Wishlist items using ProductCard component -->
     <div v-else>
       <div class="mb-8 flex justify-between items-center">
         <p class="text-sm text-background-700 dark:text-background-300">
-          {{ wishlistItems.length }} article(s) dans votre liste de souhaits
+          {{ wishlistItems.length }} items in your wishlist
         </p>
         <button
             @click="clearWishlist"
             class="btn-ghost text-sm text-error-600 hover:text-error-700"
             :disabled="isClearing"
         >
-          <span v-if="isClearing">Suppression en cours...</span>
-          <span v-else>Vider la Liste de Souhaits</span>
+          <span v-if="isClearing">Clearing...</span>
+          <span v-else>Clear Wishlist</span>
         </button>
       </div>
 
@@ -48,6 +51,7 @@
       </div>
     </div>
 
+    <!-- Toast component from composable -->
   </main>
 </template>
 
@@ -59,7 +63,7 @@ import { useWishlistStore } from '~/stores/wishlist'
 import { useToast } from '~/composables/useToast'
 import ProductCard from '~/components/ProductCard.vue'
 
-// Middleware de route pour assurer l'authentification // MODIFIED
+// Route middleware to ensure authentication
 definePageMeta({
   middleware: 'auth'
 })
@@ -70,24 +74,22 @@ const cartStore = useCartStore()
 const wishlistStore = useWishlistStore()
 const toast = useToast()
 
-// État // MODIFIED
+// State
 const isLoading = ref(true)
 const wishlistItems = ref([])
 const removing = reactive({})
 const addingToCart = ref(null)
 const isClearing = ref(false)
 
-// Méta // MODIFIED
+// Meta
 useHead({
-  // MODIFIED
-  title: 'Ma Liste de Souhaits',
+  title: 'My Wishlist',
   meta: [
-    // MODIFIED
-    { name: 'description', content: 'Voir et gérer vos articles enregistrés' }
+    { name: 'description', content: 'View and manage your saved items' }
   ]
 })
 
-// Cycle de vie // MODIFIED
+// Lifecycle
 onMounted(async () => {
   if (!authStore.isAuthenticated) {
     return navigateTo('/login?redirect=/wishlist')
@@ -96,16 +98,14 @@ onMounted(async () => {
   try {
     await fetchWishlistItems()
   } catch (error) {
-    // MODIFIED
-    console.error('Erreur lors de la récupération de la liste de souhaits :', error)
-    // MODIFIED
-    toast.error('Échec du chargement des articles de la liste de souhaits')
+    console.error('Error fetching wishlist:', error)
+    toast.error('Failed to load wishlist items')
   } finally {
     isLoading.value = false
   }
 })
 
-// Méthodes // MODIFIED
+// Methods
 async function fetchWishlistItems() {
   if (!authStore.isAuthenticated || !$pb.authStore.isValid) {
     return
@@ -124,8 +124,7 @@ async function fetchWishlistItems() {
       product: item.expand.product
     }))
   } catch (error) {
-    // MODIFIED
-    console.error('Erreur lors de la récupération des articles de la liste de souhaits :', error)
+    console.error('Error fetching wishlist items:', error)
     throw error
   }
 }
@@ -136,8 +135,7 @@ async function removeFromWishlist(itemId) {
   try {
     // Get product name before removing for toast
     const item = wishlistItems.value.find(i => i.id === itemId)
-    // MODIFIED Fallback name
-    const productName = item?.product?.name || 'Article'
+    const productName = item?.product?.name || 'Item'
 
     // Remove from PocketBase
     await $pb.collection('wishlists').delete(itemId)
@@ -146,24 +144,20 @@ async function removeFromWishlist(itemId) {
     wishlistItems.value = wishlistItems.value.filter(item => item.id !== itemId)
 
     // Show success message
-    // MODIFIED Toast message
-    toast.success(`${productName} retiré(e) de la liste de souhaits`)
+    toast.success(`${productName} removed from wishlist`)
 
     // Refresh wishlist store
     wishlistStore.fetchItems()
   } catch (error) {
-    // MODIFIED
-    console.error('Erreur lors de la suppression de la liste de souhaits :', error)
-    // MODIFIED
-    toast.error('Échec de la suppression de l\'article')
+    console.error('Error removing from wishlist:', error)
+    toast.error('Failed to remove item')
   } finally {
     removing[itemId] = false
   }
 }
 
 async function clearWishlist() {
-  // MODIFIED Confirmation message
-  if (!confirm('Êtes-vous sûr de vouloir vider toute votre liste de souhaits ?')) {
+  if (!confirm('Are you sure you want to clear your entire wishlist?')) {
     return
   }
 
@@ -181,16 +175,13 @@ async function clearWishlist() {
     wishlistItems.value = []
 
     // Show success message
-    // MODIFIED Toast message
-    toast.success('Liste de souhaits vidée')
+    toast.success('Wishlist cleared')
 
     // Refresh wishlist store
     wishlistStore.fetchItems()
   } catch (error) {
-    // MODIFIED
-    console.error('Erreur lors de la suppression de la liste de souhaits :', error)
-    // MODIFIED
-    toast.error('Échec de la suppression de la liste de souhaits')
+    console.error('Error clearing wishlist:', error)
+    toast.error('Failed to clear wishlist')
   } finally {
     isClearing.value = false
   }
@@ -212,16 +203,13 @@ async function addToCart(product) {
       quantity: quantity
     })
 
-    // MODIFIED Toast message
-    toast.success(`${product.name} ajouté(e) au panier`)
+    toast.success(`${product.name} added to cart`)
 
-    // Optionnellement ouvrir le tiroir du panier // MODIFIED Comment
+    // Optionally open cart drawer
     cartStore.toggleCart()
   } catch (error) {
-    // MODIFIED
-    console.error('Erreur lors de l\'ajout au panier :', error)
-    // MODIFIED
-    toast.error('Échec de l\'ajout de l\'article au panier')
+    console.error('Error adding to cart:', error)
+    toast.error('Failed to add item to cart')
   } finally {
     addingToCart.value = null
   }
