@@ -2,11 +2,21 @@
 export default defineNuxtConfig({
   compatibilityDate: '2024-11-01',
   devtools: { enabled: true },
+  // Set default rendering mode to client-side only
   ssr: false,
-  hooks: {
-    'prerender:routes' ({ routes }) {
-      routes.clear() // Do not generate any routes (except the defaults)
+
+  routeRules: {
+    // Make API routes server-rendered
+    '/api/**': {
+      ssr: true,  // Enable SSR for API routes
+      cors: true  // Keep your CORS settings
     },
+
+    // Your existing redirects can stay the same
+    '/privacy': { redirect: '/privacy-policy' },
+    '/terms': { redirect: '/terms-conditions' }
+  },
+  hooks: {
     'pages:extend': (pages) => {
       pages.forEach(route => {
         // Apply admin middleware to all dashboard routes
@@ -33,14 +43,15 @@ export default defineNuxtConfig({
   modules: ['@pinia/nuxt', '@nuxtjs/tailwindcss', 'nuxt-lucide-icons'],
   // Runtime config
   runtimeConfig: {
+    // Server-side environment variables
+    stripeSecretKey: process.env.STRIPE_SECRET_KEY,
+    stripeWebhookSecret: process.env.STRIPE_WEBHOOK_SECRET,
+    pocketbaseAdminEmail: process.env.POCKETBASE_ADMIN_EMAIL,
+    pocketbaseAdminPassword: process.env.POCKETBASE_ADMIN_PASSWORD,
     public: {
-      pocketbaseUrl: process.env.POCKETBASE_URL || 'http://127.0.0.1:8090'
-    }
-  },
-  nitro: {
-    output: {
-      dir: './backend/pb_public',
-      publicDir: './backend/pb_public'
+      pocketbaseUrl: process.env.POCKETBASE_URL || 'http://127.0.0.1:8090',
+      stripePublicKey: process.env.STRIPE_PUBLIC_KEY,
+      publicUrl: process.env.PUBLIC_URL || 'http://localhost:3000'
     }
   },
   app: {

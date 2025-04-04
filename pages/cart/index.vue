@@ -3,7 +3,7 @@
     <div class="mb-10">
       <h1 class="heading-2 mb-4">Panier d'Achat</h1>
       <div class="flex items-center text-background-600">
-        <NuxtLink to="/" class="hover:text-primary-500 transition-colors">Accueil</NuxtLink>
+        <NuxtLink to="/public" class="hover:text-primary-500 transition-colors">Accueil</NuxtLink>
         <span class="mx-2">/</span>
         <span class="text-primary-500">Panier</span>
       </div>
@@ -133,7 +133,7 @@
       <div class="lg:col-span-1">
         <CartSummary>
           <NuxtLink
-              to="/checkout"
+              to="/checkout/checkout"
               class="btn-primary w-full"
           >
             Passer à la Caisse </NuxtLink>
@@ -156,8 +156,8 @@
 </template>
 
 <script setup>
-import { useCartStore } from '~/stores/cart'
-import { useToast } from '~/composables/useToast'
+import { useCartStore } from '~/stores/cart.ts'
+import { useToast } from '~/composables/useToast.ts'
 import CartSummary from '~/components/checkout/CartSummary.vue'
 
 // Stores et composables // MODIFIED

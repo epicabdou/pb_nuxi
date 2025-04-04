@@ -6,6 +6,22 @@ export const useCartStore = defineStore('cart', {
         items: [],
         isCartOpen: false
     }),
+    
+    // Ensure we load cart items on store initialization
+    hydrate(storeState) {
+        // When running on client side, load items from localStorage
+        if (process.client) {
+            const savedCart = localStorage.getItem('cart')
+            if (savedCart) {
+                try {
+                    storeState.items = JSON.parse(savedCart)
+                    console.log('Cart hydrated with items:', storeState.items.length)
+                } catch (e) {
+                    console.error('Failed to parse saved cart:', e)
+                }
+            }
+        }
+    },
 
     getters: {
         // Total number of items in cart
@@ -96,8 +112,18 @@ export const useCartStore = defineStore('cart', {
 
         // Clear all items from cart
         clearCart() {
+            console.log('Cart store - Clearing cart, items before:', this.items.length)
             this.items = []
+            
+            // Make sure to clear localStorage directly too
+            if (process.client) {
+                console.log('Cart store - Removing cart from localStorage')
+                localStorage.removeItem('cart')
+            }
+            
+            // Save empty cart to localStorage
             this.saveCart()
+            console.log('Cart store - Cart cleared, items after:', this.items.length)
         },
 
         // Toggle cart sidebar
@@ -108,7 +134,30 @@ export const useCartStore = defineStore('cart', {
         // Save cart to local storage
         saveCart() {
             if (process.client) {
-                localStorage.setItem('cart', JSON.stringify(this.items))
+                try {
+                    // Create clean objects with only necessary properties
+                    const simplifiedItems = this.items.map(item => {
+                        const cleanItem = {
+                            id: item.id,
+                            name: item.name,
+                            price: typeof item.price === 'string' ? parseFloat(item.price) : item.price,
+                            quantity: item.quantity || 1,
+                            image: item.image
+                        };
+                        
+                        // Only include shortDescription if it has a value
+                        if (item.shortDescription && typeof item.shortDescription === 'string' && item.shortDescription.trim() !== '') {
+                            cleanItem.shortDescription = item.shortDescription;
+                        }
+                        
+                        return cleanItem;
+                    });
+                    
+                    localStorage.setItem('cart', JSON.stringify(simplifiedItems));
+                    console.log(`Saved ${simplifiedItems.length} items to cart`);
+                } catch (error) {
+                    console.error('Failed to save cart:', error);
+                }
             }
         },
 
@@ -157,9 +206,10 @@ export const useCartStore = defineStore('cart', {
                     })
                 }
 
-                // Clear cart after successful order
-                this.clearCart()
+                // We'll clear the cart only after successful payment, not here
+                // Don't clear cart here: this.clearCart()
 
+                console.log(`Order created: ${order.id} with ${this.items.length} items`)
                 return order
             } catch (error) {
                 console.error('Error creating order:', error)
