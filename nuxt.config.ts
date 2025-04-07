@@ -14,7 +14,8 @@ export default defineNuxtConfig({
 
     // Your existing redirects can stay the same
     '/privacy': { redirect: '/privacy-policy' },
-    '/terms': { redirect: '/terms-conditions' }
+    '/terms': { redirect: '/terms-conditions' },
+    '/tags': { redirect: '/products' }
   },
   hooks: {
     'pages:extend': (pages) => {

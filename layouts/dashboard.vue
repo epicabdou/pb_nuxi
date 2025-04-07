@@ -234,7 +234,6 @@ const menuItems = [
   { id: 'categories', label: 'Catégories', icon: Tag, path: '/dashboard/categories' },
   { id: 'tags', label: 'Étiquettes', icon: Tag, path: '/dashboard/tags' },
   { id: 'orders', label: 'Commandes', icon: ShoppingCart, path: '/dashboard/orders' },
-  { id: 'users', label: 'Utilisateurs', icon: Users, path: '/dashboard/users' },
 ];
 
 // Obtenir le titre et la description de la page actuelle en fonction de la route // MODIFIED

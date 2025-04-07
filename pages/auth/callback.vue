@@ -26,29 +26,38 @@ const { $pb } = useNuxtApp()
 
 onMounted(async () => {
   try {
-    // When redirected back from OAuth provider, PocketBase will automatically
-    // handle the auth confirmation when this page loads
+    // Add some debugging
+    console.log('Auth callback mounted')
+    console.log('PB auth valid:', $pb.authStore.isValid)
+    console.log('Redirect path:', sessionStorage.getItem('redirectPath'))
 
-    // Check if the authentication was successful
+    // When redirected back from OAuth provider
     if ($pb.authStore.isValid) {
       // Update auth store
       authStore.setUser($pb.authStore.record)
       authStore.setLoggedIn(true)
 
-      // Redirect to intended destination or dashboard
+      // Verify auth store updated correctly
+      console.log('Auth store updated, isAuthenticated:', authStore.isAuthenticated)
+
+      // Get redirection path with fallback
       const redirectPath = sessionStorage.getItem('redirectPath') || '/'
+      console.log('Redirecting to:', redirectPath)
       sessionStorage.removeItem('redirectPath')
-      navigateTo(redirectPath)
+
+      // Use await to ensure navigation completes
+      await navigateTo(redirectPath)
     } else {
-      // If authentication failed, redirect to login page
-      navigateTo('/auth?error=oauth_failed')
+      // Authentication failed
+      console.log('Auth failed, redirecting to login')
+      navigateTo('/login?error=oauth_failed')
     }
   } catch (error) {
     console.error('OAuth callback error:', error)
-    // Redirect to login page with error
-    navigateTo('/auth?error=oauth_failed')
+    navigateTo('/login?error=oauth_failed')
   }
 })
+
 </script>
 
 <style scoped>
