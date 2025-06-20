@@ -15,7 +15,7 @@
               class="p-2 rounded-lg text-background-700 dark:text-background-300 hover:bg-background-200 dark:hover:bg-background-700"
           >
             <ChevronRight v-if="sidebarCollapsed" size="20" />
-            <ChevronDown v-else size="20" />
+            <ChevronLeft v-else size="20" />
           </button>
         </div>
 
@@ -162,7 +162,7 @@ import {
   Tag,
   ShoppingCart,
   Users,
-  ChevronDown,
+  ChevronLeft,
   ChevronRight,
   Bell,
   Settings,
