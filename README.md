@@ -1,4 +1,4 @@
-# Ajimall E-commerce Store
+# Morrgana E-commerce Store
 
 A Nuxt 3 e-commerce application with PocketBase and Stripe integration.
 
