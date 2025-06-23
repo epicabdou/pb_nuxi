@@ -4,48 +4,93 @@ import plugin from 'tailwindcss/plugin';
 
 export default {
   content: ["./pages/**/*.{vue,js,ts}", "./components/**/*.{vue,js,ts}", "./layouts/**/*.vue", "./app.vue", "./app/**/*.{vue,html}"],
-  darkMode: "class", // Changed from "media" to "class" for better control
+  darkMode: "class",
   theme: {
     extend: {
       colors: {
+        // Updated primary to sage/eucalyptus green for natural feel
         primary: {
-          50: '#fff8f0',
-          100: '#fff1e0',
-          200: '#ffe0c2',
-          300: '#ffca94',
-          400: '#ffb366',
-          500: '#ff9933',  // Base primary color
-          600: '#e67e00',  // Darkened for better contrast
-          700: '#cc6600',  // Improved contrast
-          800: '#a34f00',  // Improved contrast
-          900: '#7a3c0c',
-          950: '#4d2508',
+          50: '#f6f7f4',
+          100: '#e9ebe3',
+          200: '#d4d9c8',
+          300: '#b8c1a3',
+          400: '#9ba67e',
+          500: '#7d8b5e',  // Main sage green
+          600: '#657049',
+          700: '#4f583b',
+          800: '#424730',
+          900: '#383c29',
+          950: '#2d301f',
         },
+        // Updated secondary to warm clay/terracotta
         secondary: {
-          50: '#f0f9ff',
-          100: '#e0f2ff',
-          200: '#c2e4ff',
-          300: '#94d3ff',
-          400: '#66beff',
-          500: '#3393ff',  // Base secondary color
-          600: '#0076e6',  // Improved contrast
-          700: '#0061cc',  // Improved contrast
-          800: '#0051a6',  // Improved contrast
-          900: '#003c7a',
-          950: '#00254d',
+          50: '#fdf6f3',
+          100: '#fae8e1',
+          200: '#f5d4c4',
+          300: '#edb69a',
+          400: '#e19168',
+          500: '#d67341',  // Warm terracotta
+          600: '#c85a2f',
+          700: '#a74826',
+          800: '#883c23',
+          900: '#6f3422',
+          950: '#562118',
         },
+        // Updated background to warmer, more natural tones
         background: {
-          50: '#ffffff',
-          100: '#fafafa',  // Lighter for better contrast
-          200: '#f5f5f5',  // Lighter base background color
-          300: '#e9e9e9',
-          400: '#d4d4d4',  // Better contrast with text
-          500: '#b3b3b3',
-          600: '#8c8c8c',
-          700: '#666666',  // Improved contrast
-          800: '#333333',  // Darker for modern feel
-          900: '#1a1a1a',  // Near black for depth
-          950: '#0a0a0a',  // True dark
+          50: '#fefdfb',
+          100: '#faf8f5',  // Warm white
+          200: '#f3ede4',  // Soft cream
+          300: '#e6d7c3',
+          400: '#d4bb9a',
+          500: '#b4a48a',
+          600: '#8f8c7f',
+          700: '#777469',
+          800: '#625f56',
+          900: '#504e47',
+          950: '#3d3b35',
+        },
+        // New eucalyptus accent color
+        eucalyptus: {
+          50: '#f0f9f6',
+          100: '#daf1e7',
+          200: '#b8e2d1',
+          300: '#8ccdb4',
+          400: '#5cb496',
+          500: '#3d9b7a',
+          600: '#307c62',
+          700: '#286651',
+          800: '#235242',
+          900: '#1f4438',
+          950: '#0f2117',
+        },
+        // New cream accent color
+        cream: {
+          50: '#fefdfb',
+          100: '#fefbf3',
+          200: '#fcf4e1',
+          300: '#f9e9c4',
+          400: '#f4d79d',
+          500: '#eec374',
+          600: '#e0a851',
+          700: '#c98d3a',
+          800: '#a47130',
+          900: '#855c2a',
+          950: '#6b4721',
+        },
+        // Keep neutral as is but add stone variant
+        stone: {
+          50: '#fafaf9',
+          100: '#f4f4f1',
+          200: '#e8e7e2',
+          300: '#d6d4cc',
+          400: '#bfbcb0',
+          500: '#a8a499',
+          600: '#8f8c7f',
+          700: '#777469',
+          800: '#625f56',
+          900: '#504e47',
+          950: '#3d3b35',
         },
         neutral: {
           50: '#fafafa',
@@ -66,8 +111,8 @@ export default {
           200: '#bbf7d0',
           300: '#86efac',
           400: '#4ade80',
-          500: '#22c55e',  // Base success color
-          600: '#16a34a',  // Improved contrast
+          500: '#22c55e',
+          600: '#16a34a',
           700: '#15803d',
           800: '#166534',
           900: '#14532d',
@@ -79,8 +124,8 @@ export default {
           200: '#fecaca',
           300: '#fca5a5',
           400: '#f87171',
-          500: '#ef4444',  // Base error color
-          600: '#dc2626',  // Improved contrast
+          500: '#ef4444',
+          600: '#dc2626',
           700: '#b91c1c',
           800: '#991b1b',
           900: '#7f1d1d',
@@ -88,14 +133,25 @@ export default {
         }
       },
       fontFamily: {
-        sans: ['Inter', 'Poppins', ...defaultTheme.fontFamily.sans]  // Added Inter for modern feel
+        // Updated fonts for natural brand feel
+        sans: ['Inter', 'system-ui', 'sans-serif'],
+        serif: ['Playfair Display', 'Georgia', 'serif'],
+        display: ['Playfair Display', 'Georgia', 'serif'],
+        accent: ['Cormorant Garamond', 'Georgia', 'serif'],
       },
       fontSize: {
-        'display-1': ['4.5rem', { lineHeight: '1.1', letterSpacing: '-0.02em' }],  // Added letter spacing
-        'display-2': ['3.75rem', { lineHeight: '1.1', letterSpacing: '-0.02em' }],  // Added letter spacing
-        'display-3': ['3rem', { lineHeight: '1.2', letterSpacing: '-0.01em' }],  // Added letter spacing
+        'display-1': ['4.5rem', { lineHeight: '1.1', letterSpacing: '-0.02em' }],
+        'display-2': ['3.75rem', { lineHeight: '1.1', letterSpacing: '-0.02em' }],
+        'display-3': ['3rem', { lineHeight: '1.2', letterSpacing: '-0.01em' }],
+        'hero': ['4.5rem', { lineHeight: '1.1', letterSpacing: '-0.02em' }],
+        'headline': ['2.25rem', { lineHeight: '1.3', letterSpacing: '-0.01em' }],
+        'subhead': ['1.5rem', { lineHeight: '1.4' }],
       },
       spacing: {
+        '18': '4.5rem',
+        '72': '18rem',
+        '84': '21rem',
+        '96': '24rem',
         '128': '32rem',
         '144': '36rem',
       },
@@ -103,19 +159,29 @@ export default {
         'xl': '1rem',
         '2xl': '1.5rem',
         '3xl': '2rem',
-        '4xl': '3rem',  // Added larger radius for modern look
+        '4xl': '3rem',
+        'organic': '30% 70% 70% 30% / 30% 30% 70% 70%',
+        'soft': '1.25rem',
+        'gentle': '2rem',
       },
       boxShadow: {
         'soft': '0 2px 15px -3px rgba(0, 0, 0, 0.07), 0 10px 20px -2px rgba(0, 0, 0, 0.04)',
         'fancy': '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
-        'modern': '0 10px 30px -5px rgba(0, 0, 0, 0.2)',  // Added modern shadow
-        'elevated': '0 20px 40px -10px rgba(0, 0, 0, 0.3)',  // Added elevated shadow
+        'modern': '0 10px 30px -5px rgba(0, 0, 0, 0.2)',
+        'elevated': '0 20px 40px -10px rgba(0, 0, 0, 0.3)',
+        'natural': '0 8px 32px rgba(125, 139, 94, 0.15)',
+        'warm': '0 6px 24px rgba(214, 115, 65, 0.12)',
+        'inner-soft': 'inset 0 2px 8px rgba(0, 0, 0, 0.06)',
       },
       animation: {
         'fade-in': 'fadeIn 0.5s ease-out',
         'slide-up': 'slideUp 0.5s ease-out',
         'slide-down': 'slideDown 0.5s ease-out',
-        'bounce-subtle': 'bounceSubtle 2s infinite',  // Added subtle bounce
+        'bounce-subtle': 'bounceSubtle 2s infinite',
+        'float': 'float 6s ease-in-out infinite',
+        'gentle-bounce': 'gentle-bounce 2s ease-in-out infinite',
+        'fade-in-up': 'fade-in-up 0.8s ease-out',
+        'scale-in': 'scale-in 0.6s ease-out',
       },
       keyframes: {
         fadeIn: {
@@ -134,6 +200,26 @@ export default {
           '0%, 100%': { transform: 'translateY(0)' },
           '50%': { transform: 'translateY(-5px)' },
         },
+        float: {
+          '0%, 100%': { transform: 'translateY(0px)' },
+          '50%': { transform: 'translateY(-10px)' },
+        },
+        'gentle-bounce': {
+          '0%, 100%': { transform: 'translateY(0%)' },
+          '50%': { transform: 'translateY(-5%)' },
+        },
+        'fade-in-up': {
+          '0%': { opacity: '0', transform: 'translateY(20px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
+        'scale-in': {
+          '0%': { opacity: '0', transform: 'scale(0.9)' },
+          '100%': { opacity: '1', transform: 'scale(1)' },
+        },
+      },
+      backgroundImage: {
+        'texture-paper': "url('data:image/svg+xml,%3Csvg width=\"60\" height=\"60\" viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cg fill=\"none\" fill-rule=\"evenodd\"%3E%3Cg fill=\"%23000000\" fill-opacity=\"0.02\"%3E%3Ccircle cx=\"7\" cy=\"7\" r=\"1\"/%3E%3Ccircle cx=\"53\" cy=\"53\" r=\"1\"/%3E%3Ccircle cx=\"23\" cy=\"43\" r=\"1\"/%3E%3Ccircle cx=\"37\" cy=\"17\" r=\"1\"/%3E%3C/g%3E%3C/svg%3E')",
+        'texture-organic': "url('data:image/svg+xml,%3Csvg width=\"40\" height=\"40\" viewBox=\"0 0 40 40\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cg fill=\"%23000000\" fill-opacity=\"0.03\" fill-rule=\"evenodd\"%3E%3Cpath d=\"M20 20c0-5.5-4.5-10-10-10s-10 4.5-10 10 4.5 10 10 10 10-4.5 10-10z\"/%3E%3C/g%3E%3C/svg%3E')",
       },
     },
   },
@@ -142,10 +228,10 @@ export default {
     plugin(function({ addBase, theme }) {
       addBase({
         ':root': {
-          // Light mode variables
-          '--background-primary': theme('colors.background.100'),
-          '--background-secondary': theme('colors.background.200'),
-          '--background-tertiary': theme('colors.background.300'),
+          // Light mode variables - updated for natural theme
+          '--background-primary': theme('colors.background.50'),
+          '--background-secondary': theme('colors.background.100'),
+          '--background-tertiary': theme('colors.background.200'),
           '--text-primary': theme('colors.background.900'),
           '--text-secondary': theme('colors.background.700'),
           '--text-tertiary': theme('colors.background.500'),
@@ -169,59 +255,74 @@ export default {
         'body': {
           '@apply antialiased': {},
         },
+        // Import natural brand fonts
+        '@import': [
+          "url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap')",
+          "url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap')",
+          "url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&display=swap')",
+        ],
       });
     }),
 
-    // Typography plugin with improved hierarchy
+    // Typography plugin with natural brand styling
     plugin(function({ addComponents, theme }) {
       addComponents({
         '.heading-1': {
-          '@apply font-sans text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight': {},
+          '@apply font-display text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight': {},
         },
         '.heading-2': {
-          '@apply font-sans text-3xl md:text-4xl lg:text-5xl font-bold leading-tight tracking-tight': {},
+          '@apply font-display text-3xl md:text-4xl lg:text-5xl font-bold leading-tight tracking-tight': {},
         },
         '.heading-3': {
-          '@apply font-sans text-2xl md:text-3xl lg:text-4xl font-bold leading-tight tracking-tight': {},
+          '@apply font-display text-2xl md:text-3xl lg:text-4xl font-bold leading-tight tracking-tight': {},
         },
         '.heading-4': {
-          '@apply font-sans text-xl md:text-2xl lg:text-3xl font-bold leading-tight': {},
+          '@apply font-display text-xl md:text-2xl lg:text-3xl font-bold leading-tight': {},
         },
         '.heading-5': {
-          '@apply font-sans text-lg md:text-xl font-bold leading-tight': {},
+          '@apply font-display text-lg md:text-xl font-bold leading-tight': {},
         },
         '.body-large': {
-          '@apply text-lg leading-relaxed': {},
+          '@apply text-lg leading-relaxed font-sans': {},
         },
         '.body-regular': {
-          '@apply text-base leading-relaxed': {},
+          '@apply text-base leading-relaxed font-sans': {},
         },
         '.body-small': {
-          '@apply text-sm leading-relaxed': {},
+          '@apply text-sm leading-relaxed font-sans': {},
         },
         '.caption': {
-          '@apply text-xs leading-normal text-background-600 dark:text-background-400': {},
+          '@apply text-xs leading-normal text-background-600 dark:text-background-400 font-sans': {},
+        },
+        '.accent-text': {
+          '@apply font-accent italic': {},
         },
       });
     }),
 
-    // Modern button plugin
+    // Natural brand button components
     plugin(function({ addComponents, theme }) {
       addComponents({
         '.btn': {
-          '@apply inline-flex items-center justify-center font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2': {},
+          '@apply inline-flex items-center justify-center font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 cursor-pointer': {},
         },
         '.btn-primary': {
-          '@apply btn px-6 py-3 text-white rounded-full shadow-md hover:shadow-lg bg-primary-500 hover:bg-primary-600 focus:ring-primary-500': {},
+          '@apply btn px-6 py-3 text-white rounded-soft shadow-natural hover:shadow-warm bg-primary-500 hover:bg-primary-600 focus:ring-primary-400': {},
         },
         '.btn-secondary': {
-          '@apply btn px-6 py-3 rounded-full shadow-md hover:shadow-lg bg-background-200 dark:bg-background-800 text-background-900 dark:text-white hover:bg-background-300 dark:hover:bg-background-700 focus:ring-background-400': {},
+          '@apply btn px-6 py-3 rounded-soft shadow-soft hover:shadow-natural bg-secondary-500 text-white hover:bg-secondary-600 focus:ring-secondary-400': {},
+        },
+        '.btn-eucalyptus': {
+          '@apply btn px-6 py-3 rounded-soft shadow-soft hover:shadow-natural bg-eucalyptus-500 text-white hover:bg-eucalyptus-600 focus:ring-eucalyptus-400': {},
         },
         '.btn-outline': {
-          '@apply btn px-6 py-3 border-2 rounded-full font-medium border-primary-500 text-primary-500 hover:bg-primary-500 hover:text-white focus:ring-primary-500': {},
+          '@apply btn px-6 py-3 border-2 rounded-soft font-medium border-primary-500 text-primary-500 hover:bg-primary-500 hover:text-white focus:ring-primary-400 bg-transparent': {},
         },
         '.btn-ghost': {
           '@apply btn px-4 py-2 rounded-lg text-background-700 dark:text-background-300 hover:bg-background-200 dark:hover:bg-background-800 focus:ring-background-400': {},
+        },
+        '.btn-organic': {
+          '@apply btn px-6 py-3 rounded-organic shadow-natural hover:shadow-warm bg-gradient-to-r from-primary-500 to-eucalyptus-500 text-white hover:from-primary-600 hover:to-eucalyptus-600': {},
         },
         '.btn-sm': {
           '@apply px-4 py-2 text-sm': {},
@@ -229,127 +330,134 @@ export default {
         '.btn-lg': {
           '@apply px-8 py-4 text-lg': {},
         },
-        '.btn-icon': {
-          '@apply inline-flex items-center justify-center': {},
+      });
+    }),
+
+    // Natural form components
+    plugin(function({ addComponents, theme }) {
+      addComponents({
+        '.input-natural': {
+          '@apply w-full px-4 py-3 rounded-soft border focus:ring-2 focus:border-transparent outline-none transition-colors duration-200 bg-background-50 dark:bg-background-800 border-background-300 dark:border-background-600 text-background-900 dark:text-white focus:ring-primary-400 placeholder-background-500': {},
         },
-        '.btn-icon svg': {
-          '@apply w-5 h-5': {},
-        },
-        '.btn-icon-text': {
-          '@apply inline-flex items-center justify-center gap-2': {},
+        '.input-organic': {
+          '@apply w-full px-4 py-3 rounded-organic border-2 focus:ring-2 focus:border-transparent outline-none transition-all duration-200 bg-background-50 dark:bg-background-800 border-background-300 dark:border-background-600 text-background-900 dark:text-white focus:ring-eucalyptus-400 placeholder-background-500': {},
         },
       });
     }),
 
-    // Modern layout components
+    // Natural card and layout components
     plugin(function({ addComponents, theme }) {
       addComponents({
-        '.section-padding': {
-          '@apply py-16 md:py-24 lg:py-32': {},
+        '.card-natural': {
+          '@apply rounded-soft p-6 transition-shadow duration-200 hover:shadow-natural bg-background-50 dark:bg-background-800 shadow-soft dark:shadow-none dark:border dark:border-background-700': {},
         },
-        '.container-padding': {
-          '@apply px-4 md:px-6 lg:px-8': {},
+        '.card-organic': {
+          '@apply rounded-organic p-6 transition-shadow duration-200 hover:shadow-warm bg-gradient-to-br from-background-50 to-cream-100 dark:from-background-800 dark:to-background-700 shadow-natural': {},
         },
-        '.card': {
-          '@apply rounded-xl p-6 transition-shadow duration-200 hover:shadow-md bg-white dark:bg-background-800 shadow-soft dark:shadow-none dark:border dark:border-background-700': {},
-        },
-        '.card-fancy': {
-          '@apply rounded-2xl p-8 bg-white dark:bg-background-800 shadow-md dark:border dark:border-background-700': {},
-        },
-        '.card-flat': {
-          '@apply rounded-xl p-6 border border-background-300 dark:border-background-700 bg-white dark:bg-background-800': {},
-        },
-        '.card-glass': {
-          '@apply rounded-xl p-6 backdrop-blur-md bg-white/80 dark:bg-background-800/80 shadow-soft': {},
+        '.section-natural': {
+          '@apply py-16 md:py-24 lg:py-32 bg-texture-paper': {},
         },
       });
     }),
 
-    // Improved form components
-    plugin(function({ addComponents, theme }) {
-      addComponents({
-        '.input-primary': {
-          '@apply w-full px-4 py-3 rounded-lg border focus:ring-2 focus:border-transparent outline-none transition-colors duration-200 bg-white dark:bg-background-800 border-background-300 dark:border-background-600 text-background-900 dark:text-white focus:ring-primary-400 placeholder-background-500': {},
+    // Natural utility classes
+    plugin(function({ addUtilities, theme }) {
+      const newUtilities = {
+        '.text-balance': {
+          'text-wrap': 'balance',
         },
-        '.input-fancy': {
-          '@apply w-full px-4 py-3 rounded-xl border-2 focus:ring-2 focus:border-transparent outline-none transition-all duration-200 bg-white dark:bg-background-800 border-background-300 dark:border-background-600 text-background-900 dark:text-white focus:ring-primary-400 placeholder-background-500': {},
+        '.bg-natural-texture': {
+          'background-image': theme('backgroundImage.texture-paper'),
         },
-        '.input-minimal': {
-          '@apply w-full px-4 py-3 border-b outline-none transition-colors duration-200 bg-transparent border-background-300 dark:border-background-600 text-background-900 dark:text-white focus:border-primary-400 placeholder-background-500': {},
+        '.bg-organic-texture': {
+          'background-image': theme('backgroundImage.texture-organic'),
         },
-        '.input-error': {
-          '@apply border-error-500 focus:ring-error-400': {},
+        '.border-organic': {
+          'border-radius': theme('borderRadius.organic'),
         },
-        '.input-success': {
-          '@apply border-success-500 focus:ring-success-400': {},
+        '.shadow-natural-hover': {
+          'transition': 'box-shadow 0.3s ease',
+          '&:hover': {
+            'box-shadow': theme('boxShadow.natural'),
+          },
         },
-        '.input-disabled': {
-          '@apply opacity-50 cursor-not-allowed bg-background-100 dark:bg-background-900': {},
+        '.gradient-sage-eucalyptus': {
+          'background': 'linear-gradient(135deg, #7d8b5e 0%, #3d9b7a 100%)',
         },
-        '.input-icon': {
-          '@apply pl-12': {},
+        '.gradient-cream-clay': {
+          'background': 'linear-gradient(135deg, #eec374 0%, #d67341 100%)',
         },
-        '.input-group': {
-          '@apply relative flex items-center': {},
+        '.gradient-natural-fade': {
+          'background': 'linear-gradient(180deg, rgba(125, 139, 94, 0.1) 0%, rgba(125, 139, 94, 0) 100%)',
         },
-        '.input-label': {
-          '@apply block mb-2 text-sm font-medium text-background-700 dark:text-background-300': {},
-        },
-        '.input-help': {
-          '@apply mt-1 text-sm text-background-600 dark:text-background-400': {},
-        },
-        '.input-error-text': {
-          '@apply mt-1 text-sm text-error-500': {},
-        },
-        '.checkbox': {
-          '@apply h-5 w-5 rounded border-background-300 dark:border-background-600 bg-white dark:bg-background-800 focus:ring-primary-400 text-primary-500': {},
-        },
-        '.radio': {
-          '@apply h-5 w-5 border-background-300 dark:border-background-600 bg-white dark:bg-background-800 focus:ring-primary-400 text-primary-500': {},
-        },
-        '.select': {
-          '@apply w-full px-4 py-3 rounded-lg border focus:ring-2 focus:border-transparent cursor-pointer outline-none transition-colors duration-200 bg-white dark:bg-background-800 border-background-300 dark:border-background-600 text-background-900 dark:text-white focus:ring-primary-400': {},
-        },
-      });
+      }
+      addUtilities(newUtilities)
     }),
 
-    // Modern effects
+    // Modern effects for natural brand
     plugin(function({ addComponents, theme }) {
       addComponents({
-        '.transition-standard': {
-          '@apply transition-all duration-200 ease-in-out': {},
-        },
-        '.transition-smooth': {
+        '.transition-natural': {
           '@apply transition-all duration-300 ease-in-out': {},
         },
-        '.glass': {
-          '@apply backdrop-blur-md bg-white/80 dark:bg-background-900/80': {},
+        '.glass-natural': {
+          '@apply backdrop-blur-md bg-background-50/80 dark:bg-background-900/80 border border-background-200/50 dark:border-background-700/50': {},
         },
-        '.glass-hover': {
-          '@apply hover:bg-white/90 dark:hover:bg-background-800/90': {},
-        },
-        '.frosted': {
-          '@apply backdrop-blur-lg bg-white/30 dark:bg-background-900/30 border border-white/50 dark:border-background-800/50': {},
+        '.frosted-natural': {
+          '@apply backdrop-blur-lg bg-background-50/30 dark:bg-background-900/30 border border-background-200/50 dark:border-background-800/50 rounded-soft': {},
         },
       });
     }),
 
-    // Text effects with improved contrast
+    // Text effects with natural gradients
     plugin(function({ addComponents, theme }) {
       addComponents({
-        '.text-gradient': {
-          '@apply bg-clip-text text-transparent bg-gradient-to-r from-primary-600 to-secondary-600': {},  // Improved contrast
+        '.text-gradient-natural': {
+          '@apply bg-clip-text text-transparent bg-gradient-to-r from-primary-600 to-eucalyptus-600': {},
         },
-        '.text-gradient-vivid': {
-          '@apply bg-clip-text text-transparent bg-gradient-to-r from-primary-500 via-error-500 to-secondary-500': {},
+        '.text-gradient-warm': {
+          '@apply bg-clip-text text-transparent bg-gradient-to-r from-secondary-500 to-cream-600': {},
         },
-        '.border-subtle': {
-          '@apply border border-background-300 dark:border-background-600': {},  // Improved contrast
+        '.border-natural': {
+          '@apply border border-background-300 dark:border-background-600': {},
         },
       });
     }),
 
-    // Modern grid layouts
+    // Responsive navigation for natural brand
+    plugin(function({ addComponents, theme }) {
+      addComponents({
+        '.nav-link-natural': {
+          '@apply px-4 py-2 rounded-lg font-medium transition-colors duration-200 text-background-700 dark:text-background-300 hover:bg-primary-100 dark:hover:bg-primary-800/20 hover:text-primary-700 dark:hover:text-primary-300': {},
+        },
+        '.nav-link-active-natural': {
+          '@apply bg-primary-100 dark:bg-primary-800/20 text-primary-700 dark:text-primary-300': {},
+        },
+      });
+    }),
+
+    // Badge components for natural brand
+    plugin(function({ addComponents, theme }) {
+      addComponents({
+        '.badge': {
+          '@apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium': {},
+        },
+        '.badge-natural': {
+          '@apply badge bg-primary-500 text-white': {},
+        },
+        '.badge-eucalyptus': {
+          '@apply badge bg-eucalyptus-500 text-white': {},
+        },
+        '.badge-cream': {
+          '@apply badge bg-cream-500 text-background-900': {},
+        },
+        '.badge-organic': {
+          '@apply badge bg-gradient-to-r from-primary-500 to-eucalyptus-500 text-white': {},
+        },
+      });
+    }),
+
+    // Grid layouts
     plugin(function({ addComponents, theme }) {
       addComponents({
         '.grid-auto-fit': {
@@ -370,7 +478,7 @@ export default {
       });
     }),
 
-    // Responsive utilities with modern spacing
+    // Responsive utilities
     plugin(function({ addComponents, theme }) {
       addComponents({
         '.responsive-container': {
@@ -387,57 +495,6 @@ export default {
         },
         '.narrow-content': {
           '@apply max-w-xl': {},
-        },
-      });
-    }),
-
-    // Modern navigation components
-    plugin(function({ addComponents, theme }) {
-      addComponents({
-        '.nav-link': {
-          '@apply px-4 py-2 rounded-lg font-medium transition-colors duration-200 text-background-700 dark:text-background-300 hover:bg-background-200 dark:hover:bg-background-800 hover:text-background-900 dark:hover:text-white': {},
-        },
-        '.nav-link-active': {
-          '@apply bg-background-200 dark:bg-background-800 text-background-900 dark:text-white': {},
-        },
-        '.nav-pill': {
-          '@apply px-4 py-2 rounded-full font-medium transition-colors duration-200 text-background-700 dark:text-background-300 hover:bg-background-200 dark:hover:bg-background-800 hover:text-background-900 dark:hover:text-white': {},
-        },
-        '.nav-pill-active': {
-          '@apply bg-primary-500 text-white': {},
-        },
-      });
-    }),
-
-    // Modern badge components
-    plugin(function({ addComponents, theme }) {
-      addComponents({
-        '.badge': {
-          '@apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium': {},
-        },
-        '.badge-primary': {
-          '@apply badge bg-primary-500 text-white': {},
-        },
-        '.badge-secondary': {
-          '@apply badge bg-secondary-500 text-white': {},
-        },
-        '.badge-success': {
-          '@apply badge bg-success-500 text-white': {},
-        },
-        '.badge-error': {
-          '@apply badge bg-error-500 text-white': {},
-        },
-        '.badge-warning': {
-          '@apply badge bg-yellow-500 text-white': {},
-        },
-        '.badge-info': {
-          '@apply badge bg-blue-500 text-white': {},
-        },
-        '.badge-outline': {
-          '@apply badge bg-transparent border': {},
-        },
-        '.badge-outline-primary': {
-          '@apply badge-outline border-primary-500 text-primary-500': {},
         },
       });
     }),

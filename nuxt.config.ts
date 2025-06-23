@@ -50,14 +50,14 @@ export default defineNuxtConfig({
     pocketbaseAdminEmail: process.env.POCKETBASE_ADMIN_EMAIL,
     pocketbaseAdminPassword: process.env.POCKETBASE_ADMIN_PASSWORD,
     public: {
-      pocketbaseUrl: process.env.POCKETBASE_URL || 'http://127.0.0.1:8090',
+      pocketbaseUrl: process.env.POCKETBASE_URL,
       stripePublicKey: process.env.STRIPE_PUBLIC_KEY,
-      publicUrl: process.env.PUBLIC_URL || 'http://localhost:3000'
+      publicUrl: process.env.PUBLIC_URL
     }
   },
   app: {
     head: {
-      title: 'Ajimall Store',
+      title: 'Morggana',
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' }
@@ -66,7 +66,7 @@ export default defineNuxtConfig({
         lang: 'fr',
       },
       link: [
-        { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+        { rel: 'icon', type: 'image/x-icon', href: '/favicon.svg' },
       ]
     }
   },

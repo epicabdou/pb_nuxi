@@ -1,356 +1,525 @@
 <!-- components/HeroSection.vue -->
 <template>
-  <section class="relative overflow-hidden bg-gradient-to-b from-background-50 to-background-200 dark:from-background-900 dark:to-background-800">
-    <div class="absolute -top-24 -right-24 w-96 h-96 bg-primary-200 dark:bg-primary-900/20 rounded-full blur-3xl opacity-50"></div>
-    <div class="absolute -bottom-24 -left-24 w-96 h-96 bg-secondary-200 dark:bg-secondary-900/20 rounded-full blur-3xl opacity-50"></div>
+  <section class="relative min-h-screen overflow-hidden bg-natural-texture bg-gradient-to-br from-background-50 via-cream-50 to-eucalyptus-50 dark:from-background-900 dark:via-background-800 dark:to-eucalyptus-900/20">
+    <!-- Organic Background Elements -->
+    <div class="absolute inset-0">
+      <!-- Floating organic shapes -->
+      <div class="absolute top-20 right-1/4 w-72 h-72 bg-gradient-to-br from-eucalyptus-200/30 to-primary-200/30 rounded-organic animate-float opacity-60"></div>
+      <div class="absolute bottom-32 left-1/3 w-96 h-96 bg-gradient-to-br from-cream-200/40 to-secondary-200/40 rounded-organic animate-gentle-bounce opacity-50 animation-delay-1000"></div>
+      <div class="absolute top-1/3 left-12 w-48 h-48 bg-gradient-to-br from-primary-200/25 to-eucalyptus-300/25 rounded-organic animate-float opacity-70 animation-delay-2000"></div>
+      
+      <!-- Subtle texture overlay -->
+      <div class="absolute inset-0 bg-organic-texture opacity-20"></div>
+    </div>
 
-    <div class="responsive-container section-padding relative z-10">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-        <div class="space-y-6 animate-slide-up">
-          <div class="inline-block">
-            <span class="badge-primary">NOUVELLE COLLECTION</span>
-          </div>
-          <h1 class="heading-1 text-gradient">Découvrez Nos Derniers Produits</h1>
-          <p class="body-large text-background-700 dark:text-background-300">
-            Trouvez les articles parfaits pour rehausser votre style, votre maison et votre mode de vie. Profitez d'offres exclusives sur nos nouveautés.
-          </p>
-          <div class="flex flex-wrap gap-4 pt-4">
-            <button @click="navigateToShop" class="btn-primary">Acheter Maintenant</button>
-            <button @click="navigateTo('/categories')" class="btn-outline">Voir les Catégories</button>
+    <div class="responsive-container relative z-10">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center min-h-screen py-16">
+        <!-- Content Side -->
+        <div class="space-y-8 animate-fade-in-up">
+          <!-- Premium Badge -->
+          <div class="inline-block animate-scale-in">
+            <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-sage-eucalyptus text-white text-sm font-medium shadow-natural">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+              </svg>
+              100% Ingrédients Naturels
+            </span>
           </div>
 
-          <div class="pt-6 flex flex-wrap gap-8 items-center text-background-600 dark:text-background-400">
-            <div class="flex items-center gap-2">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+          <!-- Main Headline -->
+          <div class="space-y-4">
+            <h1 class="font-display text-5xl md:text-6xl lg:text-7xl font-bold leading-tight text-balance">
+              <span class="text-gradient-natural">Révélez</span><br>
+              <span class="text-background-900 dark:text-background-100">Votre Peau</span><br>
+              <span class="accent-text text-secondary-500">Naturellement</span>
+            </h1>
+            
+            <p class="body-large text-background-700 dark:text-background-300 max-w-xl leading-relaxed">
+              Découvrez notre collection de gommages corporels artisanaux, formulés avec des ingrédients purs de la nature pour révéler la beauté naturelle de votre peau.
+            </p>
+          </div>
+
+          <!-- CTA Buttons -->
+          <div class="flex flex-col sm:flex-row gap-4 pt-4">
+            <button @click="navigateToShop" class="btn-organic group">
+              <span>Découvrir la Collection</span>
+              <svg class="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
-              <span>Livraison Gratuite</span>
+            </button>
+            <button @click="scrollToIngredients" class="btn-outline border-eucalyptus-500 text-eucalyptus-700 hover:bg-eucalyptus-500 hover:text-white">
+              Nos Ingrédients
+            </button>
+          </div>
+
+          <!-- Trust Indicators -->
+          <div class="pt-8 space-y-6">
+            <div class="flex flex-wrap gap-6 items-center">
+              <div class="flex items-center gap-3 text-background-600 dark:text-background-400">
+                <div class="w-10 h-10 rounded-full bg-eucalyptus-100 dark:bg-eucalyptus-900/20 flex items-center justify-center">
+                  <svg class="w-5 h-5 text-eucalyptus-600" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                  </svg>
+                </div>
+                <span class="font-medium">Livraison Éco-Responsable</span>
+              </div>
+              
+              <div class="flex items-center gap-3 text-background-600 dark:text-background-400">
+                <div class="w-10 h-10 rounded-full bg-primary-100 dark:bg-primary-900/20 flex items-center justify-center">
+                  <svg class="w-5 h-5 text-primary-600" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
+                  </svg>
+                </div>
+                <span class="font-medium">Paiement Sécurisé</span>
+              </div>
+              
+              <div class="flex items-center gap-3 text-background-600 dark:text-background-400">
+                <div class="w-10 h-10 rounded-full bg-cream-100 dark:bg-cream-900/20 flex items-center justify-center">
+                  <svg class="w-5 h-5 text-cream-600" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+                  </svg>
+                </div>
+                <span class="font-medium">+1000 Avis 5★</span>
+              </div>
             </div>
-            <div class="flex items-center gap-2">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-              </svg>
-              <span>Paiement Sécurisé</span>
-            </div>
-            <div class="flex items-center gap-2">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-              </svg>
-              <span>Retours sous 30 Jours</span>
+
+            <!-- Social Proof -->
+            <div class="flex items-center gap-4 pt-4">
+              <div class="flex -space-x-2">
+                <div v-for="i in 5" :key="i" class="w-10 h-10 rounded-full border-2 border-white bg-gradient-to-br from-eucalyptus-400 to-primary-500 flex items-center justify-center text-white font-bold text-sm">
+                  {{ String.fromCharCode(65 + i - 1) }}
+                </div>
+              </div>
+              <div class="text-background-600 dark:text-background-400">
+                <p class="font-medium">Rejoint par 5000+ femmes</p>
+                <p class="text-sm">qui ont transformé leur routine beauté</p>
+              </div>
             </div>
           </div>
         </div>
 
-        <div class="card-fancy animate-slide-up bg-white/80 dark:bg-background-800/80 backdrop-blur-md">
-          <swiper-container
-              :slides-per-view="1"
-              :space-between="0"
-              :loop="true"
-              :autoplay="{delay: 5000, disableOnInteraction: false}"
-              :pagination="{clickable: true}"
-              :navigation="true"
-              class="rounded-xl overflow-hidden"
-          >
-            <swiper-slide v-for="product in featuredProducts" :key="product.id" class="pb-10">
-              <div class="relative overflow-hidden group">
-                <img :src="product.imageUrl" :alt="product.name" class="w-full h-80 object-cover object-center transition-all duration-500 group-hover:scale-105">
-
-                <div class="absolute bottom-0 left-0 right-0 bg-white/90 dark:bg-background-800/90 p-4 shadow-md transition-transform duration-300">
-                  <div class="flex justify-between items-start">
-                    <div>
-                      <h3 class="font-bold text-lg">{{ product.name }}</h3>
-                      <div class="flex gap-2 mt-1">
-                        <span v-if="product.promoPrice" class="text-error-600 font-bold">€{{ product.promoPrice.toFixed(2) }}</span>
-                        <span :class="{'line-through text-background-500': product.promoPrice}">€{{ product.price.toFixed(2) }}</span>
-                      </div>
-                    </div>
-                    <button @click="addToCart(product)" class="btn-primary btn-sm flex items-center gap-1">
-                      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-                      </svg>
-                      Ajouter
-                    </button>
+        <!-- Visual Side -->
+        <div class="relative animate-fade-in-up animation-delay-500">
+          <!-- Main Product Showcase -->
+          <div class="relative z-10">
+            <!-- Featured Product Card -->
+            <div v-if="isLoadingProduct" class="card-organic p-8 text-center shadow-warm max-w-md mx-auto">
+              <!-- Loading State -->
+              <div class="animate-pulse">
+                <div class="w-64 h-64 mx-auto rounded-organic bg-primary-200 dark:bg-primary-800 mb-6"></div>
+                <div class="space-y-4">
+                  <div class="h-6 bg-primary-200 dark:bg-primary-800 rounded-soft mx-auto w-3/4"></div>
+                  <div class="h-4 bg-primary-100 dark:bg-primary-900 rounded-soft mx-auto w-1/2"></div>
+                  <div class="h-8 bg-primary-200 dark:bg-primary-800 rounded-soft mx-auto w-1/3"></div>
+                  <div class="h-10 bg-primary-300 dark:bg-primary-700 rounded-soft"></div>
+                </div>
+              </div>
+            </div>
+            
+            <div v-else-if="featuredProduct" class="card-organic p-8 text-center shadow-warm hover:shadow-elevated transition-all duration-500 max-w-md mx-auto">
+              <div class="relative mb-6">
+                <!-- Product Image Container -->
+                <div class="relative w-64 h-64 mx-auto rounded-organic overflow-hidden shadow-natural">
+                  <div class="absolute inset-0 bg-gradient-to-br from-eucalyptus-100 to-cream-100 dark:from-eucalyptus-900/20 dark:to-cream-900/20"></div>
+                  
+                  <!-- Real Product Image -->
+                  <div v-if="getProductImageUrl(featuredProduct)" class="absolute inset-0">
+                    <img 
+                      :src="getProductImageUrl(featuredProduct)" 
+                      :alt="featuredProduct.name"
+                      class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      @error="$event.target.style.display = 'none'"
+                    />
                   </div>
-                  <div class="flex items-center gap-2 mt-2">
-                    <div class="flex">
-                      <span v-for="i in 5" :key="i" class="text-primary-500">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" :fill="i <= product.rating ? 'currentColor' : 'none'" viewBox="0 0 24 24" stroke="currentColor">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
-                        </svg>
-                      </span>
+                  
+                  <!-- Fallback placeholder -->
+                  <div v-else class="absolute inset-0 flex items-center justify-center">
+                    <div class="w-48 h-48 rounded-organic bg-gradient-to-br from-primary-300 to-eucalyptus-300 flex items-center justify-center">
+                      <svg class="w-24 h-24 text-white" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" />
+                      </svg>
                     </div>
-                    <span class="text-xs text-background-600 dark:text-background-400">({{ product.reviewCount }} avis)</span>
-                    <span v-if="product.stock <= 5 && product.stock > 0" class="text-xs text-error-600">Plus que {{ product.stock }} en stock !</span>
-                    <span v-if="product.stock === 0" class="text-xs text-error-600">Épuisé</span>
+                  </div>
+                  
+                  <!-- Discount Badge -->
+                  <div v-if="featuredProduct.promoPrice" class="absolute -top-3 -right-3 badge-organic px-3 py-1 text-white font-bold shadow-warm">
+                    -{{ Math.round((1 - featuredProduct.promoPrice / featuredProduct.price) * 100) }}%
                   </div>
                 </div>
               </div>
-            </swiper-slide>
-          </swiper-container>
+
+              <div class="space-y-4">
+                <div>
+                  <h3 class="font-display text-xl font-bold text-background-900 dark:text-background-100">
+                    {{ featuredProduct.name }}
+                  </h3>
+                  <p class="text-background-600 dark:text-background-400 text-sm mt-1">
+                    {{ featuredProduct.description || 'Exfoliation douce • Hydratation intense' }}
+                  </p>
+                </div>
+
+                <div class="flex items-center justify-center gap-2">
+                  <span class="text-2xl font-bold text-secondary-600">
+                    {{ featuredProduct.promoPrice || featuredProduct.price }}€
+                  </span>
+                  <span v-if="featuredProduct.promoPrice" class="text-lg text-background-500 line-through">
+                    {{ featuredProduct.price }}€
+                  </span>
+                </div>
+
+                <div class="flex justify-center">
+                  <div class="flex items-center gap-1">
+                    <div class="flex">
+                      <svg v-for="i in 5" :key="i" 
+                           :class="[
+                             'w-4 h-4',
+                             i <= Math.floor(averageRating) ? 'text-cream-500' : 'text-background-300'
+                           ]" 
+                           fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+                      </svg>
+                    </div>
+                    <span class="text-sm text-background-600 dark:text-background-400">
+                      {{ averageRating }}/5 ({{ totalReviews }} avis)
+                    </span>
+                  </div>
+                </div>
+
+                <button 
+                  @click="addToCart" 
+                  :disabled="featuredProduct.stock === 0"
+                  class="btn-eucalyptus w-full group disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  <span v-if="featuredProduct.stock === 0">Épuisé</span>
+                  <span v-else>Ajouter au Panier</span>
+                  <svg v-if="featuredProduct.stock > 0" class="w-4 h-4 transition-transform duration-300 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                  </svg>
+                </button>
+                
+                <!-- Stock Warning -->
+                <div v-if="featuredProduct.stock <= 5 && featuredProduct.stock > 0" class="text-center">
+                  <span class="text-secondary-600 text-sm font-medium">
+                    ⚠️ Plus que {{ featuredProduct.stock }} en stock !
+                  </span>
+                </div>
+                
+                <!-- View Product Link -->
+                <button 
+                  @click="navigateToProduct" 
+                  class="text-primary-600 hover:text-primary-700 text-sm font-medium transition-colors duration-200"
+                >
+                  Voir les détails →
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Floating Elements -->
+          <div class="absolute -top-8 -left-8 w-24 h-24 rounded-organic bg-gradient-to-br from-eucalyptus-200 to-eucalyptus-300 animate-gentle-bounce opacity-60"></div>
+          <div class="absolute -bottom-12 -right-12 w-32 h-32 rounded-organic bg-gradient-to-br from-cream-200 to-secondary-200 animate-float opacity-50"></div>
+          
+          <!-- Decorative natural elements -->
+          <div class="absolute top-1/2 -right-4 transform -translate-y-1/2">
+            <div class="w-16 h-32 rounded-organic bg-gradient-to-b from-primary-300 to-eucalyptus-300 opacity-30 animate-gentle-bounce"></div>
+          </div>
         </div>
       </div>
 
-      <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-4 lg:gap-6">
-        <div
-            v-for="category in categories"
-            :key="category.id"
-            @click="navigateToCategory(category)"
-            class="card-fancy group p-4 md:p-6 text-center transition-all duration-300 hover:shadow-modern cursor-pointer"
-        >
-          <div class="relative w-16 h-16 md:w-20 md:h-20 mx-auto mb-4 overflow-hidden rounded-full bg-background-200 dark:bg-background-700 group-hover:scale-110 transition-transform duration-300">
-            <img
-                v-if="category.imageUrl"
-                :src="category.imageUrl"
-                :alt="category.name"
-                class="w-full h-full object-cover"
-            />
-            <div v-else class="w-full h-full flex items-center justify-center bg-primary-100 dark:bg-primary-900/20">
-              <span class="text-2xl md:text-3xl text-primary-600 dark:text-primary-400">{{ category.emoji }}</span>
+      <!-- Bottom Section - Ingredient Highlights -->
+      <div id="ingredients" class="pt-24 pb-16">
+        <div class="text-center mb-16">
+          <h2 class="font-display text-3xl md:text-4xl font-bold text-background-900 dark:text-background-100 mb-4">
+            Nos Ingrédients <span class="text-gradient-natural">Précieux</span>
+          </h2>
+          <p class="body-large text-background-600 dark:text-background-400 max-w-2xl mx-auto">
+            Chaque gommage est formulé avec des ingrédients soigneusement sélectionnés pour leurs bienfaits exceptionnels
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div v-for="(ingredient, index) in ingredients" :key="index" 
+               class="card-natural text-center group hover:shadow-natural transition-all duration-300"
+               :class="{ 'animate-fade-in-up': true, [`animation-delay-${(index + 1) * 200}`]: true }">
+            <div class="w-16 h-16 mx-auto mb-4 rounded-organic bg-gradient-to-br from-eucalyptus-100 to-primary-100 dark:from-eucalyptus-900/20 dark:to-primary-900/20 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+              <span class="text-2xl">{{ ingredient.icon }}</span>
             </div>
+            <h3 class="font-display text-xl font-bold text-background-900 dark:text-background-100 mb-2">
+              {{ ingredient.name }}
+            </h3>
+            <p class="text-background-600 dark:text-background-400 text-sm">
+              {{ ingredient.benefit }}
+            </p>
           </div>
-          <h3 class="font-bold text-base md:text-lg mb-1">{{ category.name }}</h3>
-          <p class="text-xs md:text-sm text-background-600 dark:text-background-400">{{ category.productCount }} produits</p>
         </div>
       </div>
     </div>
   </section>
 </template>
 
-<script setup>
-import { onMounted, ref } from 'vue';
-import { register } from 'swiper/element/bundle';
-import { useNuxtApp } from 'nuxt/app';
-import { useCartStore } from '~/stores/cart';
+<script setup lang="ts">
+import { useRouter } from 'vue-router'
+import { useCartStore } from '~/stores/cart'
+import { useToast } from '~/composables/useToast'
 
-// Register Swiper custom elements
-onMounted(async () => {
-  register();
-  await fetchFeaturedProducts();
-  await fetchCategories();
-});
+const router = useRouter()
+const cartStore = useCartStore()
+const toast = useToast()
 
-const { $pb } = useNuxtApp();
-const cartStore = useCartStore();
-const featuredProducts = ref([]);
-const categories = ref([]);
-const isLoading = ref(true);
+// Reactive data
+const featuredProduct = ref(null)
+const isLoadingProduct = ref(true)
+const productReviews = ref([])
+const averageRating = ref(0)
+const totalReviews = ref(0)
 
-// Fetch featured products from PocketBase
-const fetchFeaturedProducts = async () => {
-  try {
-    const records = await $pb.collection('products').getList(1, 5, {
-      filter: 'isFeatured = true',
-      sort: '-created',
-      expand: 'category,tags'
-    });
-
-    featuredProducts.value = records.items.map(product => {
-      // Get the image URL
-      const imageUrl = product.image ? $pb.getFileUrl(product, product.image) : '';
-
-      // Get average rating from reviews
-      const avgRating = product.expand?.reviews?.reduce((sum, review) => sum + review.rating, 0) /
-          (product.expand?.reviews?.length || 1);
-
-      return {
-        id: product.id,
-        name: product.name,
-        price: product.price,
-        promoPrice: product.promoPrice,
-        rating: Math.round(avgRating || 0),
-        reviewCount: product.expand?.reviews?.length || 0,
-        stock: product.stock || 0,
-        imageUrl: imageUrl,
-        slug: product.slug,
-        category: product.expand?.category
-      };
-    });
-  } catch (error) {
-    console.error('Error fetching featured products:', error);
-    // Fallback to demo data if API fails
-    featuredProducts.value = [
-      {
-        id: '1',
-        name: 'Premium Wireless Headphones',
-        price: 199.99,
-        promoPrice: 149.99,
-        rating: 4,
-        reviewCount: 124,
-        stock: 15,
-        imageUrl: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=1000'
-      },
-      {
-        id: '2',
-        name: 'Smart Watch Series X',
-        price: 299.99,
-        promoPrice: null,
-        rating: 5,
-        reviewCount: 86,
-        stock: 3,
-        imageUrl: 'https://images.unsplash.com/photo-1546868871-7041f2a55e12?q=80&w=1000'
-      },
-      {
-        id: '3',
-        name: 'Designer Backpack',
-        price: 89.99,
-        promoPrice: 69.99,
-        rating: 4,
-        reviewCount: 47,
-        stock: 0,
-        imageUrl: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?q=80&w=1000'
-      }
-    ];
-  } finally {
-    isLoading.value = false;
+// Ingredient data for the highlights section
+const ingredients = ref([
+  {
+    icon: '🌿',
+    name: 'Eucalyptus Bio',
+    benefit: 'Purifie et rafraîchit la peau en profondeur'
+  },
+  {
+    icon: '🧂',
+    name: 'Sel de Mer Mort',
+    benefit: 'Exfolie délicatement et reminéralise'
+  },
+  {
+    icon: '🥥',
+    name: 'Huile de Coco Vierge',
+    benefit: 'Nourrit et protège intensément'
   }
-};
+])
 
-// Fetch categories from PocketBase
-const fetchCategories = async () => {
+// Fetch featured product from PocketBase
+const fetchFeaturedProduct = async () => {
+  isLoadingProduct.value = true
+  
   try {
-    // Get 4 categories to display
-    const records = await $pb.collection('categories').getList(1, 4, {
-      sort: 'name'
-    });
-
-    // Fetch all products in one request to optimize
-    const allProducts = await $pb.collection('products').getFullList({
-      fields: 'id,category',
-      expand: 'category'
-    });
-
-    // For each category, count the number of products
-    const categoriesWithCounts = records.items.map(category => {
-      // Count products that have this category
-      // Since category is a relation field that can have multiple values,
-      // we need to check if the category ID is in the category array
-      const productCount = allProducts.filter(product => {
-        // Check if product.category contains the category.id
-        // It could be either a direct string (if only one category) or an array of strings
-        if (Array.isArray(product.category)) {
-          return product.category.includes(category.id);
-        } else {
-          return product.category === category.id;
+    const { $pb } = useNuxtApp()
+    
+    // Try to get a product marked as hero/featured first
+    let product = null
+    
+    try {
+      const heroProducts = await $pb.collection('products').getList(1, 1, {
+        filter: 'isHero = true',
+        sort: '-created'
+      })
+      
+      if (heroProducts.items.length > 0) {
+        product = heroProducts.items[0]
+      }
+    } catch (error) {
+      console.log('No isHero field, trying isFeatured')
+    }
+    
+    // Fallback to featured products
+    if (!product) {
+      try {
+        const featuredProducts = await $pb.collection('products').getList(1, 1, {
+          filter: 'isFeatured = true',
+          sort: '-created'
+        })
+        
+        if (featuredProducts.items.length > 0) {
+          product = featuredProducts.items[0]
         }
-      }).length;
-
-      // Get the image URL
-      const imageUrl = category.image ? $pb.getFileUrl(category, category.image) : '';
-
-      // Emoji mapping as fallback if no image is available
-      const emojiMap = {
-        'electronics': '📱',
-        'fashion': '👕',
-        'home': '🏠',
-        'beauty': '💄',
-        'sports': '🏀',
-        'books': '📚',
-        'toys': '🧸',
-        'food': '🍕'
-      };
-
-      // Derive emoji from category name or slug (used as fallback)
-      const emoji = emojiMap[category.slug.toLowerCase()] || '🛍️';
-
-      return {
-        id: category.id,
-        name: category.name,
-        slug: category.slug,
-        description: category.description,
-        imageUrl: imageUrl,
-        emoji: emoji,
-        productCount: productCount
-      };
-    });
-
-    categories.value = categoriesWithCounts;
-  } catch (error) {
-    console.error('Error fetching categories:', error);
-    // Fallback to demo data if API fails
-    categories.value = [
-      {
-        id: '1',
-        name: 'Electronics',
-        emoji: '📱',
-        productCount: 42,
-        imageUrl: 'https://images.unsplash.com/photo-1498049794561-7780e7231661?q=80&w=500&auto=format&fit=crop'
-      },
-      {
-        id: '2',
-        name: 'Fashion',
-        emoji: '👕',
-        productCount: 86,
-        imageUrl: 'https://images.unsplash.com/photo-1445205170230-053b83016050?q=80&w=500&auto=format&fit=crop'
-      },
-      {
-        id: '3',
-        name: 'Home',
-        emoji: '🏠',
-        productCount: 35,
-        imageUrl: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=500&auto=format&fit=crop'
-      },
-      {
-        id: '4',
-        name: 'Beauty',
-        emoji: '💄',
-        productCount: 29,
-        imageUrl: 'https://images.unsplash.com/photo-1571781926291-c477ebfd024b?q=80&w=500&auto=format&fit=crop'
+      } catch (error) {
+        console.log('No isFeatured field, getting latest product')
       }
-    ];
+    }
+    
+    // Final fallback to any product
+    if (!product) {
+      const anyProducts = await $pb.collection('products').getList(1, 1, {
+        sort: '-created'
+      })
+      
+      if (anyProducts.items.length > 0) {
+        product = anyProducts.items[0]
+      }
+    }
+    
+    // Process the product data to handle image field correctly
+    if (product) {
+      featuredProduct.value = {
+        ...product,
+        // Ensure imageUrl field is properly mapped
+        imageUrl: product.image || product.imageUrl || null
+      }
+      
+      // Fetch reviews for this product
+      await fetchProductReviews(product.id)
+    } else {
+      featuredProduct.value = null
+    }
+    
+  } catch (error) {
+    console.error('Error fetching featured product:', error)
+    // Set fallback product data
+    featuredProduct.value = {
+      id: 'fallback',
+      name: 'Gommage Eucalyptus & Sel de Mer',
+      description: 'Exfoliation douce • Hydratation intense',
+      price: 3399, // in cents
+      promoPrice: 2499, // in cents
+      imageUrl: null,
+      reviewCount: 248,
+      stock: 10
+    }
+  } finally {
+    isLoadingProduct.value = false
   }
-};
+}
 
-// Method to handle shop now button
-const navigateToShop = () => {
-  navigateTo('/products');
-};
+// Fetch product reviews from PocketBase
+const fetchProductReviews = async (productId) => {
+  if (!productId || productId === 'fallback') return
+  
+  try {
+    const { $pb } = useNuxtApp()
+    
+    // Fetch reviews for this specific product
+    const reviews = await $pb.collection('reviews').getList(1, 50, {
+      filter: `product = "${productId}"`,
+      sort: '-created',
+      expand: 'user'
+    })
+    
+    productReviews.value = reviews.items
+    totalReviews.value = reviews.totalItems
+    
+    // Calculate average rating
+    if (reviews.items.length > 0) {
+      const sum = reviews.items.reduce((acc, review) => acc + (review.rating || 0), 0)
+      averageRating.value = Math.round((sum / reviews.items.length) * 10) / 10 // Round to 1 decimal
+    } else {
+      averageRating.value = 0
+    }
+    
+  } catch (error) {
+    console.error('Error fetching product reviews:', error)
+    // Set fallback values
+    productReviews.value = []
+    totalReviews.value = 248 // Fallback count
+    averageRating.value = 4.8 // Fallback rating
+  }
+}
 
-// Method to handle category click
-const navigateToCategory = (category) => {
-  navigateTo(`/category/${category.slug}`);
-};
+const getProductImageUrl = (product) => {
+  if (!product?.imageUrl) return null
+  const { $pb } = useNuxtApp()
+  
+  // Use PocketBase files.getUrl method for proper URL generation
+  try {
+    return $pb.files.getUrl(product, product.imageUrl)
+  } catch (error) {
+    console.error('Error generating image URL:', error)
+    // Fallback to manual URL construction
+    const imageName = Array.isArray(product.imageUrl) ? product.imageUrl[0] : product.imageUrl
+    return `${$pb.baseUrl}/api/files/products/${product.id}/${imageName}`
+  }
+}
 
-// Method to add product to cart
-const addToCart = (product) => {
+// Add product to cart
+const addToCart = () => {
+  if (!featuredProduct.value) return
+  
   try {
     cartStore.addItem({
-      id: product.id,
-      name: product.name,
-      price: product.promoPrice || product.price,
-      image: product.imageUrl,
+      id: featuredProduct.value.id,
+      name: featuredProduct.value.name,
+      price: featuredProduct.value.promoPrice || featuredProduct.value.price,
+      image: featuredProduct.value.imageUrl,
       quantity: 1
-    });
-
-    // Optional: Show success notification or open cart
-    // cartStore.toggleCart();
+    })
+    
+    toast.success(`${featuredProduct.value.name} ajouté au panier`)
   } catch (error) {
-    console.error('Error adding product to cart:', error);
+    console.error('Error adding to cart:', error)
+    toast.error('Erreur lors de l\'ajout au panier')
   }
-};
+}
+
+// Navigation methods
+const navigateToShop = () => {
+  router.push('/products')
+}
+
+const navigateToProduct = () => {
+  if (featuredProduct.value?.slug && featuredProduct.value.slug !== 'fallback') {
+    router.push(`/products/${featuredProduct.value.slug}`)
+  } else {
+    router.push('/products')
+  }
+}
+
+const scrollToIngredients = () => {
+  const element = document.getElementById('ingredients')
+  if (element) {
+    element.scrollIntoView({ behavior: 'smooth' })
+  }
+}
+
+const scrollToProducts = () => {
+  // Scroll to the featured products section
+  const nextSection = document.querySelector('#products')
+  if (nextSection) {
+    nextSection.scrollIntoView({ behavior: 'smooth' })
+  }
+}
+
+// Fetch product on component mount
+onMounted(() => {
+  fetchFeaturedProduct()
+})
 </script>
 
 <style scoped>
-/* Custom styles for Swiper */
-:deep(.swiper-pagination-bullet) {
-  @apply w-2 h-2 bg-background-400 opacity-50 transition-all duration-300;
+/* Animation delays */
+.animation-delay-200 { animation-delay: 200ms; }
+.animation-delay-400 { animation-delay: 400ms; }
+.animation-delay-500 { animation-delay: 500ms; }
+.animation-delay-600 { animation-delay: 600ms; }
+.animation-delay-1000 { animation-delay: 1000ms; }
+.animation-delay-2000 { animation-delay: 2000ms; }
+
+/* Custom gradient animations */
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
 }
 
-:deep(.swiper-pagination-bullet-active) {
-  @apply w-6 rounded-full bg-primary-500 opacity-100;
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient-shift 8s ease infinite;
 }
 
-:deep(.swiper-button-next),
-:deep(.swiper-button-prev) {
-  @apply text-primary-500 w-10 h-10 grid place-items-center rounded-full bg-white/80 shadow-md transition-all duration-300;
+/* Hover effects for interactive elements */
+.group:hover .group-hover\:scale-110 {
+  transform: scale(1.1);
 }
 
-:deep(.swiper-button-next:hover),
-:deep(.swiper-button-prev:hover) {
-  @apply bg-primary-500 text-white;
+.group:hover .group-hover\:translate-x-1 {
+  transform: translateX(0.25rem);
 }
 
-:deep(.swiper-button-next::after),
-:deep(.swiper-button-prev::after) {
-  @apply text-sm;
+/* Text selection styling */
+::selection {
+  background-color: rgba(125, 139, 94, 0.2);
+  color: inherit;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Focus styles for accessibility */
+button:focus-visible {
+  outline: 2px solid theme('colors.primary.500');
+  outline-offset: 2px;
 }
 </style>
