@@ -119,9 +119,9 @@
                   <div class="text-sm text-background-500">{{ product.slug }}</div>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
-                  <div class="text-background-900 dark:text-white">{{ product.price.toFixed(2) }} €</div>
+                  <div class="text-background-900 dark:text-white">{{ product.price.toFixed(2) }} DH</div>
                   <div v-if="product.promoPrice" class="text-sm text-success-600 dark:text-success-400">
-                    Promo : {{ product.promoPrice.toFixed(2) }} €
+                    Promo : {{ product.promoPrice.toFixed(2) }} DH
                   </div>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
@@ -285,7 +285,7 @@
                   <div>
                     <label for="price" class="input-label">Prix*</label>
                     <div class="input-group">
-                      <span class="absolute left-3 top-3 text-background-600 dark:text-background-400">€</span>
+                      <span class="absolute left-3 top-3 text-background-600 dark:text-background-400">DH</span>
                       <input
                           id="price"
                           v-model.number="editingProduct.price"
@@ -301,7 +301,7 @@
                   <div>
                     <label for="promoPrice" class="input-label">Prix Promotionnel</label>
                     <div class="input-group">
-                      <span class="absolute left-3 top-3 text-background-600 dark:text-background-400">€</span>
+                      <span class="absolute left-3 top-3 text-background-600 dark:text-background-400">DH</span>
                       <input
                           id="promoPrice"
                           v-model.number="editingProduct.promoPrice"

@@ -260,7 +260,7 @@
                       Offre Spéciale Découverte
                     </h3>
                     <p class="text-background-600 dark:text-background-400">
-                      Livraison gratuite dès 50€ + Échantillon offert avec chaque commande
+                      Livraison gratuite dès 50DH + Échantillon offert avec chaque commande
                     </p>
                   </div>
                 </div>

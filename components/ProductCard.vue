@@ -242,7 +242,7 @@
               v-if="hasDiscount"
               class="text-xl md:text-2xl font-bold text-secondary-600 dark:text-secondary-400"
             >
-              {{ product.promoPrice }}€
+              {{ product.promoPrice }}DH
             </span>
             <span
               :class="{
@@ -250,7 +250,7 @@
                 'text-sm text-background-500 line-through': hasDiscount
               }"
             >
-              {{ product.price }}€
+              {{ product.price }}DH
             </span>
           </div>
           

@@ -334,26 +334,20 @@
                 Nous nous engageons à offrir une expérience d'achat exceptionnelle avec 
                 un service client de qualité.
               </p>
-              <div class="flex space-x-4">
-                <a href="#" class="group p-3 rounded-xl bg-background-800/50 hover:bg-background-700/50 transition-all duration-200 hover:scale-110">
-                  <svg class="h-5 w-5 text-background-400 group-hover:text-white transition-colors duration-200" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
-                  </svg>
-                </a>
-                <a href="#" class="group p-3 rounded-xl bg-background-800/50 hover:bg-background-700/50 transition-all duration-200 hover:scale-110">
-                  <svg class="h-5 w-5 text-background-400 group-hover:text-white transition-colors duration-200" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15 0 1.49.75 2.81 1.91 3.56-.71 0-1.37-.2-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 0 1-1.93.07 4.28 4.28 0 0 0 4 2.98 8.521 8.521 0 0 1-5.33 1.84c-.34 0-.68-.02-1.02-.06C3.44 20.29 5.7 21 8.12 21 16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56.84-.6 1.56-1.36 2.14-2.23z"/>
-                  </svg>
-                </a>
-                <a href="#" class="group p-3 rounded-xl bg-background-800/50 hover:bg-background-700/50 transition-all duration-200 hover:scale-110">
+              <div class="flex space-x-4">                
+                <a 
+                  href="#" 
+                  class="group p-3 rounded-xl bg-background-800/50 hover:bg-background-700/50 transition-all duration-200 hover:scale-110"
+                >
                   <svg class="h-5 w-5 text-background-400 group-hover:text-white transition-colors duration-200" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.174-.105-.949-.199-2.403.041-3.439.219-.937 1.219-5.175 1.219-5.175s-.311-.63-.311-1.562c0-1.463.849-2.554 1.905-2.554.899 0 1.332.675 1.332 1.483 0 .903-.576 2.255-.872 3.508-.248 1.05.526 1.906 1.562 1.906 1.875 0 3.317-1.977 3.317-4.832 0-2.526-1.817-4.287-4.415-4.287-3.009 0-4.775 2.256-4.775 4.58 0 .908.349 1.881.786 2.409.086.105.099.197.073.304-.08.331-.256 1.073-.292 1.224-.047.196-.153.238-.354.144-1.332-.620-2.165-2.567-2.165-4.128 0-3.349 2.431-6.424 7.009-6.424 3.678 0 6.536 2.62 6.536 6.121 0 3.651-2.302 6.588-5.503 6.588-1.074 0-2.088-.559-2.432-1.226 0 0-.533 2.031-.662 2.531-.239.928-.888 2.093-1.321 2.803.994.307 2.058.471 3.176.471 6.624 0 11.99-5.367 11.99-11.987C24.007 5.367 18.641.001 12.017.001z"/>
                   </svg>
                 </a>
-                <a href="#" class="group p-3 rounded-xl bg-background-800/50 hover:bg-background-700/50 transition-all duration-200 hover:scale-110">
-                  <svg class="h-5 w-5 text-background-400 group-hover:text-white transition-colors duration-200" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.174-.105-.949-.199-2.403.041-3.439.219-.937 1.219-5.175 1.219-5.175s-.311-.63-.311-1.562c0-1.463.849-2.554 1.905-2.554.899 0 1.332.675 1.332 1.483 0 .903-.576 2.255-.872 3.508-.248 1.05.526 1.906 1.562 1.906 1.875 0 3.317-1.977 3.317-4.832 0-2.526-1.817-4.287-4.415-4.287-3.009 0-4.775 2.256-4.775 4.58 0 .908.349 1.881.786 2.409.086.105.099.197.073.304-.08.331-.256 1.073-.292 1.224-.047.196-.153.238-.354.144-1.332-.620-2.165-2.567-2.165-4.128 0-3.349 2.431-6.424 7.009-6.424 3.678 0 6.536 2.62 6.536 6.121 0 3.651-2.302 6.588-5.503 6.588-1.074 0-2.088-.559-2.432-1.226 0 0-.533 2.031-.662 2.531-.239.928-.888 2.093-1.321 2.803.994.307 2.058.471 3.176.471 6.624 0 11.99-5.367 11.99-11.987C24.007 5.367 18.641.001 12.017.001z"/>
-                  </svg>
+                <a 
+                  href="#" 
+                  class="group p-3 rounded-xl bg-background-800/50 hover:bg-background-700/50 transition-all duration-200 hover:scale-110"
+                >
+                  <Instagram class="h-5 w-5 text-background-400 group-hover:text-white transition-colors duration-200" />
                 </a>
               </div>
             </div>
@@ -364,9 +358,9 @@
               <ul class="space-y-3">
                 <li><NuxtLink to="/products" class="text-background-300 hover:text-white transition-colors duration-200 hover:translate-x-1 transform inline-block">Tous les Produits</NuxtLink></li>
                 <li><NuxtLink to="/categories" class="text-background-300 hover:text-white transition-colors duration-200 hover:translate-x-1 transform inline-block">Catégories</NuxtLink></li>
-                <li><NuxtLink to="/deals" class="text-background-300 hover:text-white transition-colors duration-200 hover:translate-x-1 transform inline-block">Promotions</NuxtLink></li>
+                <!--li><NuxtLink to="/deals" class="text-background-300 hover:text-white transition-colors duration-200 hover:translate-x-1 transform inline-block">Promotions</NuxtLink></li>
                 <li><NuxtLink to="/new-arrivals" class="text-background-300 hover:text-white transition-colors duration-200 hover:translate-x-1 transform inline-block">Nouveautés</NuxtLink></li>
-                <li><NuxtLink to="/bestsellers" class="text-background-300 hover:text-white transition-colors duration-200 hover:translate-x-1 transform inline-block">Meilleures Ventes</NuxtLink></li>
+                <li><NuxtLink to="/bestsellers" class="text-background-300 hover:text-white transition-colors duration-200 hover:translate-x-1 transform inline-block">Meilleures Ventes</NuxtLink></li-->
               </ul>
             </div>
 
@@ -375,10 +369,9 @@
               <h4 class="text-lg font-semibold mb-6 text-white">Support</h4>
               <ul class="space-y-3">
                 <li><NuxtLink to="/contact" class="text-background-300 hover:text-white transition-colors duration-200 hover:translate-x-1 transform inline-block">Contact</NuxtLink></li>
-                <li><NuxtLink to="/help" class="text-background-300 hover:text-white transition-colors duration-200 hover:translate-x-1 transform inline-block">Centre d'Aide</NuxtLink></li>
+                <!--li><NuxtLink to="/help" class="text-background-300 hover:text-white transition-colors duration-200 hover:translate-x-1 transform inline-block">Centre d'Aide</NuxtLink></li>
                 <li><NuxtLink to="/shipping" class="text-background-300 hover:text-white transition-colors duration-200 hover:translate-x-1 transform inline-block">Livraison</NuxtLink></li>
-                <li><NuxtLink to="/returns" class="text-background-300 hover:text-white transition-colors duration-200 hover:translate-x-1 transform inline-block">Retours</NuxtLink></li>
-                <li><NuxtLink to="/size-guide" class="text-background-300 hover:text-white transition-colors duration-200 hover:translate-x-1 transform inline-block">Guide des Tailles</NuxtLink></li>
+                <li><NuxtLink to="/returns" class="text-background-300 hover:text-white transition-colors duration-200 hover:translate-x-1 transform inline-block">Retours</NuxtLink></li-->
               </ul>
             </div>
           </div>
@@ -415,7 +408,7 @@
             <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
               <div class="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-6">
                 <p class="text-background-400 text-sm">
-                  © 2025 Morggana. Tous droits réservés.
+                  © 2025 Morrgana. Tous droits réservés.
                 </p>
                 <div class="flex space-x-6">
                   <NuxtLink to="/privacy" class="text-background-400 hover:text-white text-sm transition-colors duration-200">
@@ -462,6 +455,7 @@ import { useRoute } from 'vue-router'
 import { useAuthStore } from '~/stores/auth'
 import { useCartStore } from '~/stores/cart'
 import CartSidebar from '~/components/CartSidebar.vue'
+import { Instagram } from 'lucide-vue-next'
 
 // State
 const isSearchOpen = ref(false)

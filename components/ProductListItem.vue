@@ -253,8 +253,8 @@ function getImageUrl(image, productId) {
 
 function formatPrice(price) {
   if (!price && price !== 0) return ''
-  // Assuming USD $, adjust if needed for French locale (e.g., '€', placement)
-  return `${parseFloat(price).toFixed(2)} $` // Kept $ for now, could be € or moved
+  // Assuming USD $, adjust if needed for French locale (e.g., 'DH', placement)
+  return `${parseFloat(price).toFixed(2)} DH` // Kept $ for now, could be DH or moved
 }
 
 function getCategoryArray(product) {

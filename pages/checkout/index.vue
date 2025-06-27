@@ -316,7 +316,7 @@ const countries = [
 // Variables de calcul de la commande
 const taxRate = 0.08 // 8% tax
 const shipping = computed(() => {
-  // Livraison gratuite pour les commandes supérieures à 100 €
+  // Livraison gratuite pour les commandes supérieures à 100 DH
   return cartStore.cartTotal >= 100 ? 0 : 10
 })
 const tax = computed(() => {
@@ -437,7 +437,7 @@ const placeOrder = async () => {
     return
   }
   
-  console.log(`Starting checkout with ${cartStore.items.length} items, total: ${cartStore.cartTotal}€`)
+  console.log(`Starting checkout with ${cartStore.items.length} items, total: ${cartStore.cartTotal}DH`)
 
   isProcessing.value = true
 

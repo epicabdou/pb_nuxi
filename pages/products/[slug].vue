@@ -98,10 +98,10 @@
 
             <div class="flex items-baseline space-x-3">
               <span v-if="product.promoPrice" class="line-through text-background-500 text-lg">
-                 {{ product.price.toFixed(2) }} €
+                 {{ product.price.toFixed(2) }} DH
               </span>
               <span class="text-3xl font-bold text-primary-600">
-                 {{ (product.promoPrice || product.price).toFixed(2) }} €
+                 {{ (product.promoPrice || product.price).toFixed(2) }} DH
               </span>
               <span v-if="product.promoPrice" class="badge-primary">
                  {{ Math.round((1 - product.promoPrice / product.price) * 100) }}% DE REMISE
@@ -356,10 +356,10 @@
                       v-if="item.promoPrice"
                       class="text-background-500 line-through"
                   >
-                     {{ item.price.toFixed(2) }} €
+                     {{ item.price.toFixed(2) }} DH
                   </span>
                   <span class="font-semibold text-primary-600">
-                     {{ (item.promoPrice || item.price).toFixed(2) }} €
+                     {{ (item.promoPrice || item.price).toFixed(2) }} DH
                   </span>
                 </div>
 

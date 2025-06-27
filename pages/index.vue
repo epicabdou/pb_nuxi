@@ -399,7 +399,7 @@
               Livraison Gratuite
             </h3>
             <p class="text-xs text-background-600 dark:text-background-400">
-              Dès 50€ d'achat
+              Dès 300 DH d'achat
             </p>
           </div>
           

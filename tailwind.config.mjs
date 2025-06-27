@@ -498,5 +498,343 @@ export default {
         },
       });
     }),
+
+    // Enhanced form components with natural spa theme
+plugin(function({ addComponents, theme }) {
+  addComponents({
+    // Base input styles
+    '.input-base': {
+      '@apply w-full transition-all duration-200 outline-none font-sans': {},
+    },
+    
+    // Primary input style (enhanced version of your existing)
+    '.input-primary': {
+      '@apply input-base px-4 py-3 rounded-soft border-2 focus:ring-2 focus:border-transparent bg-background-50 dark:bg-background-800 border-background-300 dark:border-background-600 text-background-900 dark:text-white focus:ring-primary-400 focus:border-primary-500 placeholder-background-500 dark:placeholder-background-400': {},
+      '&:hover': {
+        '@apply border-primary-400 dark:border-primary-500': {},
+      },
+      '&:focus': {
+        '@apply transform scale-[1.01] shadow-natural': {},
+      },
+      '&:disabled': {
+        '@apply bg-background-200 dark:bg-background-700 cursor-not-allowed opacity-60': {},
+      },
+    },
+
+    // Natural style input
+    '.input-natural': {
+      '@apply input-base px-4 py-3 rounded-gentle border-2 focus:ring-2 focus:border-transparent bg-gradient-to-br from-background-50 to-eucalyptus-50/30 dark:from-background-800 dark:to-eucalyptus-900/20 border-eucalyptus-200 dark:border-eucalyptus-700 text-background-900 dark:text-white focus:ring-eucalyptus-400 focus:border-eucalyptus-500 placeholder-eucalyptus-600 dark:placeholder-eucalyptus-400': {},
+      '&:hover': {
+        '@apply border-eucalyptus-300 dark:border-eucalyptus-600 shadow-soft': {},
+      },
+      '&:focus': {
+        '@apply shadow-natural bg-gradient-to-br from-background-50 to-eucalyptus-50/50 dark:from-background-800 dark:to-eucalyptus-900/30': {},
+      },
+    },
+
+    // Organic style input with curved borders
+    '.input-organic': {
+      '@apply input-base px-5 py-3 rounded-organic border-2 focus:ring-2 focus:border-transparent bg-background-50 dark:bg-background-800 border-primary-300 dark:border-primary-600 text-background-900 dark:text-white focus:ring-primary-400 focus:border-primary-500 placeholder-background-500 dark:placeholder-background-400': {},
+      '&:hover': {
+        '@apply border-primary-400 dark:border-primary-500 transform rotate-1': {},
+      },
+      '&:focus': {
+        '@apply transform rotate-0 scale-105 shadow-warm': {},
+      },
+    },
+
+    // Floating label input
+    '.input-floating': {
+      '@apply input-base px-4 pt-6 pb-2 rounded-soft border-2 focus:ring-2 focus:border-transparent bg-background-50 dark:bg-background-800 border-background-300 dark:border-background-600 text-background-900 dark:text-white focus:ring-primary-400 focus:border-primary-500': {},
+      '&:focus + .floating-label, &:not(:placeholder-shown) + .floating-label': {
+        '@apply transform -translate-y-2 scale-75 text-primary-600 dark:text-primary-400': {},
+      },
+    },
+
+    // Search input style
+    '.input-search': {
+      '@apply input-base pl-10 pr-4 py-3 rounded-full border-2 focus:ring-2 focus:border-transparent bg-background-50 dark:bg-background-800 border-background-300 dark:border-background-600 text-background-900 dark:text-white focus:ring-eucalyptus-400 focus:border-eucalyptus-500 placeholder-background-500 dark:placeholder-background-400': {},
+      '&:focus': {
+        '@apply shadow-natural': {},
+      },
+    },
+
+    // Large input for hero sections
+    '.input-large': {
+      '@apply input-base px-6 py-4 text-lg rounded-gentle border-2 focus:ring-2 focus:border-transparent bg-background-50 dark:bg-background-800 border-background-300 dark:border-background-600 text-background-900 dark:text-white focus:ring-primary-400 focus:border-primary-500 placeholder-background-500 dark:placeholder-background-400': {},
+      '&:focus': {
+        '@apply shadow-warm transform scale-[1.02]': {},
+      },
+    },
+
+    // Small input for compact forms
+    '.input-small': {
+      '@apply input-base px-3 py-2 text-sm rounded-lg border-2 focus:ring-2 focus:border-transparent bg-background-50 dark:bg-background-800 border-background-300 dark:border-background-600 text-background-900 dark:text-white focus:ring-primary-400 focus:border-primary-500 placeholder-background-500 dark:placeholder-background-400': {},
+    },
+
+    // Textarea styles
+    '.textarea-primary': {
+      '@apply input-primary resize-y min-h-[100px]': {},
+    },
+
+    '.textarea-natural': {
+      '@apply input-natural resize-y min-h-[120px]': {},
+    },
+
+    // Select styles
+    '.select-primary': {
+      '@apply input-primary appearance-none bg-no-repeat bg-right bg-[length:16px_16px] pr-10': {},
+      'background-image': `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e")`,
+    },
+
+    '.select-natural': {
+      '@apply input-natural appearance-none bg-no-repeat bg-right bg-[length:16px_16px] pr-10': {},
+      'background-image': `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%233d9b7a' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e")`,
+    },
+
+    // Checkbox and radio styles
+    '.checkbox-primary': {
+      '@apply w-4 h-4 text-primary-600 bg-background-50 dark:bg-background-800 border-background-300 dark:border-background-600 rounded focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-background-800 focus:ring-2 transition-all duration-200': {},
+      '&:checked': {
+        '@apply bg-primary-600 border-primary-600': {},
+      },
+    },
+
+    '.checkbox-natural': {
+      '@apply w-4 h-4 text-eucalyptus-600 bg-background-50 dark:bg-background-800 border-eucalyptus-300 dark:border-eucalyptus-600 rounded-md focus:ring-eucalyptus-500 focus:ring-2 transition-all duration-200': {},
+      '&:checked': {
+        '@apply bg-eucalyptus-600 border-eucalyptus-600 transform scale-110': {},
+      },
+    },
+
+    '.radio-primary': {
+      '@apply w-4 h-4 text-primary-600 bg-background-50 dark:bg-background-800 border-background-300 dark:border-background-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-background-800 focus:ring-2 transition-all duration-200': {},
+    },
+
+    // Toggle switch styles
+    '.toggle-primary': {
+      '@apply relative inline-flex h-6 w-11 items-center rounded-full bg-background-300 dark:bg-background-600 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 cursor-pointer': {},
+      '&[data-checked="true"]': {
+        '@apply bg-primary-500': {},
+      },
+      '&[data-checked="true"] .toggle-thumb': {
+        '@apply translate-x-6 bg-white': {},
+      },
+    },
+
+    '.toggle-thumb': {
+      '@apply inline-block h-4 w-4 transform rounded-full bg-background-100 transition-transform': {},
+    },
+
+    // File input styles
+    '.file-input': {
+      '@apply block w-full text-sm text-background-500 dark:text-background-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary-50 dark:file:bg-primary-900/20 file:text-primary-700 dark:file:text-primary-300 hover:file:bg-primary-100 dark:hover:file:bg-primary-900/30 file:cursor-pointer cursor-pointer': {},
+    },
+
+    // Range input styles
+    '.range-primary': {
+      '@apply w-full h-2 bg-background-200 dark:bg-background-700 rounded-lg appearance-none cursor-pointer': {},
+      '&::-webkit-slider-thumb': {
+        '@apply appearance-none w-5 h-5 bg-primary-500 rounded-full cursor-pointer hover:bg-primary-600 transition-colors': {},
+      },
+      '&::-moz-range-thumb': {
+        '@apply w-5 h-5 bg-primary-500 rounded-full cursor-pointer border-0 hover:bg-primary-600 transition-colors': {},
+      },
+    },
+  });
+}),
+
+// Input group components
+plugin(function({ addComponents, theme }) {
+  addComponents({
+    // Input group container
+    '.input-group': {
+      '@apply relative flex items-stretch w-full': {},
+    },
+
+    // Input with icon
+    '.input-with-icon': {
+      '@apply relative': {},
+    },
+
+    '.input-icon-left': {
+      '@apply absolute left-3 top-1/2 transform -translate-y-1/2 text-background-500 dark:text-background-400 pointer-events-none': {},
+    },
+
+    '.input-icon-right': {
+      '@apply absolute right-3 top-1/2 transform -translate-y-1/2 text-background-500 dark:text-background-400 pointer-events-none': {},
+    },
+
+    '.input-with-icon-left': {
+      '@apply pl-10': {},
+    },
+
+    '.input-with-icon-right': {
+      '@apply pr-10': {},
+    },
+
+    // Input with button
+    '.input-with-button': {
+      '@apply flex rounded-soft overflow-hidden border-2 border-background-300 dark:border-background-600 focus-within:border-primary-500 focus-within:ring-2 focus-within:ring-primary-400': {},
+    },
+
+    '.input-with-button input': {
+      '@apply flex-1 px-4 py-3 border-0 bg-background-50 dark:bg-background-800 text-background-900 dark:text-white placeholder-background-500 dark:placeholder-background-400 focus:outline-none': {},
+    },
+
+    '.input-with-button button': {
+      '@apply px-4 py-3 bg-primary-500 text-white hover:bg-primary-600 transition-colors font-medium': {},
+    },
+
+    // Floating label styles
+    '.floating-label': {
+      '@apply absolute left-4 top-3 text-background-500 dark:text-background-400 transition-all duration-200 origin-left pointer-events-none': {},
+    },
+
+    '.floating-label-active': {
+      '@apply transform -translate-y-2 scale-75 text-primary-600 dark:text-primary-400': {},
+    },
+  });
+}),
+
+// Input validation states
+plugin(function({ addComponents, theme }) {
+  addComponents({
+    // Success state
+    '.input-success': {
+      '@apply border-success-500 focus:border-success-500 focus:ring-success-400': {},
+    },
+
+    // Error state
+    '.input-error': {
+      '@apply border-error-500 focus:border-error-500 focus:ring-error-400': {},
+    },
+
+    // Warning state
+    '.input-warning': {
+      '@apply border-yellow-500 focus:border-yellow-500 focus:ring-yellow-400': {},
+    },
+
+    // Info state
+    '.input-info': {
+      '@apply border-blue-500 focus:border-blue-500 focus:ring-blue-400': {},
+    },
+  });
+}),
+
+// Input helper text and labels
+plugin(function({ addComponents, theme }) {
+  addComponents({
+    // Label styles
+    '.input-label': {
+      '@apply block text-sm font-medium text-background-700 dark:text-background-300 mb-2': {},
+    },
+
+    '.input-label-required': {
+      '@apply input-label after:content-["*"] after:ml-0.5 after:text-error-500': {},
+    },
+
+    // Helper text
+    '.input-help': {
+      '@apply mt-1 text-sm text-background-600 dark:text-background-400': {},
+    },
+
+    '.input-error-text': {
+      '@apply mt-1 text-sm text-error-600 dark:text-error-400': {},
+    },
+
+    '.input-success-text': {
+      '@apply mt-1 text-sm text-success-600 dark:text-success-400': {},
+    },
+
+    // Character count
+    '.input-count': {
+      '@apply text-xs text-background-500 dark:text-background-400 text-right mt-1': {},
+    },
+
+    // Form group
+    '.form-group': {
+      '@apply space-y-2 mb-6': {},
+    },
+
+    '.form-row': {
+      '@apply grid grid-cols-1 md:grid-cols-2 gap-4': {},
+    },
+
+    '.form-section': {
+      '@apply space-y-6 p-6 bg-background-50 dark:bg-background-800 rounded-soft border border-background-200 dark:border-background-700': {},
+    },
+  });
+}),
+
+// Advanced input components
+plugin(function({ addComponents, theme }) {
+  addComponents({
+    // Newsletter signup input
+    '.newsletter-input': {
+      '@apply input-group max-w-md mx-auto': {},
+    },
+
+    '.newsletter-input input': {
+      '@apply flex-1 px-4 py-3 rounded-l-full border-2 border-r-0 border-primary-300 dark:border-primary-600 bg-background-50 dark:bg-background-800 text-background-900 dark:text-white placeholder-background-500 dark:placeholder-background-400 focus:outline-none focus:border-primary-500 focus:ring-0': {},
+    },
+
+    '.newsletter-input button': {
+      '@apply px-6 py-3 bg-primary-500 text-white rounded-r-full border-2 border-primary-500 hover:bg-primary-600 hover:border-primary-600 transition-colors font-medium': {},
+    },
+
+    // Search bar
+    '.search-bar': {
+      '@apply relative max-w-lg mx-auto': {},
+    },
+
+    '.search-bar input': {
+      '@apply input-search': {},
+    },
+
+    '.search-bar .search-icon': {
+      '@apply absolute left-3 top-1/2 transform -translate-y-1/2 text-background-500 dark:text-background-400 w-5 h-5': {},
+    },
+
+    // Quantity input
+    '.quantity-input': {
+      '@apply flex items-center border-2 border-background-300 dark:border-background-600 rounded-lg overflow-hidden bg-background-50 dark:bg-background-800': {},
+    },
+
+    '.quantity-input button': {
+      '@apply px-3 py-2 bg-background-100 dark:bg-background-700 text-background-700 dark:text-background-300 hover:bg-background-200 dark:hover:bg-background-600 transition-colors font-medium select-none': {},
+    },
+
+    '.quantity-input input': {
+      '@apply flex-1 px-3 py-2 text-center border-0 bg-transparent text-background-900 dark:text-white focus:outline-none min-w-0': {},
+    },
+
+    // Price input
+    '.price-input': {
+      '@apply relative': {},
+    },
+
+    '.price-input input': {
+      '@apply input-primary pl-8': {},
+    },
+
+    '.price-input .currency': {
+      '@apply absolute left-3 top-1/2 transform -translate-y-1/2 text-background-600 dark:text-background-400 font-medium': {},
+    },
+
+    // Phone input
+    '.phone-input': {
+      '@apply flex rounded-soft border-2 border-background-300 dark:border-background-600 focus-within:border-primary-500 focus-within:ring-2 focus-within:ring-primary-400 overflow-hidden': {},
+    },
+
+    '.phone-input select': {
+      '@apply px-3 py-3 bg-background-100 dark:bg-background-700 border-0 text-background-900 dark:text-white focus:outline-none': {},
+    },
+
+    '.phone-input input': {
+      '@apply flex-1 px-4 py-3 border-0 bg-background-50 dark:bg-background-800 text-background-900 dark:text-white placeholder-background-500 dark:placeholder-background-400 focus:outline-none': {},
+    },
+  });
+}),
   ],
 };

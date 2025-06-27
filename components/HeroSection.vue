@@ -160,10 +160,10 @@
 
                 <div class="flex items-center justify-center gap-2">
                   <span class="text-2xl font-bold text-secondary-600">
-                    {{ featuredProduct.promoPrice || featuredProduct.price }}€
+                    {{ featuredProduct.promoPrice || featuredProduct.price }}DH
                   </span>
                   <span v-if="featuredProduct.promoPrice" class="text-lg text-background-500 line-through">
-                    {{ featuredProduct.price }}€
+                    {{ featuredProduct.price }}DH
                   </span>
                 </div>
 
